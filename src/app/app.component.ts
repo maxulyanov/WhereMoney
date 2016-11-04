@@ -1,22 +1,48 @@
+/**
+ * Created by PhpStorm.
+ * Author: Max Ulyanov
+ * Project: WhereMoney
+ * Date:  04.11.2016
+ * Time: 11:02
+ */
+
+
+'use strict';
+
+
 import { Component } from '@angular/core';
 import { Platform } from 'ionic-angular';
-import { StatusBar, Splashscreen } from 'ionic-native';
+import { StatusBar, Splashscreen} from 'ionic-native';
+
+import { DbService } from '../services/db.service';
 
 import { TabsPage } from '../pages/tabs/tabs';
 
 
 @Component({
-  template: `<ion-nav [root]="rootPage"></ion-nav>`
+    template: `<ion-nav [root]="rootPage"></ion-nav>`
 })
-export class MyApp {
-  rootPage = TabsPage;
 
-  constructor(platform: Platform) {
-    platform.ready().then(() => {
-      // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
-      StatusBar.styleDefault();
-      Splashscreen.hide();
-    });
-  }
+
+export class App {
+
+
+    rootPage: any;
+
+
+    constructor(private platform: Platform, private dbService: DbService) {
+        platform.ready().then(() => {
+            this.init()
+            StatusBar.styleDefault();
+            Splashscreen.hide();
+        });
+    }
+
+
+    private init(): void {
+        this.rootPage = TabsPage;
+        this.dbService.initDataBase();
+    }
+
+
 }
