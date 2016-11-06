@@ -7,24 +7,24 @@
  */
 
 
-import {Component} from '@angular/core';
-import {NavController} from 'ionic-angular';
+import { Component } from '@angular/core';
+import { NavController } from 'ionic-angular';
 
 
 @Component({
-    selector: 'page-about',
-    templateUrl: 'about.html'
+    selector: 'page-stats',
+    templateUrl: 'settings.html'
 })
 
 
-export class AboutPage {
+export class SettingPage {
 
 
     public title: string;
 
 
     constructor(public navCtrl: NavController) {
-        this.title = 'О приложении';
+        this.title = 'Настройки';
     }
 
 

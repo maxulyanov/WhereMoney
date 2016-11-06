@@ -1,0 +1,29 @@
+
+
+.tabs-md {
+  .tabbar {
+    background: $secondColorContent;
+    overflow: hidden;
+  }
+  .tab-button {
+    color: #FFF;
+    overflow: visible;
+    &.activated,
+    &:hover {
+      color: $fistColorApp;
+    }
+    &:hover,
+    &[aria-selected=true]{
+      padding: 8px 0 10px 0;
+      opacity: 1;
+      .tab-button-text {
+        margin: 3px 0 0 0;
+      }
+    }
+  }
+  .tab-button-text {
+    margin: 3px 0;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+}

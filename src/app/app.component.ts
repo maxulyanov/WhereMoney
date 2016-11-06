@@ -30,15 +30,23 @@ export class App {
     rootPage: any;
 
 
+    /**
+     *
+     * @param platform
+     * @param dbService
+     */
     constructor(private platform: Platform, private dbService: DbService) {
         platform.ready().then(() => {
-            this.init()
+            this.init();
             StatusBar.styleDefault();
             Splashscreen.hide();
         });
     }
 
 
+    /**
+     *
+     */
     private init(): void {
         this.rootPage = TabsPage;
         this.dbService.initDataBase();

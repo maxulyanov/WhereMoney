@@ -21,17 +21,19 @@ export class SqlService {
     private win: any;
 
 
+    /**
+     *
+     */
     constructor() {
         this.win = window;
-
     }
 
 
     /**
-     *
+     * Create Db
      * @param table
      */
-    createDb(table: string) {
+    createDb(table: string): void {
         //noinspection TypeScriptUnresolvedVariable
         if (this.win.sqlitePlugin) {
             //noinspection TypeScriptUnresolvedVariable
@@ -49,7 +51,12 @@ export class SqlService {
     }
 
 
-    createTable(name: string, structure: string) {
+    /**
+     * Create table
+     * @param name
+     * @param structure
+     */
+    createTable(name: string, structure: string): void {
         this.query(`CREATE TABLE IF NOT EXISTS ${name} (${structure})`).catch(err => {
             console.error('Storage: Unable to create initial storage tables', err.tx, err.err);
         });
@@ -83,8 +90,8 @@ export class SqlService {
 
     /**
      * Get the value in the database identified by the given key.
-     * @param table
-     * @param key the key
+     * @param {string} table name
+     * @param {string} key the key
      * @returns {Promise<TResult>} that resolves or rejects with an object of the form { tx: Transaction, res: Result (or err)}
      */
     get(table: string, key: string): Promise<any> {
@@ -98,7 +105,7 @@ export class SqlService {
 
     /**
      * Set the value in the database for the given key. Existing values will be overwritten.
-     * @param table
+     * @param {string} table name
      * @param {string} key the key
      * @param {string} value The value (as a string)
      * @return {Promise} that resolves or rejects with an object of the form { tx: Transaction, res: Result (or err)}
@@ -110,7 +117,7 @@ export class SqlService {
 
     /**
      * Remove the value in the database for the given key.
-     * @param table
+     * @param {string} table name
      * @param {string} key the key
      * @return {Promise} that resolves or rejects with an object of the form { tx: Transaction, res: Result (or err)}
      */

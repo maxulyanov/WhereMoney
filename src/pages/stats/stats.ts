@@ -12,19 +12,19 @@ import {NavController} from 'ionic-angular';
 
 
 @Component({
-    selector: 'page-about',
-    templateUrl: 'about.html'
+    selector: 'page-stats',
+    templateUrl: 'stats.html'
 })
 
 
-export class AboutPage {
+export class StatsPage {
 
 
     public title: string;
 
 
     constructor(public navCtrl: NavController) {
-        this.title = 'О приложении';
+        this.title = 'Статистика';
     }
 
 

@@ -6,14 +6,36 @@
 'use strict';
 
 
+import { Injectable } from "@angular/core";
+
+import { SqlService } from './sql.service';
+import { config } from '../config/';
+
+
+@Injectable()
 export class DbService {
 
 
-    constructor() {}
+    /**
+     *
+     * @param sqlService
+     */
+    constructor(private sqlService : SqlService) {}
 
 
+    /**
+     *
+     */
     initDataBase() {
-            // create tables db
+        if(config != null && config.db != null) {
+            let db = config.db;
+            this.sqlService.createDb(db.name);
+
+            for(let table of db.tables) {
+                this.sqlService.createTable(table.name, table.structure);
+            }
+        }
     }
+
 
 }

@@ -16,33 +16,56 @@ import { IonicApp, IonicModule } from 'ionic-angular';
 import { SqlService } from '../services/sql.service';
 import { DbService } from '../services/db.service';
 
-import { App } from './app.component';
-import { AboutPage } from '../pages/about/about';
-import { ContactPage } from '../pages/contact/contact';
-import { HomePage } from '../pages/home/home';
+import { App} from './app.component';
 import { TabsPage } from '../pages/tabs/tabs';
+import { ActivityPage } from '../pages/activity/activity';
+import { BudgetPage } from '../pages/budget/budget';
+import { StatsPage } from '../pages/stats/stats';
+import { SettingPage } from '../pages/settings/settings';
+import { TemplatesPage } from '../pages/templates/templates';
+import { AutoPaymentPage } from '../pages/autopayment/autopayment';
+import { AboutPage } from '../pages/about/about';
+
+import { PopoverComponent } from '../components/popover/popover.component';
+import { PopoverActionComponent } from '../components/popover-action/popover-action.component';
+import { TabsComponent } from '../components/tabs/tabs.component';
+
 
 
 @NgModule({
-  declarations: [
-      App,
-    AboutPage,
-    ContactPage,
-    HomePage,
-    TabsPage
-  ],
-  imports: [
-    IonicModule.forRoot(App)
-  ],
-  bootstrap: [IonicApp],
-  entryComponents: [
-  App,
-    AboutPage,
-    ContactPage,
-    HomePage,
-    TabsPage
-  ],
-  providers: [SqlService, DbService]
+    declarations: [
+        App,
+        TabsPage,
+        ActivityPage,
+        BudgetPage,
+        StatsPage,
+        SettingPage,
+        AboutPage,
+        TemplatesPage,
+        AutoPaymentPage,
+
+        PopoverComponent,
+        PopoverActionComponent,
+        TabsComponent
+    ],
+    imports: [
+        IonicModule.forRoot(App)
+    ],
+    bootstrap: [IonicApp],
+    entryComponents: [
+        App,
+        TabsPage,
+        ActivityPage,
+        BudgetPage,
+        StatsPage,
+        SettingPage,
+        AboutPage,
+        TemplatesPage,
+        AutoPaymentPage,
+
+        PopoverComponent,
+    ],
+    providers: [SqlService, DbService]
 })
 
 
