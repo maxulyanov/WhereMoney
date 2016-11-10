@@ -11,9 +11,8 @@
 
 
 import { Component } from '@angular/core';
-import { NavController, PopoverController } from 'ionic-angular';
+import { NavController } from 'ionic-angular';
 
-import { PopoverComponent } from '../../components/popover/popover.component';
 
 
 @Component({
@@ -29,19 +28,12 @@ export class ActivityPage {
     public rootNav: any;
 
 
-    constructor(private nav: NavController, private popoverCtrl: PopoverController) {
+    constructor(private nav: NavController) {
         this.title = 'Активность';
         this.rootNav = this.nav.parent;
     }
 
-    /**
-     *
-     * @param event
-     */
-    presentPopover(event) {
-        let popover = this.popoverCtrl.create(PopoverComponent);
-        popover.present({ ev: event });
-    }
+
 
 
 }

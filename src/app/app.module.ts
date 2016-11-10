@@ -25,10 +25,10 @@ import { SettingPage } from '../pages/settings/settings';
 import { TemplatesPage } from '../pages/templates/templates';
 import { AutoPaymentPage } from '../pages/autopayment/autopayment';
 import { AboutPage } from '../pages/about/about';
+import { AddTransactionPage } from '../pages/add-transaction/add-transaction';
 
-import { PopoverComponent } from '../components/popover/popover.component';
-import { PopoverActionComponent } from '../components/popover-action/popover-action.component';
-import { TabsComponent } from '../components/tabs/tabs.component';
+import { SettingsActionComponent } from '../components/settings-action/settings-action.component';
+import { AddTransactionActionComponent } from '../components/add-transaction-action/add-transaction-action.component';
 
 
 
@@ -43,10 +43,10 @@ import { TabsComponent } from '../components/tabs/tabs.component';
         AboutPage,
         TemplatesPage,
         AutoPaymentPage,
+        AddTransactionPage,
 
-        PopoverComponent,
-        PopoverActionComponent,
-        TabsComponent
+        SettingsActionComponent,
+        AddTransactionActionComponent
     ],
     imports: [
         IonicModule.forRoot(App)
@@ -62,8 +62,6 @@ import { TabsComponent } from '../components/tabs/tabs.component';
         AboutPage,
         TemplatesPage,
         AutoPaymentPage,
-
-        PopoverComponent,
     ],
     providers: [SqlService, DbService]
 })

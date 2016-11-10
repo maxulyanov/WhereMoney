@@ -7,8 +7,8 @@
  */
 
 
-import { Component } from '@angular/core';
-import { NavParams } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { NavParams, Tab } from 'ionic-angular';
 
 import { ActivityPage } from '../activity/activity';
 import { BudgetPage } from '../budget/budget';
@@ -22,6 +22,9 @@ import { StatsPage } from '../stats/stats';
 
 
 export class TabsPage {
+
+
+    @ViewChild('homeTab') tabRef: Tab;
 
 
     public tab1Root: any = ActivityPage;
@@ -38,6 +41,7 @@ export class TabsPage {
     constructor(private navParams: NavParams) {
         this.mySelectedIndex = navParams.data.tabIndex || 0;
     }
+
 
 
 }
