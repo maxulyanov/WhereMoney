@@ -30,6 +30,7 @@ import { AddTransactionPage } from '../pages/add-transaction/add-transaction';
 
 import { SettingsActionComponent } from '../components/settings-action/settings-action.component';
 import { AddTransactionActionComponent } from '../components/add-transaction-action/add-transaction-action.component';
+import { CategoryIconComponent } from '../components/category-icon/category-icon.component';
 
 
 @NgModule({
@@ -45,7 +46,8 @@ import { AddTransactionActionComponent } from '../components/add-transaction-act
         AddTransactionPage,
 
         SettingsActionComponent,
-        AddTransactionActionComponent
+        AddTransactionActionComponent,
+        CategoryIconComponent
     ],
     imports: [
         IonicModule.forRoot(App)

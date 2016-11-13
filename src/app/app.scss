@@ -16,7 +16,10 @@
 // automatically applied to the <body> element in the app.
 
 
+@import '../theme/icons/flaticon';
+
 @import '../theme/libs/animate';
+@import '../theme/libs/grid';
 
 @import '../theme/components/buttons';
 @import '../theme/components/header';
@@ -25,3 +28,4 @@
 @import '../theme/components/datetime';
 
 @import '../theme/blocks/balance-group';
+@import '../theme/blocks/icon-category';

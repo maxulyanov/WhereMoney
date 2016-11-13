@@ -1,0 +1,74 @@
+category-icon-component {
+  display: block;
+  width: 100%;
+}
+
+.container-icon-category {
+  text-align: center;
+}
+
+.b-icon-category {
+  width: 60px;
+  height: 60px;
+  margin: 0 auto;
+  padding: 8px 10px;
+  display: flex;;
+  align-items: center;
+  justify-content: center;
+  background: $fistColorApp;
+  color: #FFF;
+  border-radius: 100%;
+  transition: 0.3s;
+
+
+  // colors
+  &.is-food {
+    background: $colorFood;
+  }
+  &.is-dress {
+    background: $colorDress;
+  }
+  &.is-car {
+    background: $colorCar;
+  }
+  &.is-phone {
+    background: $colorPhone;
+  }
+  &.is-animals {
+    background: $colorAnimals;
+  }
+  &.is-gifts {
+    background: $colorGifts;
+  }
+  &.is-health {
+    background: $colorHealth;
+  }
+  &.is-entertainment {
+    background:$colorEntertainment;
+  }
+  &.is-bill {
+    background: $colorBill;
+  }
+  &.is-travel {
+    background: $colorTravel;
+  }
+  &.is-learning {
+    background: $colorLearning;
+  }
+  &.is-repairs {
+    background: $colorRepairs;
+  }
+  &.is-sport {
+    background: $colorSport;
+  }
+  &.is-other {
+    background: $colorOther;
+  }
+  &.is-job {
+    background: $colorJob;
+  }
+  &.is-gifts-2 {
+    background: $colorGifts2;
+  }
+
+}

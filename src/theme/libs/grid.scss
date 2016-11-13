@@ -1,0 +1,90 @@
+// *** Сетка
+
+.grid-row {
+  display: block;
+  margin-right: -7.5px;
+  margin-left: -7.5px;
+  clear: both;
+  &:after {
+    visibility: hidden;
+    display: block;
+    font-size: 0;
+    content: " ";
+    clear: both;
+    height: 0;
+  }
+}
+.grid-padding {
+  padding: 0 7.5px;
+}
+
+
+
+.grid-column-1 {
+  width: 8.33333333%;
+}
+.grid-column-2 {
+  width: 16.6%;
+}
+.grid-column-3 {
+  width: 25%;
+}
+.grid-column-4 {
+  width: 33.33333333%;
+}
+.grid-column-5 {
+  width: 41.66666667%;
+}
+.grid-column-6 {
+  width: 50%;
+}
+.grid-column-7 {
+  width: 58.33333333%;
+}
+.grid-column-8 {
+  width: 66.66666667%
+}
+.grid-column-9 {
+  width: 75%;
+}
+.grid-column-10 {
+  width: 83.33333333%;
+}
+.grid-column-11 {
+  width: 91.66666667%;
+}
+.grid-column-12 {
+  width: 100%;
+}
+
+
+//
+.grid-left {
+  float: left;
+}
+.grid-right {
+  float: right;
+}
+
+.grid-flex {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  -webkit-align-content: stretch;
+  align-content: stretch;
+}
+
+.grid-flex-align-center {
+  -webkit-flex-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+}
+
+.grid-clear-column {
+  width: auto;
+}
