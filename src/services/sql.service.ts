@@ -52,14 +52,14 @@ export class SqlService {
 
 
     /**
-     * Create table
+     *
      * @param name
      * @param structure
+     * @returns {Promise<any>}
      */
-    createTable(name: string, structure: string): void {
-        this.query(`CREATE TABLE IF NOT EXISTS ${name} (${structure})`).catch(err => {
-            console.error('Storage: Unable to create initial storage tables', err.tx, err.err);
-        });
+    createTable(name: string, structure: string): any {
+        console.info(`CREATE TABLE IF NOT EXISTS ${name} (${structure})`);
+        return this.query(`CREATE TABLE IF NOT EXISTS ${name} (${structure})`);
     }
 
 
@@ -128,9 +128,10 @@ export class SqlService {
 
     /**
      * Clear all keys/values of your database.
+     * @param {string} table name
      * @return {Promise} that resolves or rejects with an object of the form { tx: Transaction, res: Result (or err)}
      */
-    clear(): Promise<any> {
-        return this.query('delete from kv');
+    clear(table: string,): Promise<any> {
+        return this.query(`delete from ${table}`);
     }
 }

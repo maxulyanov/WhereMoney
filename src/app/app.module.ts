@@ -16,6 +16,7 @@ import { IonicApp, IonicModule } from 'ionic-angular';
 import { SqlService } from '../services/sql.service';
 import { DbService } from '../services/db.service';
 import { DateService } from "../services/date.service";
+import { CategoryService } from "../services/category.service";
 
 import { App} from './app.component';
 import { TabsPage } from '../pages/tabs/tabs';
@@ -61,7 +62,7 @@ import { AddTransactionActionComponent } from '../components/add-transaction-act
         TemplatesPage,
         AddTransactionPage
     ],
-    providers: [SqlService, DbService, DateService]
+    providers: [SqlService, DbService, DateService, CategoryService]
 })
 
 

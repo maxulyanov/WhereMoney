@@ -19,11 +19,11 @@ export const structure = {
         },
         {
             name: 'categories',
-            structure: 'id INTEGER PRIMARY KEY, type INTEGER, name STRING, slug STRING'
+            structure: 'id INTEGER PRIMARY KEY, type INTEGER, name TEXT, slug TEXT'
         },
         {
             name: 'settings',
-            structure: 'id INTEGER PRIMARY KEY, key STRING, value STRING'
+            structure: 'id INTEGER PRIMARY KEY, key TEXT, value TEXT'
         },
         {
             name: 'templates',

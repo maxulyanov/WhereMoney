@@ -172,4 +172,26 @@ export class Utils {
     }
 
 
+    /**
+     *
+     * @param object
+     * @returns {any[]}
+     */
+    static getObjectValues(object: any): any[] {
+        let result: any[] = [];
+        if(object != null) {
+            console.log('not null!')
+            for(let key in object) {
+                result.push(object[key]);
+            }
+        }
+        else {
+            console.error('object is null!')
+        }
+
+        console.log(result)
+        return result;
+    }
+
+
 }
