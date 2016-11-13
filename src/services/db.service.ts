@@ -9,7 +9,7 @@
 import { Injectable } from "@angular/core";
 
 import { SqlService } from './sql.service';
-import { config } from '../config/';
+import { structure } from '../db/structure';
 
 
 @Injectable()
@@ -26,12 +26,18 @@ export class DbService {
     /**
      *
      */
-    initDataBase() {
-        if(config != null && config.db != null) {
-            let db = config.db;
-            this.sqlService.createDb(db.name);
+    public initDataBase(): void {
+       this.createTables();
+    }
 
-            for(let table of db.tables) {
+
+    /**
+     *
+     */
+    private createTables(): void {
+        if(structure != null) {
+            this.sqlService.createDb(structure.name);
+            for(let table of structure.tables) {
                 this.sqlService.createTable(table.name, table.structure);
             }
         }

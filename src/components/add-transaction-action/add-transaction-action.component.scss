@@ -1,0 +1,17 @@
+add-transaction-action-component {
+  position: fixed;
+  bottom: 85px;
+  right: 20px;
+  .button {
+    height: 5rem;
+    width: 5rem;
+    margin: 0;
+    right: -80px;
+    border-radius: 100%;
+    transition: right .3s;
+    &.show {
+      right: 0;
+      transition: right .3s;
+    }
+  }
+}

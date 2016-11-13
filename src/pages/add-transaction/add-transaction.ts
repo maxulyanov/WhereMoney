@@ -23,8 +23,8 @@ export class AddTransactionPage {
     public title: string;
 
 
-    constructor(public navCtrl: NavController) {
-        this.title = 'Автоплатеж';
+    constructor(private navCtrl: NavController) {
+        this.title = 'Добавление транзакции';
     }
 
 

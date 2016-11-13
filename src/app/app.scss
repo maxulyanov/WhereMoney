@@ -16,6 +16,12 @@
 // automatically applied to the <body> element in the app.
 
 
+@import '../theme/libs/animate';
+
 @import '../theme/components/buttons';
 @import '../theme/components/header';
 @import '../theme/components/content';
+@import '../theme/components/picker';
+@import '../theme/components/datetime';
+
+@import '../theme/blocks/balance-group';

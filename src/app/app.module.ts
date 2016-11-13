@@ -15,6 +15,7 @@ import { IonicApp, IonicModule } from 'ionic-angular';
 
 import { SqlService } from '../services/sql.service';
 import { DbService } from '../services/db.service';
+import { DateService } from "../services/date.service";
 
 import { App} from './app.component';
 import { TabsPage } from '../pages/tabs/tabs';
@@ -23,13 +24,11 @@ import { BudgetPage } from '../pages/budget/budget';
 import { StatsPage } from '../pages/stats/stats';
 import { SettingPage } from '../pages/settings/settings';
 import { TemplatesPage } from '../pages/templates/templates';
-import { AutoPaymentPage } from '../pages/autopayment/autopayment';
 import { AboutPage } from '../pages/about/about';
 import { AddTransactionPage } from '../pages/add-transaction/add-transaction';
 
 import { SettingsActionComponent } from '../components/settings-action/settings-action.component';
 import { AddTransactionActionComponent } from '../components/add-transaction-action/add-transaction-action.component';
-
 
 
 @NgModule({
@@ -42,7 +41,6 @@ import { AddTransactionActionComponent } from '../components/add-transaction-act
         SettingPage,
         AboutPage,
         TemplatesPage,
-        AutoPaymentPage,
         AddTransactionPage,
 
         SettingsActionComponent,
@@ -61,9 +59,9 @@ import { AddTransactionActionComponent } from '../components/add-transaction-act
         SettingPage,
         AboutPage,
         TemplatesPage,
-        AutoPaymentPage,
+        AddTransactionPage
     ],
-    providers: [SqlService, DbService]
+    providers: [SqlService, DbService, DateService]
 })
 
 

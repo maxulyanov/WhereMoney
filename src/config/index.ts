@@ -11,14 +11,4 @@
 
 export const config = {
 
-    db: {
-        name: 'whereMoneyDb',
-        tables: [
-            {
-                name: 'transactions',
-                structure: 'id INTEGER PRIMARY KEY, type INTEGER, category INTEGER, sum INTEGER, timestamp TIMESTAMP'
-            }
-        ]
-    }
-
 };

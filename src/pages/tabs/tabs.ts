@@ -12,6 +12,7 @@ import { NavParams, Tab } from 'ionic-angular';
 
 import { ActivityPage } from '../activity/activity';
 import { BudgetPage } from '../budget/budget';
+import { TemplatesPage } from '../templates/templates';
 import { StatsPage } from '../stats/stats';
 
 
@@ -29,7 +30,8 @@ export class TabsPage {
 
     public tab1Root: any = ActivityPage;
     public tab2Root: any = BudgetPage;
-    public tab3Root: any = StatsPage;
+    public tab3Root: any = TemplatesPage;
+    public tab4Root: any = StatsPage;
 
     private mySelectedIndex: number;
 

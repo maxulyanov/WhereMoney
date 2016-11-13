@@ -1,0 +1,9 @@
+.container-datetime {
+  position: relative;
+  background: darken($fistColorApp, 3%);
+  ion-datetime {
+    padding: 12px 15px;
+    font-size: 1.6rem;
+    text-align: center;
+  }
+}

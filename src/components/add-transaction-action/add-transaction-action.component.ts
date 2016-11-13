@@ -8,7 +8,9 @@
 
 
 import { Component } from '@angular/core';
+import { NavController } from 'ionic-angular';
 
+import { AddTransactionPage } from '../../pages/add-transaction/add-transaction';
 
 
 @Component({
@@ -20,11 +22,15 @@ import { Component } from '@angular/core';
 export class AddTransactionActionComponent {
 
 
-    constructor() { }
+    /**
+     *
+     * @param navCtrl
+     */
+    constructor(private navCtrl: NavController) { }
 
 
-    public handleClick(): void {
-
+    public handlerClick(): void {
+        this.navCtrl.push(AddTransactionPage);
     }
 
 

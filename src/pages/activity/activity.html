@@ -3,14 +3,43 @@
 
         <ion-title>{{ title }}</ion-title>
 
+
         <ion-buttons end>
             <settings-action-component></settings-action-component>
         </ion-buttons>
 
     </ion-navbar>
+
+    <div class="container-datetime">
+        <ion-datetime
+                end
+                [(ngModel)]="date"
+                displayFormat="DD.MM.YYYY"
+                pickerFormat="DD-MMMM-YYYY"
+                monthNames="{{ monthNames }}"
+                monthShortNames="{{ monthShortNames }}"
+                dayNames="{{ dayNames }}"
+                dayShortNames="{{ dayShortNames }}"
+                cancelText="Закрыть"
+                doneText="Готово">
+        </ion-datetime>
+    </div>
+
+    <div class="container-balance">
+        <div class="b-balance-group">
+            <div class="balance-group__value">
+                52 525 &#8381;
+            </div>
+            <div class="balance-group__subtitle">Баланс</div>
+        </div>
+    </div>
+
 </ion-header>
 
-<ion-content padding>
+<ion-content>
+
+
+    <div style="height: 1000px;"></div>
+    <add-transaction-action-component></add-transaction-action-component>
 </ion-content>
 
-<!--<settings-action-component></settings-action-component>-->

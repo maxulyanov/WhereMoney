@@ -1,0 +1,15 @@
+
+.picker-md {
+  .picker-wrapper {
+    background: $secondColorContent;
+  }
+  .picker-toolbar {
+    background: $firstColorContent;
+  }
+  .picker-opt {
+    color: #FFF;
+  }
+  .picker-opt-selected {
+    color: $fistColorApp;
+  }
+}

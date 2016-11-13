@@ -1,4 +1,6 @@
-
+ion-header {
+  color: #FFF;
+}
 .toolbar-background {
   background-color: $fistColorApp;
 }
@@ -9,4 +11,8 @@
 
 .bar-button-default-md  {
   color: #FFF;
+}
+
+.back-button.show-back-button {
+  margin-right: 0;
 }

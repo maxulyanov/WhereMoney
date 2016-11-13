@@ -10,8 +10,9 @@
 'use strict';
 
 
-import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { Component, ElementRef } from '@angular/core';
+
+import { DateService } from "../../services/date.service";
 
 
 
@@ -25,15 +26,66 @@ export class ActivityPage {
 
 
     public title: string;
-    public rootNav: any;
+    public date;
+    public monthNames: string;
+    public monthShortNames: string;
+    public dayNames: string;
+    public dayShortNames: string;
+
+    private buttonAdd: any;
 
 
-    constructor(private nav: NavController) {
+    /**
+     *
+     * @param element
+     * @param dateService
+     */
+    constructor(private element: ElementRef, private dateService: DateService) {
         this.title = 'Активность';
-        this.rootNav = this.nav.parent;
+        this.monthNames = this.dateService.getLocaleString('monthNames');
+        this.monthShortNames = this.dateService.getLocaleString('monthShortNames');
+        this.dayNames = this.dateService.getLocaleString('dayNames');
+        this.dayShortNames = this.dateService.getLocaleString('dayShortNames');
+        this.date = this.dateService.getISODate(new Date());
+    }
+
+
+    /**
+     *
+     */
+    public ionViewDidEnter(): void {
+        this.buttonAdd = this.element.nativeElement.querySelector('.button-add-transaction');
+        this.showButtonAddTransaction();
+    }
+
+
+    /**
+     *
+     */
+    public ionViewDidLeave(): void {
+        this.hideButtonAddTransaction();
     }
 
 
 
+
+    /**
+     *
+     */
+    private showButtonAddTransaction(): void {
+        if(this.buttonAdd != null) {
+            this.buttonAdd.classList.add('show');
+        }
+    }
+
+
+    /**
+     *
+     */
+    private hideButtonAddTransaction(): void {
+        if(this.buttonAdd != null) {
+            this.buttonAdd.classList.remove('show');
+        }
+    }
 
 }
