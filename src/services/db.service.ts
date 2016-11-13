@@ -9,6 +9,7 @@
 import { Injectable } from "@angular/core";
 
 import { SqlService } from './sql.service';
+import { LocalStorage } from '../libs/LocalStorage';
 import { structure } from '../db/structure';
 
 
@@ -20,14 +21,21 @@ export class DbService {
      *
      * @param sqlService
      */
-    constructor(private sqlService : SqlService) {}
+    constructor(private sqlService: SqlService) {
+    }
 
 
     /**
      *
      */
     public initDataBase(): void {
-       this.createTables();
+        if (structure != null && typeof structure.dbName === 'string') {
+            this.sqlService.openDb(structure.dbName);
+            if(LocalStorage.get('initDataBase') == null) {
+                this.createTables();
+                LocalStorage.set('initDataBase', 1);
+            }
+        }
     }
 
 
@@ -35,9 +43,8 @@ export class DbService {
      *
      */
     private createTables(): void {
-        if(structure != null) {
-            this.sqlService.createDb(structure.name);
-            for(let table of structure.tables) {
+        if (structure != null) {
+            for (let table of structure.tables) {
                 this.sqlService.createTable(table.name, table.structure);
             }
         }

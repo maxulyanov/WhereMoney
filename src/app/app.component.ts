@@ -37,7 +37,7 @@ export class App {
      */
     constructor(private platform: Platform, private dbService: DbService) {
         platform.ready().then(() => {
-            this.init();
+            this.initApp();
             StatusBar.styleDefault();
             Splashscreen.hide();
         });
@@ -47,7 +47,7 @@ export class App {
     /**
      *
      */
-    private init(): void {
+    private initApp(): void {
         this.rootPage = TabsPage;
         this.dbService.initDataBase();
     }

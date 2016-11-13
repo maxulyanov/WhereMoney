@@ -11,11 +11,23 @@
 
 
 export const structure = {
-    name: 'whereMoneyDb',
+    dbName: 'whereMoneyDb',
     tables: [
         {
             name: 'transactions',
             structure: 'id INTEGER PRIMARY KEY, type INTEGER, category INTEGER, sum INTEGER, timestamp TIMESTAMP'
+        },
+        {
+            name: 'categories',
+            structure: 'id INTEGER PRIMARY KEY, type INTEGER, name STRING, slug STRING'
+        },
+        {
+            name: 'settings',
+            structure: 'id INTEGER PRIMARY KEY, key STRING, value STRING'
+        },
+        {
+            name: 'templates',
+            structure: 'id INTEGER PRIMARY KEY, type INTEGER, category INTEGER, sum INTEGER'
         }
     ]
 }

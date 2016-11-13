@@ -30,10 +30,10 @@ export class SqlService {
 
 
     /**
-     * Create Db
-     * @param table
+     *
+     * @param name
      */
-    createDb(table: string): void {
+    openDb(name: string): void {
         //noinspection TypeScriptUnresolvedVariable
         if (this.win.sqlitePlugin) {
             //noinspection TypeScriptUnresolvedVariable
@@ -46,7 +46,7 @@ export class SqlService {
         }
         else {
             console.warn('Storage: SQLite plugin not installed, falling back to WebSQL. Make sure to install cordova-sqlite-storage in production!');
-            this.db = this.win.openDatabase(table, '1.0', 'database', 5 * 1024 * 1024);
+            this.db = this.win.openDatabase(name, '1.0', 'database', 5 * 1024 * 1024);
         }
     }
 
