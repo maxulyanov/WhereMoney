@@ -12,6 +12,7 @@
 
 import { NgModule } from '@angular/core';
 import { IonicApp, IonicModule } from 'ionic-angular';
+import { ChartsModule } from 'ng2-charts/ng2-charts';
 
 import { SqlService } from '../services/sql.service';
 import { DbService } from '../services/db.service';
@@ -47,10 +48,11 @@ import { CategoryIconComponent } from '../components/category-icon/category-icon
 
         SettingsActionComponent,
         AddTransactionActionComponent,
-        CategoryIconComponent
+        CategoryIconComponent,
     ],
     imports: [
-        IonicModule.forRoot(App)
+        IonicModule.forRoot(App),
+        ChartsModule
     ],
     bootstrap: [IonicApp],
     entryComponents: [

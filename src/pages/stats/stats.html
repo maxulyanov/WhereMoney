@@ -1,3 +1,5 @@
+
+
 <ion-header>
     <ion-navbar>
         <ion-title>
@@ -12,5 +14,17 @@
 </ion-header>
 
 <ion-content>
-
+    <div>
+        <div style="display: block">
+            <canvas baseChart
+                    [datasets]="barChartData"
+                    [labels]="barChartLabels"
+                    [options]="barChartOptions"
+                    [legend]="barChartLegend"
+                    [chartType]="barChartType"
+                    (chartHover)="chartHovered($event)"
+                    (chartClick)="chartClicked($event)"></canvas>
+        </div>
+        <button (click)="randomize()">Update</button>
+    </div>
 </ion-content>
