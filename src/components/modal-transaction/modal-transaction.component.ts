@@ -11,15 +11,12 @@ import { Component, Input } from '@angular/core';
 
 
 @Component({
-    selector: 'category-icon-component',
-    templateUrl: 'category-icon.component.html'
+    selector: 'modal-transaction-component',
+    templateUrl: 'modal-transaction.component.html'
 })
 
 
-export class CategoryIcon {
-
-
-    @Input() name: string;
+export class ModalTransaction {
 
 
     constructor() { }

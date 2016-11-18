@@ -29,9 +29,11 @@ import { TemplatesPage } from '../pages/templates/templates';
 import { AboutPage } from '../pages/about/about';
 import { AddTransactionPage } from '../pages/add-transaction/add-transaction';
 
-import { SettingsActionComponent } from '../components/settings-action/settings-action.component';
-import { AddTransactionActionComponent } from '../components/add-transaction-action/add-transaction-action.component';
-import { CategoryIconComponent } from '../components/category-icon/category-icon.component';
+import { SettingsAction } from '../components/settings-action/settings-action.component';
+import { CategoryIcon} from '../components/category-icon/category-icon.component';
+import { AddTransactionAction } from '../components/add-transaction-action/add-transaction-action.component';
+import { ModalTransaction } from '../components/modal-transaction/modal-transaction.component';
+import { FormTransaction } from '../components/form-transaction/form-transaction.component';
 
 
 @NgModule({
@@ -46,9 +48,11 @@ import { CategoryIconComponent } from '../components/category-icon/category-icon
         TemplatesPage,
         AddTransactionPage,
 
-        SettingsActionComponent,
-        AddTransactionActionComponent,
-        CategoryIconComponent,
+        SettingsAction,
+        CategoryIcon,
+        AddTransactionAction,
+        ModalTransaction,
+        FormTransaction
     ],
     imports: [
         IonicModule.forRoot(App),
@@ -64,7 +68,9 @@ import { CategoryIconComponent } from '../components/category-icon/category-icon
         SettingPage,
         AboutPage,
         TemplatesPage,
-        AddTransactionPage
+        AddTransactionPage,
+
+        ModalTransaction
     ],
     providers: [SqlService, DbService, DateService, CategoryService]
 })

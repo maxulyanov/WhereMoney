@@ -8,15 +8,6 @@
     </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-
-    <div class="grid-row">
-        <div class="grid-column-3 grid-padding grid-left" *ngFor="let category of categories; let i = index">
-            <div class="container-category-group">
-                <category-icon-component [name]="category.slug"></category-icon-component>
-                <div class="b-category-name">{{ category.name }}</div>
-            </div>
-        </div>
-    </div>
-
+<ion-content>
+    <form-transaction-component></form-transaction-component>
 </ion-content>

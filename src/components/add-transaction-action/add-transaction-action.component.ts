@@ -19,7 +19,7 @@ import { AddTransactionPage } from '../../pages/add-transaction/add-transaction'
 })
 
 
-export class AddTransactionActionComponent {
+export class AddTransactionAction {
 
 
     /**

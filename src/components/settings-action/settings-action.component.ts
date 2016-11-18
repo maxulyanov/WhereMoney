@@ -20,7 +20,7 @@ import { SettingPage } from '../../pages/settings/settings';
 })
 
 
-export class SettingsActionComponent {
+export class SettingsAction {
 
 
     /**

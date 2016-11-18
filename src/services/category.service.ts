@@ -24,10 +24,14 @@ export class CategoryService {
 
 
 
-    public getCategories(): any {
+    public getAllCategories(): any {
         return this.sqlService.query("SELECT * FROM categories", [])
     }
 
+
+    public getCategories(type: number): any {
+        return this.sqlService.query(`SELECT * FROM categories WHERE type = ${type}`, [])
+    }
 
 
 }

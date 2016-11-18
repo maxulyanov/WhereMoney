@@ -1,24 +1,3 @@
 page-transaction {
 
 }
-
-
-.container-category-group {
-  margin: 8px 0 12px 0;
-  &.is-selected {
-    .b-icon-category {
-      transform: scale(1.1);
-    }
-    .b-category-name {
-      color: $fistColorApp;
-    }
-  }
-}
-
-.b-category-name {
-  display: block;
-  width: 100%;
-  margin: 10px 0 0 0;
-  text-align: center;
-  white-space: nowrap;
-}

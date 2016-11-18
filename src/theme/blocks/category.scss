@@ -1,0 +1,19 @@
+.b-category {
+  width: auto;
+  display: inline-block;
+  padding: 10px;
+  background: transparent;
+  border-radius: 10px;
+  &.is-selected {
+    background: #21212d;
+    border-radius: 10px;
+  }
+
+  .category__name {
+    display: block;
+    width: 100%;
+    margin: 10px 0 0 0;
+    text-align: center;
+    white-space: nowrap;
+  }
+}
