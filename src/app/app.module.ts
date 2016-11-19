@@ -33,7 +33,9 @@ import { SettingsAction } from '../components/settings-action/settings-action.co
 import { CategoryIcon} from '../components/category-icon/category-icon.component';
 import { AddTransactionAction } from '../components/add-transaction-action/add-transaction-action.component';
 import { ModalTransaction } from '../components/modal-transaction/modal-transaction.component';
+import { ModalDefault } from '../components/modal-default/modal-default.component';
 import { FormTransaction } from '../components/form-transaction/form-transaction.component';
+import { NumbersArea } from '../components/numbers-area/numbers-area.component';
 
 
 @NgModule({
@@ -51,8 +53,10 @@ import { FormTransaction } from '../components/form-transaction/form-transaction
         SettingsAction,
         CategoryIcon,
         AddTransactionAction,
+        ModalDefault,
         ModalTransaction,
-        FormTransaction
+        FormTransaction,
+        NumbersArea
     ],
     imports: [
         IonicModule.forRoot(App),
@@ -68,6 +72,7 @@ import { FormTransaction } from '../components/form-transaction/form-transaction
         SettingPage,
         AboutPage,
         TemplatesPage,
+        ModalDefault,
         AddTransactionPage,
 
         ModalTransaction

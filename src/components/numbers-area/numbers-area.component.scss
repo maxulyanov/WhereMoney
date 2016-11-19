@@ -1,0 +1,36 @@
+.container-number-display {
+
+}
+
+.b-number-display {
+  display: flex;
+  height: 7rem;
+  padding: 0 20px;
+  align-items: center;
+  font-size: 2.8rem;
+  background: $secondColorContent;
+  border-bottom: 1px solid $firstColorContent;
+}
+
+
+.container-numbers {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
+.b-number {
+  width: 33.33%;
+  display: flex;
+  height: 7rem;
+  text-align: center;
+  font-size: 2.8rem;
+  align-items: center;
+  justify-content: center;
+  background: $secondColorContent;
+  border-bottom: 1px solid $firstColorContent;
+  border-right: 1px solid $firstColorContent;
+  &:hover {
+    background: darken($secondColorContent, 3%);
+    cursor: pointer;
+  }
+}

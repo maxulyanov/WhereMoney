@@ -62,7 +62,9 @@ export class FormTransaction {
      *
      */
     public presentModal(): void {
-        let profileModal = this.modalCtrl.create(ModalTransaction);
+        let profileModal = this.modalCtrl.create(ModalTransaction, {
+            title: 'Создание'
+        });
         profileModal.present();
     }
 

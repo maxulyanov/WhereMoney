@@ -7,7 +7,10 @@
  */
 
 
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { NavController, ViewController, NavParams } from "ionic-angular";
+
+import { ModalDefault } from "../modal-default/modal-default.component";
 
 
 @Component({
@@ -16,10 +19,12 @@ import { Component, Input } from '@angular/core';
 })
 
 
-export class ModalTransaction {
+export class ModalTransaction extends ModalDefault{
 
 
-    constructor() { }
+    constructor(protected navCtrl: NavController, protected viewCtrl: ViewController, protected navParams: NavParams) {
+        super(navCtrl, viewCtrl, navParams);
+    }
 
 
 

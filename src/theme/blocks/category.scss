@@ -4,9 +4,12 @@
   padding: 10px;
   background: transparent;
   border-radius: 10px;
-  &.is-selected {
+  transition: 0.3s;
+  &.is-selected,
+  &:hover {
     background: #21212d;
-    border-radius: 10px;
+    transition: 0.3s;
+    cursor: pointer;
   }
 
   .category__name {

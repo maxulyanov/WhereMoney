@@ -2,11 +2,11 @@
     <ion-navbar>
 
         <ion-title>
-            Добавление
+            {{ title }}
         </ion-title>
 
         <ion-buttons end>
-            <button ion-button clear>Отмена</button>
+            <button ion-button clear (click)="close()">Отмена</button>
         </ion-buttons>
 
     </ion-navbar>
@@ -16,10 +16,13 @@
 
     <ion-list>
         <ion-item>
-            <ion-label>Заголовок</ion-label>
-            <ion-input type="text" value=""></ion-input>
+            <ion-input type="text" placeholder="Заголовок"></ion-input>
         </ion-item>
     </ion-list>
 
+
+    <numbers-area-component></numbers-area-component>
+
+    <button ion-button>Готово</button>
 
 </ion-content>
