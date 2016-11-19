@@ -9,6 +9,10 @@
 
 import { Component, Input } from '@angular/core';
 
+import { NumberButton  } from '../../models/NumberButton';
+import { Utils } from "../../libs/Utils";
+
+
 @Component({
     selector: 'numbers-area-component',
     templateUrl: 'numbers-area.component.html'
@@ -18,35 +22,83 @@ import { Component, Input } from '@angular/core';
 export class NumbersArea {
 
 
-    @Input() value: number = 0;
+    @Input() value: string = '0';
 
 
     public buttons: any[];
 
 
+    /**
+     *
+     */
     constructor() {
-        this.buttons = [1, 2, 3, 4, 5, 6, 7, 8, 9, '', 0];
+        this.buttons = [];
     }
 
 
-    public handlerClickNumber(value: number): void {
-        console.log(value);
+    /**
+     *
+     */
+    public ngAfterContentInit(): void {
+        this.createButtons();
     }
 
 
+    /**
+     *
+     * @param value
+     */
+    public handlerClickNumber(value: any): void {
+        let currentValue: string = this.getValue();
+        if(currentValue == '0') {
+            currentValue = value;
+        }
+        else {
+            currentValue += value;
+        }
+        this.setValue(Utils.separatedBySpaceNumber(currentValue));
+    }
+
+
+    /**
+     *
+     */
     public handlerClickDelete(): void {
-        console.log('del');
+        let currentValue: string = this.getValue();
+        let newValue = currentValue.slice(0, -1);
+        if(newValue.length === 0) {
+            newValue = '0';
+        }
+        this.setValue(Utils.separatedBySpaceNumber(newValue));
     }
 
 
-    public getValue(): number {
+    /**
+     *
+     * @returns {string}
+     */
+    public getValue(): string {
         return this.value;
     }
 
 
-    public setValue(value: number): void {
+    /**
+     *
+     * @param value
+     */
+    public setValue(value: string): void {
         this.value = value;
     }
 
+
+    /**
+     *
+     */
+    private createButtons(): void {
+        const names = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '', '0'];
+        names.forEach((name) => {
+            this.buttons.push(new NumberButton(name));
+        });
+    }
 
 }

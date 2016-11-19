@@ -1,8 +1,8 @@
 <div class="container-number-display">
-    <div class="b-number-display">0</div>
+    <div class="b-number-display">{{ value }} &#8381;</div>
 </div>
 
 <div class="container-numbers">
-    <div class="b-number" *ngFor="let button of buttons" (click)="handlerClickNumber(button)">{{ button }}</div>
+    <div class="b-number" *ngFor="let button of buttons" (click)="handlerClickNumber(button.name)">{{ button.name }}</div>
     <div class="b-number" (click)="handlerClickDelete()"><ion-icon name="close"></ion-icon></div>
 </div>

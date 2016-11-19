@@ -5,7 +5,7 @@
 .b-number-display {
   display: flex;
   height: 7rem;
-  padding: 0 20px;
+  padding: 0 16px;
   align-items: center;
   font-size: 2.8rem;
   background: $secondColorContent;
@@ -17,6 +17,7 @@
   width: 100%;
   display: flex;
   flex-wrap: wrap;
+  white-space: nowrap;
 }
 .b-number {
   width: 33.33%;
@@ -29,7 +30,7 @@
   background: $secondColorContent;
   border-bottom: 1px solid $firstColorContent;
   border-right: 1px solid $firstColorContent;
-  &:hover {
+  &:active {
     background: darken($secondColorContent, 3%);
     cursor: pointer;
   }

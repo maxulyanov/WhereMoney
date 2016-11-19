@@ -5,11 +5,15 @@
   background: transparent;
   border-radius: 10px;
   transition: 0.3s;
-  &.is-selected,
-  &:hover {
-    background: #21212d;
+  opacity: 0.6;
+  &.is-selected {
     transition: 0.3s;
-    cursor: pointer;
+    opacity: 1;
+  }
+  &:hover {
+    transform: scale(1.1);
+    transition: 0.3s;
+    opacity: 1;
   }
 
   .category__name {
