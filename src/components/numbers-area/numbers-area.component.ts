@@ -7,7 +7,7 @@
  */
 
 
-import { Component, Input } from '@angular/core';
+import { Component, Input,  Output, EventEmitter  } from '@angular/core';
 
 import { NumberButton  } from '../../models/NumberButton';
 import { Utils } from "../../libs/Utils";
@@ -23,6 +23,8 @@ export class NumbersArea {
 
 
     @Input() value: string = '0';
+
+    @Output() updatedSum = new EventEmitter();
 
 
     public buttons: any[];
@@ -57,6 +59,7 @@ export class NumbersArea {
             currentValue += value;
         }
         this.setValue(Utils.separatedBySpaceNumber(currentValue));
+        this.outputValue();
     }
 
 
@@ -70,6 +73,7 @@ export class NumbersArea {
             newValue = '0';
         }
         this.setValue(Utils.separatedBySpaceNumber(newValue));
+        this.outputValue();
     }
 
 
@@ -88,6 +92,14 @@ export class NumbersArea {
      */
     public setValue(value: string): void {
         this.value = value;
+    }
+
+
+    /**
+     *
+     */
+    private outputValue(): void {
+        this.updatedSum.emit(this.value);
     }
 
 

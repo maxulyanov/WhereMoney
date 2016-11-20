@@ -15,7 +15,7 @@ export const structure = {
     tables: [
         {
             name: 'transactions',
-            structure: 'id INTEGER PRIMARY KEY, type INTEGER, category INTEGER, sum INTEGER, timestamp TIMESTAMP'
+            structure: 'id INTEGER PRIMARY KEY, type INTEGER, category INTEGER, description TEXT, sum INTEGER, timestamp TIMESTAMP'
         },
         {
             name: 'categories',

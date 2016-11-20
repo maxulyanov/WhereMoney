@@ -180,7 +180,6 @@ export class Utils {
     static getObjectValues(object: any): any[] {
         let result: any[] = [];
         if(object != null) {
-            console.log('not null!')
             for(let key in object) {
                 result.push(object[key]);
             }
@@ -188,8 +187,6 @@ export class Utils {
         else {
             console.error('object is null!')
         }
-
-        console.log(result)
         return result;
     }
 

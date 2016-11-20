@@ -44,6 +44,20 @@ export class DbService {
 
     /**
      *
+     * @param data
+     * @returns {{keys: string, values: any[], mask: string}}
+     */
+    public prepareData(data): any {
+        return {
+            keys: Object.keys(data).join(','),
+            values: Utils.getObjectValues(data),
+            mask: this.createMask(Object.keys(data))
+        }
+    }
+
+
+    /**
+     *
      */
     private createTables(): void {
         if (structure != null) {
@@ -74,9 +88,7 @@ export class DbService {
         // fill categories
         if(Array.isArray(categories)) {
             for(let category of categories) {
-                let keys = Object.keys(category).join(',');
-                let values = Utils.getObjectValues(category);
-                let mask = this.createMask(values);
+                let { keys, mask, values } = this.prepareData(category);
                 this.sqlService.query(`INSERT INTO 'categories' (${keys}) VALUES (${mask});`, values);
             }
         }

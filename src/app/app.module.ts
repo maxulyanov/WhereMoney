@@ -18,6 +18,7 @@ import { SqlService } from '../services/sql.service';
 import { DbService } from '../services/db.service';
 import { DateService } from "../services/date.service";
 import { CategoryService } from "../services/category.service";
+import { TransactionService } from "../services/transaction.service";
 
 import { App} from './app.component';
 import { TabsPage } from '../pages/tabs/tabs';
@@ -77,7 +78,7 @@ import { NumbersArea } from '../components/numbers-area/numbers-area.component';
 
         ModalTransaction
     ],
-    providers: [SqlService, DbService, DateService, CategoryService]
+    providers: [SqlService, DbService, DateService, CategoryService, TransactionService]
 })
 
 

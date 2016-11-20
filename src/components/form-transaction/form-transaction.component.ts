@@ -8,8 +8,10 @@
 
 
 import { Component, Input } from '@angular/core';
-import { NavController, ModalController } from "ionic-angular";
+import { ModalController, ToastController  } from "ionic-angular";
+
 import { CategoryService } from "../../services/category.service";
+import { TransactionService } from "../../services/transaction.service";
 import { ModalTransaction } from "../modal-transaction/modal-transaction.component";
 
 
@@ -28,15 +30,23 @@ export class FormTransaction {
 
     public categories: any[];
 
+    private dataModal: any;
+
 
     /**
      *
-     * @param navCtrl
      * @param categoryService
      * @param modalCtrl
+     * @param toastCtrl
+     * @param transactionService
      */
-    constructor(private navCtrl: NavController, private categoryService: CategoryService, private modalCtrl: ModalController) {
+    constructor(
+        private categoryService: CategoryService,
+        private modalCtrl: ModalController,
+        private toastCtrl: ToastController,
+        private transactionService: TransactionService) {
         this.categories = [];
+        this.dataModal = {};
     }
 
 
@@ -63,7 +73,11 @@ export class FormTransaction {
      */
     public presentModal(): void {
         let profileModal = this.modalCtrl.create(ModalTransaction, {
-            title: 'Создание'
+            title: 'Новая транзакция',
+            readyCallback: (data) => {
+                this.dataModal = data;
+                this.pushToBase();
+            }
         });
         profileModal.present();
     }
@@ -113,9 +127,31 @@ export class FormTransaction {
      */
     private cleanCategories(): void {
         this.categories = [];
+        this.indexSelected = -1;
     }
 
 
+    /**
+     *
+     */
+    private pushToBase(): void {
+        const promise = this.transactionService.addTransaction({
+            type: parseInt(this.type),
+            category: this.indexSelected,
+            sum: this.dataModal.sum,
+            description: this.dataModal.description,
+            timestamp: new Date()
+        });
+
+        promise.then((message: string) => {
+            const toast = this.toastCtrl.create({
+                message: message,
+                showCloseButton: true,
+                closeButtonText: 'Ok'
+            });
+            toast.present();
+        });
+    }
 
 
 }

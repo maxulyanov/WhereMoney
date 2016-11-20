@@ -15,13 +15,13 @@
 <ion-content>
 
     <ion-item>
-        <ion-input type="text" placeholder="Заголовок"></ion-input>
+        <ion-input type="text" placeholder="Описание" [(ngModel)]="description" (ngModelChange)="changeDescription($event)"></ion-input>
     </ion-item>
 
-    <numbers-area-component></numbers-area-component>
+    <numbers-area-component (updatedSum)="updatedSum($event)"></numbers-area-component>
 
     <div class="util-align-center">
-        <button class="b-button-ready" ion-button>Готово</button>
+        <button class="b-button-ready" ion-button (click)="onReady()" [disabled]="!isDataFilled">Добавить</button>
     </div>
 
 </ion-content>
