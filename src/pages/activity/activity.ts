@@ -13,7 +13,7 @@
 import { Component, ElementRef } from '@angular/core';
 
 import { DateService } from "../../services/date.service";
-
+import { TransactionService } from "../../services/transaction.service";
 
 
 @Component({
@@ -32,6 +32,8 @@ export class ActivityPage {
     public dayNames: string;
     public dayShortNames: string;
 
+    public transactions: any[];
+
     private buttonAdd: any;
 
 
@@ -40,13 +42,20 @@ export class ActivityPage {
      * @param element
      * @param dateService
      */
-    constructor(private element: ElementRef, private dateService: DateService) {
+    constructor(private element: ElementRef, private dateService: DateService, private transactionService: TransactionService) {
         this.title = 'Активность';
         this.monthNames = this.dateService.getLocaleString('monthNames');
         this.monthShortNames = this.dateService.getLocaleString('monthShortNames');
         this.dayNames = this.dateService.getLocaleString('dayNames');
         this.dayShortNames = this.dateService.getLocaleString('dayShortNames');
         this.date = this.dateService.getISODate(new Date());
+
+        this.transactions = [];
+    }
+
+
+    public ionViewWillEnter(): void {
+        this.renderTransactions();
     }
 
 
@@ -86,6 +95,43 @@ export class ActivityPage {
         if(this.buttonAdd != null) {
             this.buttonAdd.classList.remove('show');
         }
+    }
+
+
+    /**
+     *
+     */
+    private renderTransactions(): void {
+        this.getTransactions().then(
+            (data)=> {
+                if(data != null && data.res) {
+                    let rows = data.res.rows;
+                    for (let i = 0; i < rows.length; i++) {
+                        this.transactions.push(rows.item(i));
+                    }
+                }
+            },
+            (error) => {
+                console.error(error);
+            }
+        );
+    }
+
+
+    /**
+     *
+     * @returns {any}
+     */
+    private getTransactions(): any {
+        return this.transactionService.getTransactions();
+    }
+
+
+    /**
+     *
+     */
+    private cleanTransactions(): void {
+        this.transactions = [];
     }
 
 }

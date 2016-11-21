@@ -3,7 +3,6 @@
 
         <ion-title>{{ title }}</ion-title>
 
-
         <ion-buttons end>
             <settings-action-component></settings-action-component>
         </ion-buttons>
@@ -39,7 +38,17 @@
 <ion-content>
 
 
-    <div style="height: 1000px;"></div>
+    <div padding>
+        <div class="grid-row">
+            <div class="grid-column-12 grid-padding grid-left" *ngFor="let transaction of transactions; let i = index">
+                <div>
+                    {{ transaction.description }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <add-transaction-action-component></add-transaction-action-component>
 </ion-content>
 

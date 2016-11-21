@@ -36,7 +36,7 @@ export class TransactionService {
     public addTransaction(data): any {
         return new Promise((resolve) => {
             let { keys, mask, values } = this.dbService.prepareData(data);
-            let promise = this.sqlService.query(`INSERT INTO 'transactions' (${keys}) VALUES (${mask});`, values);
+            let promise = this.sqlService.query(`INSERT INTO transactions (${keys}) VALUES (${mask});`, values);
             promise.then(
                 (data) => {
                     if(data.res.rowsAffected) {
@@ -48,6 +48,11 @@ export class TransactionService {
                 });
         });
 
+    }
+
+
+    public getTransactions(limit: number = 20, type: number = 0, offset: number = 0) {
+        return this.sqlService.query(`SELECT category_id, description, sum, created, type, slug FROM transactions INNER JOIN categories ON transactions.category_id = categories.id LIMIT ${limit} OFFSET ${offset}`, [])
     }
 
 

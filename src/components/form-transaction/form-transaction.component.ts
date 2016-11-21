@@ -136,18 +136,18 @@ export class FormTransaction {
      */
     private pushToBase(): void {
         const promise = this.transactionService.addTransaction({
-            type: parseInt(this.type),
-            category: this.indexSelected,
+            category_id: this.indexSelected,
             sum: this.dataModal.sum,
             description: this.dataModal.description,
-            timestamp: new Date()
+            created: +new Date()
         });
 
         promise.then((message: string) => {
             const toast = this.toastCtrl.create({
                 message: message,
                 showCloseButton: true,
-                closeButtonText: 'Ok'
+                closeButtonText: 'Ok',
+                duration: 3000
             });
             toast.present();
         });

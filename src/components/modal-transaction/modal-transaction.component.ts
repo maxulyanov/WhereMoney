@@ -63,6 +63,7 @@ export class ModalTransaction extends ModalDefault {
     public updatedSum(value: string): void {
         value = value.replace(/\s/gi, '');
         this.sum = parseInt(value);
+        this.checkDataFilled();
     }
 
 
