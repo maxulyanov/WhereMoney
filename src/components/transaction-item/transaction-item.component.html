@@ -1,0 +1,16 @@
+<div class="b-transaction-item">
+    <div class="transaction-item__icon">
+        <category-icon-component [name]="transaction.slug"></category-icon-component>
+    </div>
+    <div class="transaction-item__data">
+        <div class="transaction-item__desc">
+            {{ transaction.description }}
+        </div>
+        <div class="transaction-item__date">
+            {{ dateCreated }}
+        </div>
+    </div>
+    <div class="transaction-item__sum">
+        {{ transaction.sum }}
+    </div>
+</div>

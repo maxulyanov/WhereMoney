@@ -33,6 +33,7 @@ import { AddTransactionPage } from '../pages/add-transaction/add-transaction';
 import { SettingsAction } from '../components/settings-action/settings-action.component';
 import { CategoryIcon} from '../components/category-icon/category-icon.component';
 import { TransactionAction } from '../components/transaction-action/transaction-action.component';
+import { TransactionItem } from '../components/transaction-item/transaction-item.component';
 import { TransactionModal } from '../components/transaction-modal/transaction-modal.component';
 import { Modal } from '../components/modal/modal.component';
 import { TransactionForm } from '../components/transaction-form/transaction-form.component';
@@ -53,11 +54,12 @@ import { NumbersArea } from '../components/numbers-area/numbers-area.component';
 
         SettingsAction,
         CategoryIcon,
-        TransactionAction,
         Modal,
+        NumbersArea,
+        TransactionAction,
+        TransactionItem,
         TransactionModal,
-        TransactionForm,
-        NumbersArea
+        TransactionForm
     ],
     imports: [
         IonicModule.forRoot(App),

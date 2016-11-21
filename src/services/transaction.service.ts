@@ -52,7 +52,14 @@ export class TransactionService {
 
 
     public getTransactions(limit: number = 20, type: number = 0, offset: number = 0) {
-        return this.sqlService.query(`SELECT category_id, description, sum, created, type, slug FROM transactions INNER JOIN categories ON transactions.category_id = categories.id LIMIT ${limit} OFFSET ${offset}`, [])
+        return this.sqlService.query(`
+        SELECT *
+        FROM transactions 
+        INNER JOIN categories 
+        ON transactions.category_id = categories.id
+        ORDER BY created DESC
+        LIMIT ${limit}
+        OFFSET ${offset}`, []);
     }
 
 

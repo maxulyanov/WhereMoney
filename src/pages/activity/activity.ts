@@ -55,6 +55,7 @@ export class ActivityPage {
 
 
     public ionViewWillEnter(): void {
+        this.cleanTransactions();
         this.renderTransactions();
     }
 

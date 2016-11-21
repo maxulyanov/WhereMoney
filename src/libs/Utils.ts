@@ -82,7 +82,7 @@ export class Utils {
      */
     static dateFormatting(date): any {
         let result = '';
-        if(typeof date === 'string') {
+        if(date != null) {
 
             let dateNative = new Date(date);
             if(isNaN(dateNative.getDate())) {
