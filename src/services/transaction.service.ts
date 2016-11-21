@@ -53,7 +53,7 @@ export class TransactionService {
 
     public getTransactions(limit: number = 20, type: number = 0, offset: number = 0) {
         return this.sqlService.query(`
-        SELECT *
+        SELECT category_id, description, sum, created, type, slug 
         FROM transactions 
         INNER JOIN categories 
         ON transactions.category_id = categories.id
