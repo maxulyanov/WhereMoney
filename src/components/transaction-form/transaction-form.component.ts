@@ -12,16 +12,16 @@ import { ModalController, ToastController  } from "ionic-angular";
 
 import { CategoryService } from "../../services/category.service";
 import { TransactionService } from "../../services/transaction.service";
-import { ModalTransaction } from "../modal-transaction/modal-transaction.component";
+import { TransactionModal } from "../transaction-modal/transaction-modal.component";
 
 
 @Component({
-    selector: 'form-transaction-component',
-    templateUrl: 'form-transaction.component.html'
+    selector: 'transaction-form-component',
+    templateUrl: 'transaction-form.component.html'
 })
 
 
-export class FormTransaction {
+export class TransactionForm {
 
 
     @Input() type: string = '0';
@@ -72,7 +72,7 @@ export class FormTransaction {
      *
      */
     public presentModal(): void {
-        let profileModal = this.modalCtrl.create(ModalTransaction, {
+        let profileModal = this.modalCtrl.create(TransactionModal, {
             title: 'Новая транзакция',
             readyCallback: (data) => {
                 this.dataModal = data;

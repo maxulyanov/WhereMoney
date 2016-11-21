@@ -12,12 +12,12 @@ import { NavController, ViewController, NavParams } from "ionic-angular";
 
 
 @Component({
-    selector: 'modal-default-component',
-    templateUrl: 'modal-default.component.html'
+    selector: 'modal-component',
+    templateUrl: 'modal.component.html'
 })
 
 
-export class ModalDefault {
+export class Modal {
 
 
     public title: string;

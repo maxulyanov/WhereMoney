@@ -10,16 +10,16 @@
 import { Component } from '@angular/core';
 import { NavController, ViewController, NavParams } from "ionic-angular";
 
-import { ModalDefault } from "../modal-default/modal-default.component";
+import { Modal } from "../modal/modal.component";
 
 
 @Component({
-    selector: 'modal-transaction-component',
-    templateUrl: 'modal-transaction.component.html'
+    selector: 'transaction-modal-component',
+    templateUrl: 'transaction-modal.component.html'
 })
 
 
-export class ModalTransaction extends ModalDefault {
+export class TransactionModal extends Modal {
 
 
     public sum: number;

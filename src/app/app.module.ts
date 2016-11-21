@@ -32,10 +32,10 @@ import { AddTransactionPage } from '../pages/add-transaction/add-transaction';
 
 import { SettingsAction } from '../components/settings-action/settings-action.component';
 import { CategoryIcon} from '../components/category-icon/category-icon.component';
-import { AddTransactionAction } from '../components/add-transaction-action/add-transaction-action.component';
-import { ModalTransaction } from '../components/modal-transaction/modal-transaction.component';
-import { ModalDefault } from '../components/modal-default/modal-default.component';
-import { FormTransaction } from '../components/form-transaction/form-transaction.component';
+import { TransactionAction } from '../components/transaction-action/transaction-action.component';
+import { TransactionModal } from '../components/transaction-modal/transaction-modal.component';
+import { Modal } from '../components/modal/modal.component';
+import { TransactionForm } from '../components/transaction-form/transaction-form.component';
 import { NumbersArea } from '../components/numbers-area/numbers-area.component';
 
 
@@ -53,10 +53,10 @@ import { NumbersArea } from '../components/numbers-area/numbers-area.component';
 
         SettingsAction,
         CategoryIcon,
-        AddTransactionAction,
-        ModalDefault,
-        ModalTransaction,
-        FormTransaction,
+        TransactionAction,
+        Modal,
+        TransactionModal,
+        TransactionForm,
         NumbersArea
     ],
     imports: [
@@ -73,10 +73,9 @@ import { NumbersArea } from '../components/numbers-area/numbers-area.component';
         SettingPage,
         AboutPage,
         TemplatesPage,
-        ModalDefault,
         AddTransactionPage,
-
-        ModalTransaction
+        Modal,
+        TransactionModal
     ],
     providers: [SqlService, DbService, DateService, CategoryService, TransactionService]
 })

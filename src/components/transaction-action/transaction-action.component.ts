@@ -14,12 +14,12 @@ import { AddTransactionPage } from '../../pages/add-transaction/add-transaction'
 
 
 @Component({
-    selector: 'add-transaction-action-component',
-    templateUrl: 'add-transaction-action.component.html'
+    selector: 'transaction-action-component',
+    templateUrl: 'transaction-action.component.html'
 })
 
 
-export class AddTransactionAction {
+export class TransactionAction {
 
 
     /**
