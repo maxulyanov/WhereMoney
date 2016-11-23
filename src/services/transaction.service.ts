@@ -55,15 +55,17 @@ export class TransactionService {
      *
      * @param limit
      * @param offset
+     * @param date
      * @param type
      * @returns {Promise<any>}
      */
-    public getTransactions(limit: number = 20, offset: number = 0, type: number = 0): any {
+    public getTransactions(limit: number = 20, offset: number = 0, date: number = +new Date(), type: number = 0): any {
         return this.sqlService.query(`
         SELECT category_id, description, sum, created, type, slug 
         FROM transactions 
         INNER JOIN categories 
         ON transactions.category_id = categories.id
+        WHERE created < ${date}
         ORDER BY created DESC
         LIMIT ${limit}
         OFFSET ${offset}`, []);
@@ -72,11 +74,12 @@ export class TransactionService {
 
     /**
      *
+     * @param date
      * @returns {Promise<T>}
      */
-    public getCountTransactions(): any {
+    public getCountTransactions(date: number): any {
         return new Promise((resolve, reject) => {
-            this.getTransactions(2e10).then(
+            this.getTransactions(2e10, 0, date).then(
                 (data) => {
                     if (data != null && data.res) {
                         resolve(data.res.rows.length);

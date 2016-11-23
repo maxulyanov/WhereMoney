@@ -10,9 +10,9 @@
     </ion-navbar>
 
     <div class="container-datetime">
-        <ion-datetime
+        <ion-datetime (ionChange)="changeDate($event)"
                 end
-                [(ngModel)]="date"
+                [(ngModel)]="dateISO"
                 displayFormat="DD.MM.YYYY"
                 pickerFormat="DD-MMMM-YYYY"
                 monthNames="{{ monthNames }}"
@@ -44,7 +44,7 @@
         </div>
     </div>
 
-    <div *ngIf="totalCount == 0" class="b-empty-box">Товары не найдены</div>
+    <div *ngIf="totalCount == 0" class="util-empty-box">Нет данных для отображения</div>
 
     <ion-infinite-scroll *ngIf="transactions.length > 0 && totalCount > transactions.length" (ionInfinite)="doInfinite($event)">
         <ion-infinite-scroll-content loadingText="Загружаю данные...">

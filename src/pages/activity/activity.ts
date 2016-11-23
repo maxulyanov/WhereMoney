@@ -26,7 +26,7 @@ export class ActivityPage {
 
 
     public title: string;
-    public date;
+    public dateISO: any;
     public monthNames: string;
     public monthShortNames: string;
     public dayNames: string;
@@ -38,6 +38,7 @@ export class ActivityPage {
     private stepOffset: number;
     private totalCount: number;
     private limit: number;
+    private date: number;
 
 
     /**
@@ -52,13 +53,14 @@ export class ActivityPage {
         this.monthShortNames = this.dateService.getLocaleString('monthShortNames');
         this.dayNames = this.dateService.getLocaleString('dayNames');
         this.dayShortNames = this.dateService.getLocaleString('dayShortNames');
-        this.date = this.dateService.getISODate(new Date());
+        this.dateISO = this.dateService.getISODate(new Date());
         this.transactions = [];
 
         this.offset = 0;
         this.stepOffset = 15;
         this.limit = 15;
         this.totalCount = -1;
+        this.date = +new Date();
     }
 
 
@@ -106,6 +108,19 @@ export class ActivityPage {
 
     /**
      *
+     * @param event
+     */
+    public changeDate(event): void {
+        let { day, month, year } = event;
+        let date = new Date(`${month.value}.${day.value}.${year.value}`);
+        this.date = +date.setHours(23,59,59,59);
+        this.cleanTransactions();
+        this.renderTransactions();
+    }
+
+
+    /**
+     *
      */
     private showButtonAddTransaction(): void {
         if(this.buttonAdd != null) {
@@ -145,7 +160,7 @@ export class ActivityPage {
      * @returns {any}
      */
     private getTransactions(): any {
-        return this.transactionService.getTransactions(this.limit, this.offset);
+        return this.transactionService.getTransactions(this.limit, this.offset, this.date);
     }
 
 
@@ -154,7 +169,7 @@ export class ActivityPage {
      */
     private setTotalCount(): any {
         if(this.totalCount == -1) {
-            this.transactionService.getCountTransactions().then(
+            this.transactionService.getCountTransactions(this.date).then(
                 (count) => {
                     this.totalCount = count;
                 },
