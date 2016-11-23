@@ -5,7 +5,7 @@ transaction-item-component {
   display: table;
   width: 100%;
   table-layout: fixed;
-  padding: 12px;
+  padding: 10px;
   position: relative;
   background: $firstColorContent;
   border-bottom: 1px solid $secondColorContent;
@@ -28,6 +28,7 @@ transaction-item-component {
   .transaction-item__desc {
     margin-bottom: 5px;
     font-size: 1.6rem;
+    line-height: 1.2em;
   }
   .transaction-item__date {
     color: #adadad;
@@ -37,11 +38,25 @@ transaction-item-component {
     vertical-align: middle;
     text-align: right;
     font-size: 2rem;
+    white-space: nowrap;
     &.is-plus {
       color: $fistColorApp;
     }
     &.is-minus {
       color: $secondColorApp;
+    }
+  }
+}
+
+
+
+@media screen and (max-width: 420px) {
+  .b-transaction-item {
+    .transaction-item__data {
+      width: 58%;
+    }
+    .transaction-item__sum {
+      font-size: 1.9rem;
     }
   }
 }

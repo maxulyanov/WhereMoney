@@ -38,13 +38,20 @@
 <ion-content>
 
 
-    <div>
-        <div class="grid-row">
-            <div class="grid-column-12 grid-padding grid-left" *ngFor="let transaction of transactions; let i = index">
-                <transaction-item-component [transaction]="transaction"></transaction-item-component>
-            </div>
+    <div class="grid-row" *ngIf="totalCount > 0">
+        <div class="grid-column-12 grid-padding grid-left" *ngFor="let transaction of transactions; let i = index">
+            <transaction-item-component [transaction]="transaction"></transaction-item-component>
         </div>
     </div>
+
+    <div *ngIf="totalCount == 0" class="b-empty-box">Товары не найдены</div>
+
+    <ion-infinite-scroll *ngIf="transactions.length > 0 && totalCount > transactions.length" (ionInfinite)="doInfinite($event)">
+        <ion-infinite-scroll-content loadingText="Загружаю данные...">
+        </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+
+
 
 
     <transaction-action-component></transaction-action-component>

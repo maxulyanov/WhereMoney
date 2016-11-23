@@ -31,10 +31,13 @@ export class ActivityPage {
     public monthShortNames: string;
     public dayNames: string;
     public dayShortNames: string;
-
     public transactions: any[];
 
     private buttonAdd: any;
+    private offset: number;
+    private stepOffset: number;
+    private totalCount: number;
+    private limit: number;
 
 
     /**
@@ -49,8 +52,12 @@ export class ActivityPage {
         this.dayNames = this.dateService.getLocaleString('dayNames');
         this.dayShortNames = this.dateService.getLocaleString('dayShortNames');
         this.date = this.dateService.getISODate(new Date());
-
         this.transactions = [];
+
+        this.offset = 0;
+        this.stepOffset = 10;
+        this.limit = 10;
+        this.totalCount = -1;
     }
 
 
@@ -77,6 +84,23 @@ export class ActivityPage {
     }
 
 
+    /**
+     *
+     * @param infiniteScroll
+     */
+    public doInfinite(infiniteScroll: any): void {
+        this.offset += this.stepOffset;
+        this.getTransactions().then(
+            (data) => {
+                infiniteScroll.complete();
+                this.forRowsTransactions(data);
+            },
+            (error) => {
+                infiniteScroll.complete();
+                console.error(`Error: ${error}`);
+            }
+        );
+    }
 
 
     /**
@@ -103,14 +127,10 @@ export class ActivityPage {
      *
      */
     private renderTransactions(): void {
+        this.setTotalCount();
         this.getTransactions().then(
             (data)=> {
-                if(data != null && data.res) {
-                    let rows = data.res.rows;
-                    for (let i = 0; i < rows.length; i++) {
-                        this.transactions.push(rows.item(i));
-                    }
-                }
+                this.forRowsTransactions(data);
             },
             (error) => {
                 console.error(error);
@@ -124,7 +144,39 @@ export class ActivityPage {
      * @returns {any}
      */
     private getTransactions(): any {
-        return this.transactionService.getTransactions();
+        return this.transactionService.getTransactions(this.limit, this.offset);
+    }
+
+
+    /**
+     *
+     */
+    private setTotalCount(): any {
+        if(this.totalCount == -1) {
+            this.transactionService.getCountTransactions().then(
+                (count) => {
+                    this.totalCount = count;
+                },
+                (err) => {
+                    console.error(err);
+                });
+        }
+    }
+
+
+    /**
+     *
+     * @param data
+     */
+    private forRowsTransactions(data: any): void {
+        if(data != null && data.res) {
+            let rows = data.res.rows;
+            let items = [];
+            for (let i = 0; i < rows.length; i++) {
+                items.push(rows.item(i));
+            }
+            this.transactions = Array.prototype.concat(this.transactions, items);
+        }
     }
 
 
@@ -133,6 +185,8 @@ export class ActivityPage {
      */
     private cleanTransactions(): void {
         this.transactions = [];
+        this.offset = 0;
+        this.totalCount = -1;
     }
 
 }
