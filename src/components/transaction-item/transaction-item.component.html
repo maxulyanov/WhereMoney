@@ -1,4 +1,4 @@
-<div class="b-transaction-item">
+<div class="b-transaction-item fadeIn animated">
     <div class="transaction-item__icon">
         <category-icon-component [name]="transaction.slug"></category-icon-component>
     </div>
@@ -10,7 +10,7 @@
             {{ dateCreated }}
         </div>
     </div>
-    <div class="transaction-item__sum">
-        {{ transaction.sum }}
+    <div class="transaction-item__sum {{ sumClass }}">
+        {{ sum }} &#8381;
     </div>
 </div>

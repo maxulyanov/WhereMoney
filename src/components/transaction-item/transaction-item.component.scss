@@ -1,3 +1,47 @@
 transaction-item-component {
 }
 
+.b-transaction-item {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+  padding: 12px;
+  position: relative;
+  background: $firstColorContent;
+  border-bottom: 1px solid $secondColorContent;
+  .transaction-item__icon {
+    width: 50px;
+    display: table-cell;
+    vertical-align: middle;
+  }
+  .b-icon-category {
+    width: 50px;
+    height: 50px;
+    font-size: 3rem;
+  }
+  .transaction-item__data {
+    width: 60%;
+    padding: 0 0 0 15px;
+    display: table-cell;
+    vertical-align: middle;
+  }
+  .transaction-item__desc {
+    margin-bottom: 5px;
+    font-size: 1.6rem;
+  }
+  .transaction-item__date {
+    color: #adadad;
+  }
+  .transaction-item__sum {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: right;
+    font-size: 2rem;
+    &.is-plus {
+      color: $fistColorApp;
+    }
+    &.is-minus {
+      color: $secondColorApp;
+    }
+  }
+}

@@ -11,5 +11,10 @@
 
 
 export interface TransactionInterface {
-
+    category_id: number,
+    created: number;
+    description: string;
+    slug: string,
+    sum: number,
+    type: number,
 }

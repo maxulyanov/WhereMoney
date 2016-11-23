@@ -10,6 +10,7 @@
 import { Component, Input } from '@angular/core';
 
 import { Utils } from '../../libs/Utils';
+import { TransactionInterface } from "../../interfaces/transaction.interface";
 
 @Component({
     selector: 'transaction-item-component',
@@ -20,13 +21,16 @@ import { Utils } from '../../libs/Utils';
 export class TransactionItem {
 
 
-    @Input() transaction: any;
+    @Input() transaction: TransactionInterface;
 
 
     public dateCreated: string;
+    public sum: string;
+    public sumClass: string;
 
 
     constructor() {
+        this.sumClass = '';
     }
 
 
@@ -34,7 +38,8 @@ export class TransactionItem {
      *
      */
     public ngAfterContentInit(): void {
-       this.createDate();
+        this.createDate();
+        this.createSum();
     }
 
 
@@ -43,9 +48,40 @@ export class TransactionItem {
      */
     private createDate(): void {
         let created = this.transaction.created;
-        if(created) {
-            this.dateCreated = Utils.dateFormatting(created);
+        let dayMs = 1000 * 60 * 60 * 24;
+        if (created) {
+            let date = Utils.dateFormatting(created);
+            if(date == Utils.dateFormatting(new Date())) {
+                this.dateCreated = 'сегодня';
+            }
+            else if(Utils.dateFormatting(created - dayMs) === Utils.dateFormatting(+new Date() - (dayMs * 2))) {
+                this.dateCreated = 'вчера';
+            }
+            else if(Utils.dateFormatting(created - dayMs) === Utils.dateFormatting(+new Date() - (dayMs * 3))) {
+                this.dateCreated = 'позавчера';
+            }
+            else {
+                this.dateCreated = date;
+            }
         }
+    }
+
+
+    /**
+     *
+     */
+    private createSum(): void {
+        let sum = Utils.separatedBySpaceNumber(String(this.transaction.sum));
+        if(this.transaction.type === 0) {
+            sum = '- ' + sum;
+            this.sumClass = 'is-minus';
+        }
+        else if(this.transaction.type === 1) {
+            sum = '+ ' + sum;
+            this.sumClass = 'is-plus';
+        }
+
+        this.sum = sum;
     }
 
 
