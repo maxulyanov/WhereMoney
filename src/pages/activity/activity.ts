@@ -44,6 +44,7 @@ export class ActivityPage {
      *
      * @param element
      * @param dateService
+     * @param transactionService
      */
     constructor(private element: ElementRef, private dateService: DateService, private transactionService: TransactionService) {
         this.title = 'Активность';
@@ -55,8 +56,8 @@ export class ActivityPage {
         this.transactions = [];
 
         this.offset = 0;
-        this.stepOffset = 10;
-        this.limit = 10;
+        this.stepOffset = 15;
+        this.limit = 15;
         this.totalCount = -1;
     }
 
