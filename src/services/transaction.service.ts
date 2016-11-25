@@ -61,11 +61,12 @@ export class TransactionService {
      */
     public getTransactions(limit: number = 20, offset: number = 0, date: number = +new Date(), type: number = 0): any {
         return this.sqlService.query(`
-        SELECT category_id, description, sum, created, type, slug 
+        SELECT category_id, name, description, sum, created, type, slug 
         FROM transactions 
         INNER JOIN categories 
         ON transactions.category_id = categories.id
         WHERE created < ${date}
+        AND type = ${type}
         ORDER BY created DESC
         LIMIT ${limit}
         OFFSET ${offset}`, []);

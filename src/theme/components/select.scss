@@ -1,0 +1,23 @@
+.container-select {
+  background: darken($fistColorApp, 3%);
+  &.item-block {
+    .item-inner {
+      border: 0;
+    }
+  }
+  .label-md {
+    color: #FFF;
+  }
+}
+
+
+
+.select-md {
+  .select-icon {
+    .select-icon-inner {
+      color: #FFF;
+    }
+  }
+}
+
+

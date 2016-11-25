@@ -12,7 +12,7 @@
 
 import { NgModule } from '@angular/core';
 import { IonicApp, IonicModule } from 'ionic-angular';
-import { ChartsModule } from 'ng2-charts/ng2-charts';
+import { ChartModule } from "angular2-highcharts";
 
 import { SqlService } from '../services/sql.service';
 import { DbService } from '../services/db.service';
@@ -63,7 +63,7 @@ import { NumbersArea } from '../components/numbers-area/numbers-area.component';
     ],
     imports: [
         IonicModule.forRoot(App),
-        ChartsModule
+        ChartModule
     ],
     bootstrap: [IonicApp],
     entryComponents: [

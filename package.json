@@ -23,11 +23,11 @@
     "@angular/platform-browser-dynamic": "2.0.0",
     "@angular/platform-server": "2.0.0",
     "@ionic/storage": "1.1.6",
+    "angular2-highcharts": "^0.4.1",
     "chart.js": "^2.4.0",
     "ionic-angular": "2.0.0-rc.1",
     "ionic-native": "2.2.3",
     "ionicons": "3.0.0",
-    "ng2-charts": "^1.4.1",
     "rxjs": "5.0.0-beta.12",
     "zone.js": "0.6.21"
   },

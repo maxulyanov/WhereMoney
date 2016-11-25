@@ -203,6 +203,7 @@ export class ActivityPage {
         this.transactions = [];
         this.offset = 0;
         this.totalCount = -1;
+        this.date = +new Date();
     }
 
 }
