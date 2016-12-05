@@ -14,7 +14,7 @@
 
     <ion-item class="container-select">
         <ion-label>Показать статистику: </ion-label>
-        <ion-select [(ngModel)]="period" cancelText="Закрыть">
+        <ion-select [(ngModel)]="period" cancelText="Закрыть" (ionChange)="handlerSelectPeriod($event)">
             <ion-option value="week" selected="true">За неделю</ion-option>
             <ion-option value="month" selected="true">За месяц</ion-option>
             <ion-option value="month3" selected="true">3 месяца</ion-option>
@@ -27,8 +27,7 @@
 
 <ion-content>
 
-    <!--[(ngModel)]="type" (ionChange)="selectedType($event)"-->
-    <ion-segment>
+    <ion-segment  [(ngModel)]="type" (ionChange)="handlerSelectType($event)">
         <ion-segment-button value="0">
             Расход
         </ion-segment-button>
@@ -38,8 +37,10 @@
 
     </ion-segment>
 
-
-    <div *ngIf="isReadyChart" class="animated fadeIn">
+    <div *ngIf="isReadyChart && totalCount > 0" class="animated fadeIn">
         <chart [options]="optionsChart"></chart>
     </div>
+
+    <div *ngIf="totalCount == 0" class="util-empty-box fadeIn animated">Нет данных для отображения</div>
+
 </ion-content>

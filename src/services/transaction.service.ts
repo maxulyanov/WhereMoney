@@ -55,17 +55,19 @@ export class TransactionService {
      *
      * @param limit
      * @param offset
-     * @param date
+     * @param startDate
+     * @param endDate
      * @param type
      * @returns {Promise<any>}
      */
-    public getTransactions(limit: number = 20, offset: number = 0, date: number = +new Date(), type: number = 0): any {
+    public getTransactions(limit: number = 20, offset: number = 0, startDate: number = +new Date(), endDate: number = 0, type: number = 0): any {
         return this.sqlService.query(`
         SELECT category_id, name, description, sum, created, type, slug 
         FROM transactions 
         INNER JOIN categories 
         ON transactions.category_id = categories.id
-        WHERE created < ${date}
+        WHERE created < ${startDate}
+        AND created > ${endDate}
         AND type = ${type}
         ORDER BY created DESC
         LIMIT ${limit}

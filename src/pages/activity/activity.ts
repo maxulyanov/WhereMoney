@@ -111,10 +111,10 @@ export class ActivityPage {
      * @param event
      */
     public changeDate(event): void {
+        this.cleanTransactions();
         let { day, month, year } = event;
         let date = new Date(`${month.value}.${day.value}.${year.value}`);
         this.date = +date.setHours(23,59,59,59);
-        this.cleanTransactions();
         this.renderTransactions();
     }
 
@@ -143,7 +143,6 @@ export class ActivityPage {
      *
      */
     private renderTransactions(): void {
-        this.setTotalCount();
         this.getTransactions().then(
             (data)=> {
                 this.forRowsTransactions(data);
@@ -164,20 +163,6 @@ export class ActivityPage {
     }
 
 
-    /**
-     *
-     */
-    private setTotalCount(): any {
-        if(this.totalCount == -1) {
-            this.transactionService.getCountTransactions(this.date).then(
-                (count) => {
-                    this.totalCount = count;
-                },
-                (err) => {
-                    console.error(err);
-                });
-        }
-    }
 
 
     /**
@@ -188,6 +173,7 @@ export class ActivityPage {
         if(data != null && data.res) {
             let rows = data.res.rows;
             let items = [];
+            this.totalCount = rows.length;
             for (let i = 0; i < rows.length; i++) {
                 items.push(rows.item(i));
             }

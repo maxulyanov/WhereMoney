@@ -9,7 +9,6 @@
 
 import { Component } from '@angular/core';
 
-import { DateService } from "../../services/date.service";
 import { TransactionService } from "../../services/transaction.service";
 
 
@@ -26,27 +25,119 @@ export class StatsPage {
     public type: string;
     public optionsChart: any;
     public isReadyChart: boolean;
+    public totalCount: number;
 
 
     private colors: any;
     private date: number;
+    private endDate: number;
 
 
-    constructor(private dateService: DateService, private transactionService: TransactionService) {
+    /**
+     *
+     * @param transactionService
+     */
+    constructor(private transactionService: TransactionService) {
         this.title = 'Статистика';
         this.period = 'week';
         this.type = '0';
+        this.totalCount = -1;
         this.isReadyChart = false;
 
-        this.date = +new Date();
+        this.endDate = 0;
 
         this.createColors();
     }
 
 
+    /**
+     *
+     */
     public ionViewWillEnter(): void {
-        this.cleanTransactions();
-        this.getTransactions();
+        this.updateChart();
+    }
+
+
+    public ionViewWillLeave(): void {
+        this.isReadyChart = false;
+    }
+
+
+    /**
+     *
+     */
+    public handlerSelectType(): void {
+        this.updateChart();
+    }
+
+
+    /**
+     *
+     */
+    public handlerSelectPeriod(): void {
+        this.updateChart();
+
+    }
+
+
+    /**
+     *
+     */
+    private updateChart(): void {
+        this.date = +new Date();
+        this.selectPeriod();
+        this.getTransactions().then((items: any[]) => {
+            this.buildDataForChart(items);
+        }, (error) => {
+            console.error(`Error: ${error}`);
+        })
+    }
+
+
+    /**
+     *
+     * @returns {any}
+     */
+    private getTransactions(): any {
+        return new Promise((resolve, reject) => {
+            this.transactionService.getTransactions(2e10, 0, this.date, this.endDate, parseInt(this.type)).then(
+                (data) => {
+                    if (data != null && data.res) {
+                        let rows = data.res.rows;
+                        let items = [];
+                        this.totalCount = rows.length;
+                        for (let i = 0; i < rows.length; i++) {
+                            items.push(rows.item(i));
+                        }
+                        resolve(items);
+                    }
+                },
+                (error) => {
+                    reject(error);
+                }
+            );
+        })
+    }
+
+
+    /**
+     *
+     */
+    private selectPeriod(): void {
+        let dayMs: number = 1000 * 60 * 60 * 24;
+        let periods = {
+            week: 7,
+            month: 30,
+            month3: 90,
+            year: 365,
+        };
+
+        if(this.period == 'all') {
+            this.endDate = 0;
+        }
+        else if(periods[this.period] !== null) {
+            this.endDate = this.date - (dayMs * periods[this.period]);
+        }
     }
 
 
@@ -89,42 +180,13 @@ export class StatsPage {
 
     /**
      *
-     * @returns {any}
-     */
-    private getTransactions(): void {
-        this.transactionService.getTransactions(2e10, 0, this.date, parseInt(this.type)).then(
-            (data) => {
-                if (data != null && data.res) {
-                    let rows = data.res.rows;
-                    let items = [];
-                    for (let i = 0; i < rows.length; i++) {
-                        items.push(rows.item(i));
-                    }
-                    this.buildDataForChart(items);
-                }
-            },
-            (error) => {
-                console.error(`Error: ${error}`);
-            }
-        );
-    }
-
-
-    /**
-     *
-     */
-    private cleanTransactions(): void {
-    }
-
-
-    /**
-     *
      * @param data
      */
     private createOptionsChart(data): void {
+       let width: number = window.innerWidth > 640 ? 640 : window.innerWidth;
         this.optionsChart = {
             chart: {
-                width: 800,
+                width,
                 backgroundColor: 'transparent',
                 plotBackgroundColor: null,
                 plotBorderWidth: null,
@@ -148,11 +210,17 @@ export class StatsPage {
                 }
             },
             legend: {
-                padding: 20,
                 itemStyle: {
                     color: '#FFF',
                     fontSize: '15px',
                     fontWeight: 'normal',
+                    textDecoration: 'none',
+                },
+                itemHoverStyle: {
+                    color: '#FFF',
+                },
+                itemHiddenStyle: {
+                    color: '#4a4a5a'
                 }
             },
 
@@ -166,9 +234,6 @@ export class StatsPage {
         this.isReadyChart = true;
     }
 
-
-
-    // http://api.highcharts.com/highcharts/legend.itemStyle
 
 
     /**

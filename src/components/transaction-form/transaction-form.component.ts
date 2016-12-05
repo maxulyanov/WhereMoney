@@ -62,7 +62,7 @@ export class TransactionForm {
      *
      * @param event
      */
-    public selectedType(event): void {
+    public handlerSelectType(event): void {
         this.cleanCategories();
         this.renderCategories();
     }
