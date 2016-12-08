@@ -12,6 +12,7 @@ import { ModalController, ToastController  } from "ionic-angular";
 
 import { CategoryService } from "../../services/category.service";
 import { TransactionService } from "../../services/transaction.service";
+import { TemplateService } from "../../services/template.service";
 import { TransactionModal } from "../transaction-modal/transaction-modal.component";
 
 
@@ -25,6 +26,7 @@ export class TransactionForm {
 
 
     @Input() type: string = '0';
+    @Input() serviceType: string = 'transaction';
     @Input() indexSelected: number = -1;
 
 
@@ -39,12 +41,14 @@ export class TransactionForm {
      * @param modalCtrl
      * @param toastCtrl
      * @param transactionService
+     * @param templateService
      */
     constructor(
         private categoryService: CategoryService,
         private modalCtrl: ModalController,
         private toastCtrl: ToastController,
-        private transactionService: TransactionService) {
+        private transactionService: TransactionService,
+        private templateService: TemplateService) {
         this.categories = [];
         this.dataModal = {};
     }
@@ -73,7 +77,7 @@ export class TransactionForm {
      */
     public presentModal(): void {
         let profileModal = this.modalCtrl.create(TransactionModal, {
-            title: 'Новая транзакция',
+            title: 'Данные транзакции',
             readyCallback: (data) => {
                 this.dataModal = data;
                 this.pushToBase();
@@ -135,12 +139,25 @@ export class TransactionForm {
      *
      */
     private pushToBase(): void {
-        const promise = this.transactionService.addTransaction({
+
+        let data: any = {
             category_id: this.indexSelected,
             sum: this.dataModal.sum,
             description: this.dataModal.description,
             created: +new Date()
-        });
+        };
+        let promise: any;
+
+        switch (this.serviceType) {
+            case 'transaction':
+                promise = this.transactionService.addTransaction(data);
+                break;
+            case 'template':
+                promise = this.templateService.addTemplate(data);
+                break;
+            default:
+                console.error(`${this.serviceType} not supported!`);
+        }
 
         promise.then((message: string) => {
             const toast = this.toastCtrl.create({
@@ -151,6 +168,26 @@ export class TransactionForm {
             });
             toast.present();
         });
+    }
+
+
+    /**
+     *
+     * @returns {any}
+     */
+    private getCurrentService(): any {
+        let service: any;
+        switch (this.serviceType) {
+            case 'transaction':
+                service = this.transactionService.addTransaction;
+                break;
+            case 'template':
+                service = this.templateService.addTemplate;
+                break;
+            default:
+                console.error(`${service} not supported!`);
+        }
+        return service;
     }
 
 

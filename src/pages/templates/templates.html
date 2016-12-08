@@ -12,8 +12,31 @@
     </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-    template
+<ion-content>
+    <div class="util-align-center" style="margin-top: 25px;" *ngIf="totalCount == -1">
+        <ion-spinner color="secondary"></ion-spinner>
+    </div>
+
+    <div *ngIf="totalCount == 0">
+        <div class="util-empty-box fadeIn animated">Нет созданных шаблонов</div>
+    </div>
+
+    <div *ngIf="totalCount > 0">
+        <chart [options]="optionsChart"></chart>
+    </div>
+
+
+    <br>
+
+    <div class="util-align-center">
+        <button ion-button (click)="handlerClickCreate($event)">Создать новый</button>
+    </div>
+
+
+
+
+    <!--https://ionicframework.com/docs/v2/api/components/item/ItemSliding/-->
+
 </ion-content>
 
 

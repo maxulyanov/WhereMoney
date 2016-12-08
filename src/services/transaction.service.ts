@@ -90,7 +90,7 @@ export class TransactionService {
                 },
                 (data) => {
                     reject(data.err.message);
-                });
+            });
         })
     }
 

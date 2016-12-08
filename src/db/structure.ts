@@ -27,7 +27,7 @@ export const structure = {
         },
         {
             name: 'templates',
-            structure: 'id INTEGER PRIMARY KEY, type INTEGER, category INTEGER, sum INTEGER'
+            structure: 'id INTEGER PRIMARY KEY, category_id INTEGER, description TEXT, sum INTEGER, created BIGINT'
         }
     ]
-}
+};

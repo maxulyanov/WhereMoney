@@ -19,6 +19,7 @@ import { DbService } from '../services/db.service';
 import { DateService } from "../services/date.service";
 import { CategoryService } from "../services/category.service";
 import { TransactionService } from "../services/transaction.service";
+import { TemplateService } from "../services/template.service";
 
 import { App} from './app.component';
 import { TabsPage } from '../pages/tabs/tabs';
@@ -29,6 +30,7 @@ import { SettingPage } from '../pages/settings/settings';
 import { TemplatesPage } from '../pages/templates/templates';
 import { AboutPage } from '../pages/about/about';
 import { AddTransactionPage } from '../pages/add-transaction/add-transaction';
+import { AddTemplatePage } from '../pages/add-template/add-transaction';
 
 import { SettingsAction } from '../components/settings-action/settings-action.component';
 import { CategoryIcon} from '../components/category-icon/category-icon.component';
@@ -51,6 +53,7 @@ import { NumbersArea } from '../components/numbers-area/numbers-area.component';
         AboutPage,
         TemplatesPage,
         AddTransactionPage,
+        AddTemplatePage,
 
         SettingsAction,
         CategoryIcon,
@@ -76,10 +79,11 @@ import { NumbersArea } from '../components/numbers-area/numbers-area.component';
         AboutPage,
         TemplatesPage,
         AddTransactionPage,
+        AddTemplatePage,
         Modal,
         TransactionModal
     ],
-    providers: [SqlService, DbService, DateService, CategoryService, TransactionService]
+    providers: [SqlService, DbService, DateService, CategoryService, TransactionService, TemplateService]
 })
 
 

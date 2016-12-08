@@ -54,7 +54,7 @@ export class StatsPage {
      *
      */
     public ionViewWillEnter(): void {
-        this.updateChart();
+        this.renderChart();
     }
 
 
@@ -67,7 +67,7 @@ export class StatsPage {
      *
      */
     public handlerSelectType(): void {
-        this.updateChart();
+        this.renderChart();
     }
 
 
@@ -75,7 +75,7 @@ export class StatsPage {
      *
      */
     public handlerSelectPeriod(): void {
-        this.updateChart();
+        this.renderChart();
 
     }
 
@@ -83,7 +83,7 @@ export class StatsPage {
     /**
      *
      */
-    private updateChart(): void {
+    private renderChart(): void {
         this.date = +new Date();
         this.selectPeriod();
         this.getTransactions().then((items: any[]) => {
