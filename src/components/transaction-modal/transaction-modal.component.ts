@@ -21,8 +21,8 @@ import { Modal } from "../modal/modal.component";
 
 export class TransactionModal extends Modal {
 
-
     public sum: number;
+    public outSum: string;
     public description: string;
     public isDataFilled: boolean;
 
@@ -35,8 +35,10 @@ export class TransactionModal extends Modal {
      */
     constructor(protected navCtrl: NavController, protected viewCtrl: ViewController, protected navParams: NavParams) {
         super(navCtrl, viewCtrl, navParams);
-        this.sum = 0;
-        this.description = '';
+        let { sum, description } = this.navParams.get('inputData');
+        this.sum = sum || 0;
+        this.outSum = sum || '0';
+        this.description = description || '';
         this.checkDataFilled();
     }
 

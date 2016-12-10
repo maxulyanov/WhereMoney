@@ -8,10 +8,11 @@
 
 
 import { Component } from '@angular/core';
-import { NavController } from "ionic-angular";
+import { NavController, ToastController } from "ionic-angular";
 
 import { TemplateService } from "../../services/template.service";
 import { AddTemplatePage } from "../add-template/add-transaction";
+import { UpdateTemplatePage } from "../update-template/update-template";
 
 
 @Component({
@@ -25,16 +26,21 @@ export class TemplatesPage {
 
     public title: string;
     public totalCount: number;
+    public templates: any[];
+    public loadedTemplates: boolean;
 
 
     /**
      *
      * @param navCtrl
      * @param templateService
+     * @param toastCtrl
      */
-    constructor(private navCtrl: NavController, private templateService: TemplateService) {
+    constructor(private navCtrl: NavController, private templateService: TemplateService, private toastCtrl: ToastController) {
         this.title = 'Шаблоны';
         this.totalCount = -1;
+        this.templates = [];
+        this.loadedTemplates = false;
     }
 
 
@@ -42,7 +48,24 @@ export class TemplatesPage {
      *
      */
     public ionViewWillEnter(): void {
+        this.cleanTemplates();
         this.renderTemplates();
+    }
+
+
+    /**
+     *
+     */
+    public ionViewDidLeave(): void {
+        this.loadedTemplates = false;
+    }
+
+
+    /**
+     *
+     */
+    public handlerClickCreateTransaction(): void {
+        console.log('handlerClickCreateTransaction')
     }
 
 
@@ -58,12 +81,51 @@ export class TemplatesPage {
 
     /**
      *
+     * @param event
+     * @param template
+     * @param position
+     */
+    public handlerClickUpdate(event: any, template: any, position: number): void {
+        event.stopPropagation();
+        template.type = String(template.type);
+        this.navCtrl.push(UpdateTemplatePage, {
+            template: template
+        });
+    }
+
+
+    /**
+     *
+     * @param event
+     * @param id
+     * @param position
+     */
+    public handlerClickDelete(event: any, id: number, position: number): void {
+        event.stopPropagation();
+        this.templateService.deleteTemplate(id).then((message: string) => {
+            this.templates.splice(position, 1);
+            const toast = this.toastCtrl.create({
+                message: message,
+                showCloseButton: true,
+                closeButtonText: 'Ok',
+                duration: 3000
+            });
+            toast.present();
+        });
+    }
+
+
+    /**
+     *
      */
     private renderTemplates(): void {
-        this.getTemplates().then((items: any[]) => {
-            console.log(items)
+        this.getTemplates().then((templates: any[]) => {
+            this.templates = templates;
+            setTimeout(() => {
+                this.loadedTemplates = true;
+            }, 0);
         }, (error) => {
-            console.error(`Error: ${error}`);
+            console.error(error);
         })
     }
 
@@ -74,7 +136,7 @@ export class TemplatesPage {
      */
     private getTemplates(): any {
         return new Promise((resolve, reject) => {
-            this.templateService.getTemplates(1e10).then(
+            this.templateService.getTemplates().then(
                 (data) => {
                     if (data != null && data.res) {
                         let rows = data.res.rows;
@@ -91,6 +153,14 @@ export class TemplatesPage {
                 }
             );
         })
+    }
+
+
+    /**
+     *
+     */
+    private cleanTemplates(): void {
+        this.templates = [];
     }
 
 

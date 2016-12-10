@@ -17,4 +17,11 @@
     text-align: center;
     white-space: nowrap;
   }
+
+  &.is-selected {
+    .category__name {
+      color: $fistColorApp
+    }
+  }
+
 }

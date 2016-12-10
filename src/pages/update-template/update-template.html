@@ -1,0 +1,18 @@
+<ion-header>
+    <ion-navbar>
+
+        <ion-title>
+            {{ title }}
+        </ion-title>
+
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <transaction-form-component
+            [idCategorySelected]="template.category_id"
+            [type]="template.type"
+            [inputData]="template"
+            [serviceType]="serviceType">
+    </transaction-form-component>
+</ion-content>

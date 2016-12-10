@@ -28,7 +28,7 @@ export class AddTemplatePage {
      */
     constructor() {
         this.title = 'Создание шаблона';
-        this.serviceType = 'template';
+        this.serviceType = 'addTemplate';
     }
 
 

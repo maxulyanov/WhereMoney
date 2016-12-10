@@ -18,7 +18,7 @@
         <ion-input type="text" placeholder="Описание" [(ngModel)]="description" (ngModelChange)="changeDescription($event)"></ion-input>
     </ion-item>
 
-    <numbers-area-component (updatedSum)="updatedSum($event)"></numbers-area-component>
+    <numbers-area-component [value]="outSum" (updatedSum)="updatedSum($event)"></numbers-area-component>
 
     <div class="util-align-center">
         <button class="b-button-ready" ion-button (click)="onReady()" [disabled]="!isDataFilled">Добавить</button>

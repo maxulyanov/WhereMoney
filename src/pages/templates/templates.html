@@ -22,20 +22,28 @@
     </div>
 
     <div *ngIf="totalCount > 0">
-        <chart [options]="optionsChart"></chart>
+
+
+        <ion-list>
+            <ion-item-sliding *ngFor="let template of templates; let i = index;" (click)="handlerClickCreateTransaction()">
+                <ion-item>
+                    <transaction-item-component [transaction]="template"></transaction-item-component>
+                </ion-item>
+                <ion-item-options side="right">
+                    <button ion-button (click)="handlerClickUpdate($event, template)">Изменить</button>
+                    <button ion-button color="danger" (click)="handlerClickDelete($event, template.templateId, i)">Удалить</button>
+                </ion-item-options>
+            </ion-item-sliding>
+        </ion-list>
     </div>
 
 
     <br>
 
-    <div class="util-align-center">
+    <div class="util-align-center" *ngIf="loadedTemplates">
         <button ion-button (click)="handlerClickCreate($event)">Создать новый</button>
     </div>
 
-
-
-
-    <!--https://ionicframework.com/docs/v2/api/components/item/ItemSliding/-->
 
 </ion-content>
 

@@ -1,3 +1,8 @@
-page-budget {
-
+page-templates {
+  .list-md {
+    margin-bottom: 0;
+  }
+  .transaction-item__date {
+      display: none;
+  }
 }

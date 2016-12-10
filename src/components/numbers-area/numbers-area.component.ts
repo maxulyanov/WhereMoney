@@ -22,7 +22,7 @@ import { Utils } from "../../libs/Utils";
 export class NumbersArea {
 
 
-    @Input() value: string = '0';
+    @Input() value: any = '0';
 
     @Output() updatedSum = new EventEmitter();
 

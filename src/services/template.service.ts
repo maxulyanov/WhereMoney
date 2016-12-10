@@ -74,12 +74,10 @@ export class TemplateService {
      */
     public deleteTemplate(id: number): any {
         return new Promise((resolve, reject) => {
-            let promise = this.sqlService.query(`DELETE FROM templates WHERE id=${id});`);
+            let promise = this.sqlService.query(`DELETE FROM templates WHERE id=${id};`);
             promise.then(
                 (data) => {
-                    if(data.res.rowsAffected) {
-                        resolve('Шаблон успешно удален');
-                    }
+                    resolve('Шаблон успешно удален');
                 },
                 (data) => {
                     reject(data.err.message);
@@ -94,8 +92,15 @@ export class TemplateService {
      * @param offset
      * @returns {Promise<any>}
      */
-    public getTemplates(limit: number = 20, offset: number = 0): any {
-        return this.sqlService.query(`SELECT * FROM templates`, []);
+    public getTemplates(limit: number = 100, offset: number = 0): any {
+        return this.sqlService.query(`
+        SELECT t.id as templateId, t.category_id, t.description, t.sum, t.created, c.id, c.type, c.slug 
+        FROM templates AS t
+        INNER JOIN categories AS c
+        ON t.category_id = c.id
+        ORDER BY created DESC
+        LIMIT ${limit}
+        OFFSET ${offset}`, []);
     }
 
 

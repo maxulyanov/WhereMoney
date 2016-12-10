@@ -198,7 +198,7 @@ export class Utils {
      */
     static separatedBySpaceNumber(number: any): string {
         number = number.replace(/\s/gi, '');
-        return number.replace(/(\d{1,3}(?=(\d{3})+(?:\.\d|\b)))/g,"\$1 ");
+        return number.replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 ');
     }
 
 

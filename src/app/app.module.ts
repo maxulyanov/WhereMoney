@@ -31,6 +31,7 @@ import { TemplatesPage } from '../pages/templates/templates';
 import { AboutPage } from '../pages/about/about';
 import { AddTransactionPage } from '../pages/add-transaction/add-transaction';
 import { AddTemplatePage } from '../pages/add-template/add-transaction';
+import { UpdateTemplatePage } from '../pages/update-template/update-template';
 
 import { SettingsAction } from '../components/settings-action/settings-action.component';
 import { CategoryIcon} from '../components/category-icon/category-icon.component';
@@ -54,6 +55,7 @@ import { NumbersArea } from '../components/numbers-area/numbers-area.component';
         TemplatesPage,
         AddTransactionPage,
         AddTemplatePage,
+        UpdateTemplatePage,
 
         SettingsAction,
         CategoryIcon,
@@ -80,6 +82,7 @@ import { NumbersArea } from '../components/numbers-area/numbers-area.component';
         TemplatesPage,
         AddTransactionPage,
         AddTemplatePage,
+        UpdateTemplatePage,
         Modal,
         TransactionModal
     ],

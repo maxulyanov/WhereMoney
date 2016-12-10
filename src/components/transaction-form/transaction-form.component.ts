@@ -26,8 +26,9 @@ export class TransactionForm {
 
 
     @Input() type: string = '0';
+    @Input() inputData: any = {};
     @Input() serviceType: string = 'transaction';
-    @Input() indexSelected: number = -1;
+    @Input() idCategorySelected: number = -1;
 
 
     public categories: any[];
@@ -76,23 +77,24 @@ export class TransactionForm {
      *
      */
     public presentModal(): void {
-        let profileModal = this.modalCtrl.create(TransactionModal, {
+        let modal = this.modalCtrl.create(TransactionModal, {
             title: 'Данные транзакции',
+            inputData: this.inputData,
             readyCallback: (data) => {
                 this.dataModal = data;
-                this.pushToBase();
+                this.goToService();
             }
         });
-        profileModal.present();
+        modal.present();
     }
 
 
     /**
      *
-     * @param index
+     * @param id
      */
-    public choiceCategory(index: number): void {
-        this.indexSelected = index;
+    public choiceCategory(id: number): void {
+        this.idCategorySelected = id;
         this.presentModal();
     }
 
@@ -131,17 +133,16 @@ export class TransactionForm {
      */
     private cleanCategories(): void {
         this.categories = [];
-        this.indexSelected = -1;
     }
 
 
     /**
      *
      */
-    private pushToBase(): void {
+    private goToService(): void {
 
         let data: any = {
-            category_id: this.indexSelected,
+            category_id: this.idCategorySelected,
             sum: this.dataModal.sum,
             description: this.dataModal.description,
             created: +new Date()
@@ -152,8 +153,14 @@ export class TransactionForm {
             case 'transaction':
                 promise = this.transactionService.addTransaction(data);
                 break;
-            case 'template':
+            case 'addTemplate':
                 promise = this.templateService.addTemplate(data);
+                break;
+            case 'updateTemplate':
+                let id = this.inputData.id;
+                if(id != null) {
+                    promise = this.templateService.updateTemplate(id, data);
+                }
                 break;
             default:
                 console.error(`${this.serviceType} not supported!`);
@@ -168,26 +175,6 @@ export class TransactionForm {
             });
             toast.present();
         });
-    }
-
-
-    /**
-     *
-     * @returns {any}
-     */
-    private getCurrentService(): any {
-        let service: any;
-        switch (this.serviceType) {
-            case 'transaction':
-                service = this.transactionService.addTransaction;
-                break;
-            case 'template':
-                service = this.templateService.addTemplate;
-                break;
-            default:
-                console.error(`${service} not supported!`);
-        }
-        return service;
     }
 
 
