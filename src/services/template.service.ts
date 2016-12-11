@@ -100,14 +100,59 @@ export class TemplateService {
      * @returns {Promise<any>}
      */
     public getTemplates(limit: number = 100, offset: number = 0): any {
-        return this.sqlService.query(`
-        SELECT t.id as templateId, t.category_id, t.description, t.sum, t.created, c.id, c.type, c.slug 
-        FROM templates AS t
-        INNER JOIN categories AS c
-        ON t.category_id = c.id
-        ORDER BY created DESC
-        LIMIT ${limit}
-        OFFSET ${offset}`, []);
+        return new Promise((resolve, reject) => {
+            let promise =  this.sqlService.query(`
+            SELECT t.id as templateId, t.category_id, t.description, t.sum, t.created, c.id, c.type, c.slug 
+            FROM templates AS t
+            INNER JOIN categories AS c
+            ON t.category_id = c.id
+            ORDER BY created DESC
+            LIMIT ${limit}
+            OFFSET ${offset}`, []);
+
+            promise.then(
+                (data) => {
+                    if (data != null && data.res) {
+                        let rows = data.res.rows;
+                        let items = [];
+                        let totalCount = rows.length;
+                        for (let i = 0; i < totalCount; i++) {
+                            items.push(rows.item(i));
+                        }
+                        resolve({
+                            items, totalCount
+                        });
+                    }
+                },
+                (data) => {
+                    reject(data.err.message);
+                });
+        });
+
+    }
+
+
+    /**
+     *
+     * @param id
+     * @returns {Promise<any>}
+     */
+    public getTemplateById(id: number): any {
+        return new Promise((resolve, reject) => {
+            let promise =  this.sqlService.query(`SELECT * FROM templates WHERE id = ${id}`, []);
+            promise.then(
+                (data) => {
+                    if (data.res.rows.length > 0) {
+                        let template = data.res.rows[0];
+                        if(template) {
+                            resolve(template);
+                        }
+                    }
+                },
+                (data) => {
+                    reject(data.err.message);
+                });
+        });
     }
 
 

@@ -11,6 +11,7 @@ import { Component } from '@angular/core';
 import { NavController, ToastController } from "ionic-angular";
 
 import { TemplateService } from "../../services/template.service";
+import { TransactionService } from "../../services/transaction.service";
 import { AddTemplatePage } from "../add-template/add-transaction";
 import { UpdateTemplatePage } from "../update-template/update-template";
 
@@ -33,10 +34,15 @@ export class TemplatesPage {
     /**
      *
      * @param navCtrl
-     * @param templateService
      * @param toastCtrl
+     * @param transactionService
+     * @param templateService
      */
-    constructor(private navCtrl: NavController, private templateService: TemplateService, private toastCtrl: ToastController) {
+    constructor(
+        private navCtrl: NavController,
+        private toastCtrl: ToastController,
+        private transactionService: TransactionService,
+        private templateService: TemplateService) {
         this.title = 'Шаблоны';
         this.totalCount = -1;
         this.templates = [];
@@ -63,9 +69,34 @@ export class TemplatesPage {
 
     /**
      *
+     * @param event
+     * @param id
      */
-    public handlerClickCreateTransaction(): void {
-        console.log('handlerClickCreateTransaction')
+    public handlerClickCreateTransaction(event, id: number): void {
+        event.preventDefault();
+
+        let confirmResult = confirm('Создать новую запись на основе шаблона?');
+        if(!confirmResult) {
+            return;
+        }
+
+        this.templateService.getTemplateById(id).then(
+            (template) => {
+                delete template['id'];
+                this.transactionService.addTransaction(template).then((message: string) => {
+                    const toast = this.toastCtrl.create({
+                        message: message,
+                        showCloseButton: true,
+                        closeButtonText: 'Ok',
+                        duration: 3000
+                    });
+                    toast.present();
+                });
+            },
+            (error) => {
+                console.error(error);
+            }
+        )
     }
 
 
@@ -85,7 +116,7 @@ export class TemplatesPage {
      * @param template
      * @param position
      */
-    public handlerClickUpdate(event: any, template: any, position: number): void {
+    public handlerClickUpdate(event: any, template: any): void {
         event.stopPropagation();
         template.type = String(template.type);
         this.navCtrl.push(UpdateTemplatePage, {
@@ -138,14 +169,11 @@ export class TemplatesPage {
         return new Promise((resolve, reject) => {
             this.templateService.getTemplates().then(
                 (data) => {
-                    if (data != null && data.res) {
-                        let rows = data.res.rows;
-                        let items = [];
-                        this.totalCount = rows.length;
-                        for (let i = 0; i < rows.length; i++) {
-                            items.push(rows.item(i));
+                    if (data != null && data['items']) {
+                        if(data['totalCount'] != null) {
+                            this.totalCount = data['totalCount'];
                         }
-                        resolve(items);
+                        resolve(data['items']);
                     }
                 },
                 (error) => {

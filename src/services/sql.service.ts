@@ -82,7 +82,7 @@ export class SqlService {
                     },
                     (err: any) => reject({ err: err }));
             } catch (err) {
-                reject({ err: err });
+                reject({ err: err, });
             }
         });
     }

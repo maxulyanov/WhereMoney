@@ -25,12 +25,13 @@
 
 
         <ion-list>
-            <ion-item-sliding *ngFor="let template of templates; let i = index;" (click)="handlerClickCreateTransaction()">
+            <ion-item-sliding *ngFor="let template of templates; let i = index;">
                 <ion-item>
                     <transaction-item-component [transaction]="template"></transaction-item-component>
                 </ion-item>
                 <ion-item-options side="right">
-                    <button ion-button (click)="handlerClickUpdate($event, template)">Изменить</button>
+                    <button ion-button (click)="handlerClickCreateTransaction($event, template.templateId)">Создать</button>
+                    <button ion-button color="secondary" (click)="handlerClickUpdate($event, template)">Изменить</button>
                     <button ion-button color="danger" (click)="handlerClickDelete($event, template.templateId, i)">Удалить</button>
                 </ion-item-options>
             </ion-item-sliding>
