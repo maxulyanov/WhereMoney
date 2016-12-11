@@ -50,15 +50,22 @@ export class TemplateService {
     }
 
 
+    /**
+     *
+     * @param id
+     * @param data
+     * @returns {Promise<T>}
+     */
     public updateTemplate(id: number, data: any): any {
         return new Promise((resolve, reject) => {
-            let { keys, mask, values } = this.dbService.prepareData(data);
-            let promise = this.sqlService.query(`INSERT INTO templates (${keys}) VALUES (${mask});`, values);
+            let { category_id, description, sum } = data;
+            let promise = this.sqlService.query(`
+            UPDATE templates 
+            SET category_id = ${category_id}, description = '${description}', sum = ${sum}
+            WHERE id=${id}`);
             promise.then(
                 (data) => {
-                    if(data.res.rowsAffected) {
-                        resolve('Вы создали новый шаблон');
-                    }
+                    resolve('Шаблон успешно обновлен');
                 },
                 (data) => {
                     reject(data.err.message);

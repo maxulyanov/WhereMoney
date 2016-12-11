@@ -43,6 +43,7 @@ export class NumbersArea {
      */
     public ngAfterContentInit(): void {
         this.createButtons();
+        this.setValue(Utils.separatedBySpaceNumber(String(this.value)));
     }
 
 

@@ -157,7 +157,7 @@ export class TransactionForm {
                 promise = this.templateService.addTemplate(data);
                 break;
             case 'updateTemplate':
-                let id = this.inputData.id;
+                let id = this.inputData.templateId;
                 if(id != null) {
                     promise = this.templateService.updateTemplate(id, data);
                 }
