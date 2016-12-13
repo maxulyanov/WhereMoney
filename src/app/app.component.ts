@@ -12,11 +12,13 @@
 
 import { Component } from '@angular/core';
 import { Platform } from 'ionic-angular';
-import { StatusBar, Splashscreen} from 'ionic-native';
+import { StatusBar, Splashscreen } from 'ionic-native';
 
 import { DbService } from '../services/db.service';
 
 import { TabsPage } from '../pages/tabs/tabs';
+import { TutorialPage } from '../pages/tutorial/tutorial';
+import { LocalStorage } from "../libs/LocalStorage";
 
 
 @Component({
@@ -48,9 +50,22 @@ export class App {
      *
      */
     private initApp(): void {
-        this.rootPage = TabsPage;
+        this.rootPage = this.isFirstLaunch() ? TutorialPage : TabsPage;
         this.dbService.initDataBase();
     }
 
+
+    /**
+     *
+     * @returns {boolean}
+     */
+    private isFirstLaunch(): boolean {
+        let isLaunch = LocalStorage.get('launchApp');
+        if(!isLaunch) {
+            LocalStorage.set('launchApp', true);
+            return true;
+        }
+        return false;
+    }
 
 }

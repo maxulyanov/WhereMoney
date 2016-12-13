@@ -83,6 +83,7 @@ export class TemplatesPage {
         this.templateService.getTemplateById(id).then(
             (template) => {
                 delete template['id'];
+                template['created'] = +new Date();
                 this.transactionService.addTransaction(template).then((message: string) => {
                     const toast = this.toastCtrl.create({
                         message: message,

@@ -101,16 +101,9 @@ export class StatsPage {
     private getTransactions(): any {
         return new Promise((resolve, reject) => {
             this.transactionService.getTransactions(2e10, 0, this.date, this.endDate, parseInt(this.type)).then(
-                (data) => {
-                    if (data != null && data.res) {
-                        let rows = data.res.rows;
-                        let items = [];
-                        this.totalCount = rows.length;
-                        for (let i = 0; i < rows.length; i++) {
-                            items.push(rows.item(i));
-                        }
-                        resolve(items);
-                    }
+                (transactions) => {
+                    this.totalCount = transactions.length;
+                    resolve(transactions);
                 },
                 (error) => {
                     reject(error);

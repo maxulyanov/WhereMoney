@@ -60,26 +60,63 @@ export class TransactionService {
      * @param type
      * @returns {Promise<any>}
      */
-    public getTransactions(limit: number = 20, offset: number = 0, startDate: number = +new Date(), endDate: number = 0, type: number): any {
+    public getTransactions(limit: number = 20, offset: number = 0, startDate: number = +new Date(), endDate: number = 0, type: any = null): any {
 
         let queryType: string = '';
             if(type != null) {
             queryType = `AND type = ${type}`;
         }
 
-        return this.sqlService.query(`
-        SELECT category_id, name, description, sum, created, type, slug 
-        FROM transactions 
-        INNER JOIN categories 
-        ON transactions.category_id = categories.id
-        WHERE created < ${startDate}
-        AND created > ${endDate}
-        ${queryType}
-        ORDER BY created DESC
-        LIMIT ${limit}
-        OFFSET ${offset}`, []);
+        return new Promise((resolve, reject) => {
+
+            let promise = this.sqlService.query(`
+                SELECT category_id, name, description, sum, created, type, slug 
+                FROM transactions 
+                INNER JOIN categories 
+                ON transactions.category_id = categories.id
+                ORDER BY created DESC
+                LIMIT ${limit}
+                OFFSET ${offset}`, []);
+
+            promise.then(
+                (data) => {
+                    if(data != null && data.res) {
+                        let rows = data.res.rows;
+                        let items = [];
+                        for (let i = 0; i < rows.length; i++) {
+                            items.push(rows.item(i));
+                        }
+                        resolve(items);
+                    }
+                },
+                (data) => {
+                    reject(data.err.message);
+                });
+        });
+
     }
 
+
+
+
+    /**
+     *
+     * @param date
+     * @returns {Promise<T>}
+     */
+    public getCountTransactions(date: number): any {
+        return new Promise((resolve, reject) => {
+            this.getTransactions(2e10, 0, date).then(
+                (data) => {
+                    if (data != null) {
+                        resolve(data.length);
+                    }
+                },
+                (data) => {
+                    reject(data.err.message);
+                });
+        })
+    }
 
 
 }

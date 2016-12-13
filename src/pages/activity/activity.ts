@@ -67,6 +67,7 @@ export class ActivityPage {
     public ionViewWillEnter(): void {
         this.cleanTransactions();
         this.renderTransactions();
+        this.setCountTransactions();
     }
 
 
@@ -94,9 +95,8 @@ export class ActivityPage {
     public doInfinite(infiniteScroll: any): void {
         this.offset += this.stepOffset;
         this.getTransactions().then(
-            (data) => {
-                infiniteScroll.complete();
-                this.forRowsTransactions(data);
+            (transactions)=> {
+                this.transactions = Array.prototype.concat(this.transactions, transactions);
             },
             (error) => {
                 infiniteScroll.complete();
@@ -144,8 +144,8 @@ export class ActivityPage {
      */
     private renderTransactions(): void {
         this.getTransactions().then(
-            (data)=> {
-                this.forRowsTransactions(data);
+            (transactions)=> {
+                this.transactions = Array.prototype.concat(this.transactions, transactions);
             },
             (error) => {
                 console.error(error);
@@ -163,22 +163,16 @@ export class ActivityPage {
     }
 
 
-
-
     /**
      *
-     * @param data
      */
-    private forRowsTransactions(data: any): void {
-        if(data != null && data.res) {
-            let rows = data.res.rows;
-            let items = [];
-            this.totalCount = rows.length;
-            for (let i = 0; i < rows.length; i++) {
-                items.push(rows.item(i));
-            }
-            this.transactions = Array.prototype.concat(this.transactions, items);
-        }
+    private setCountTransactions() {
+        this.transactionService.getCountTransactions(this.date).then(
+            (count: number) => {
+                this.totalCount = count;
+            }, (err) => {
+                console.error(err);
+            });
     }
 
 
