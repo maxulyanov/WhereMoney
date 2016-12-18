@@ -5,8 +5,10 @@
 .b-number-display {
   display: flex;
   height: 6rem;
+  margin-bottom: 5px;
   padding: 0 16px;
   align-items: center;
+  justify-content: center;
   font-size: 2.5rem;
   background: $secondColorContent;
   border-bottom: 1px solid $firstColorContent;
@@ -27,11 +29,4 @@
   font-size: 2.2rem;
   align-items: center;
   justify-content: center;
-  background: $secondColorContent;
-  border-bottom: 1px solid $firstColorContent;
-  border-right: 1px solid $firstColorContent;
-  &:active {
-    background: darken($secondColorContent, 3%);
-    cursor: pointer;
-  }
 }

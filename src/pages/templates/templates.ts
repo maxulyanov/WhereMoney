@@ -59,13 +59,6 @@ export class TemplatesPage {
     }
 
 
-    /**
-     *
-     */
-    public ionViewDidLeave(): void {
-        this.loadedTemplates = false;
-    }
-
 
     /**
      *
@@ -189,6 +182,8 @@ export class TemplatesPage {
      *
      */
     private cleanTemplates(): void {
+        this.totalCount = -1;
+        this.loadedTemplates = false;
         this.templates = [];
     }
 

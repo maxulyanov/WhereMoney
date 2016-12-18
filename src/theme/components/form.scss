@@ -1,0 +1,13 @@
+form {
+  .item-md {
+    padding-left: 0;
+
+    &.item-input.ng-valid.input-has-value:not(.input-has-focus) {
+      .item-inner {
+        box-shadow: none;
+        border-bottom-color: #21212D;
+      }
+    }
+
+  }
+}

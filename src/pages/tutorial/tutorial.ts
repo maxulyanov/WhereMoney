@@ -12,6 +12,7 @@ import { NavController } from 'ionic-angular';
 
 import { UserService } from "../../services/user.service";
 import { TabsPage } from "../tabs/tabs";
+import { LocalStorage } from "../../libs/LocalStorage";
 
 
 @Component({
@@ -33,19 +34,19 @@ export class TutorialPage {
      * @param userService
      */
     constructor(private navCtrl: NavController, private userService: UserService) {
-        this.title = 'Первый запуск';
+        this.title = 'Добро пожаловать!';
         this.balance = 10000;
     }
 
 
     /**
      *
-     * @param event
      */
-    public setFirstBalance(event: any): void {
+    public setFirstBalance(): void {
         let promise: any = this.userService.updateBalance(this.balance);
         promise.then(
             () => {
+                LocalStorage.set('launchApp', true);
                 this.navCtrl.push(TabsPage);
             },
             (error) => {

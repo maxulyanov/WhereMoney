@@ -10,14 +10,18 @@
 
 <ion-content padding>
 
+    <div class="util-info-box">При первом запуске приложения необходимо ввести сумму, с которой будет учитываться общий баланс денежных средств.</div>
+
     <form (ngSubmit)="setFirstBalance()">
         <ion-item>
             <ion-label stacked>Первоначальный баланс</ion-label>
-            <ion-input type="number" name="balance" [(ngModel)]="balance"></ion-input>
+            <ion-input type="number" name="balance" placeholder="Введите сумму" required [(ngModel)]="balance"></ion-input>
         </ion-item>
 
+        <br>
+
         <div class="util-align-center">
-            <button ion-button type="submit">Начать работу</button>
+            <button ion-button type="submit">Продолжить</button>
         </div>
     </form>
 

@@ -60,12 +60,7 @@ export class App {
      * @returns {boolean}
      */
     private isFirstLaunch(): boolean {
-        let isLaunch = LocalStorage.get('launchApp');
-        if(!isLaunch) {
-            LocalStorage.set('launchApp', true);
-            return true;
-        }
-        return true;
+        return !LocalStorage.get('launchApp');
     }
 
 }

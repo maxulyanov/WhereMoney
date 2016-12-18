@@ -54,6 +54,7 @@ export class StatsPage {
      *
      */
     public ionViewWillEnter(): void {
+        this.cleanChart();
         this.renderChart();
     }
 
@@ -253,5 +254,11 @@ export class StatsPage {
             gifts2: '#03A9F4'
         }
     }
+
+
+    private cleanChart() {
+        this.totalCount = -1;
+    }
+
 
 }

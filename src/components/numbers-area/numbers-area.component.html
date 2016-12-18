@@ -3,6 +3,10 @@
 </div>
 
 <div class="container-numbers">
-    <div class="b-number" *ngFor="let button of buttons" (click)="handlerClickNumber(button.name)">{{ button.name }}</div>
-    <div class="b-number" (click)="handlerClickDelete()"><ion-icon name="close"></ion-icon></div>
+    <div class="b-number" *ngFor="let button of buttons" (click)="handlerClickNumber(button.name)">
+        <div class="number__inner">{{ button.name }}</div>
+    </div>
+    <div class="b-number" (click)="handlerClickDelete()">
+        <div class="number__inner"><ion-icon name="close"></ion-icon></div>
+    </div>
 </div>
