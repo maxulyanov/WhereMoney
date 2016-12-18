@@ -10,23 +10,23 @@
 
 <ion-content padding>
 
-    <ion-list>
+    <form (ngSubmit)="updateSettins()">
 
         <ion-item>
-            <ion-label>Бюджет на неделю</ion-label>
-            <ion-input type="text" value=""></ion-input>
+            <ion-label stacked>Бюджет на неделю</ion-label>
+            <ion-input type="number" name="budget" placeholder="Введите число" [(ngModel)]="budget"></ion-input>
         </ion-item>
 
         <ion-item>
             <ion-label>Переносить остаток</ion-label>
-            <ion-toggle checked="false"></ion-toggle>
+            <ion-toggle name="saveRest" checked="saveRest"></ion-toggle>
         </ion-item>
 
-    </ion-list>
+        <br>
 
-    <div class="util-align-center">
-        <button ion-button>Сохранить настройки</button>
-    </div>
-
+        <div class="util-align-center">
+            <button ion-button type="submit">Сохранить настройки</button>
+        </div>
+    </form>
 
 </ion-content>

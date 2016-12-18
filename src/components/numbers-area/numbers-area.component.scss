@@ -29,4 +29,18 @@
   font-size: 2.2rem;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
+  &:active {
+    .number__inner {
+      background: $secondColorContent;
+      border-radius: 3px;
+    }
+  }
+  .number__inner {
+    height: 42px;
+    width: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 }

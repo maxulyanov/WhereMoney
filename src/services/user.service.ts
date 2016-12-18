@@ -55,10 +55,7 @@ export class UserService {
      */
     public updateBalance(value: number): any {
         return new Promise((resolve, reject) => {
-            let promise = this.sqlService.query(`
-            UPDATE balance
-            SET value = ${value}
-            WHERE id=1`);
+            let promise = this.sqlService.query(`UPDATE balance SET value = ${value} WHERE id=1`);
             promise.then(
                 () => {
                     resolve();
@@ -68,6 +65,30 @@ export class UserService {
                 });
         });
     }
+
+
+
+    public getSettings(): any {
+        return new Promise((resolve, reject) => {
+            let promise: any = this.sqlService.query("SELECT * FROM settings", []);
+            promise.then(
+                (data) => {
+                    if(data != null && data.res) {
+                        resolve(this.dbService.getCleanResult(data.res.rows));
+                    }
+                },
+                (data) => {
+                    reject(data.err.message);
+                });
+        });
+    }
+
+
+    public updateSettings(): any {
+
+    }
+
+
 
 
 }
