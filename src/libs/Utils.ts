@@ -197,8 +197,13 @@ export class Utils {
      * @returns {any}
      */
     static separatedBySpaceNumber(number: any): string {
+        if(typeof number === 'number') {
+            number = String(number);
+        }
         number = number.replace(/\s/gi, '');
-        return number.replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 ');
+        number = number.replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 ');
+        number = number[0] == '-' ?  '- ' + number.slice(1) : number;
+        return number;
     }
 
 

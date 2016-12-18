@@ -27,7 +27,7 @@
     <div class="container-balance">
         <div class="b-balance-group">
             <div class="balance-group__value">
-                52 525 &#8381;
+                {{ balance }} &#8381;
             </div>
             <div class="balance-group__subtitle">Баланс</div>
         </div>
@@ -50,8 +50,6 @@
         <ion-infinite-scroll-content loadingText="Загружаю данные...">
         </ion-infinite-scroll-content>
     </ion-infinite-scroll>
-
-
 
 
     <transaction-action-component></transaction-action-component>

@@ -74,6 +74,9 @@ export class TransactionService {
                 FROM transactions 
                 INNER JOIN categories 
                 ON transactions.category_id = categories.id
+                WHERE created < ${startDate}
+                AND created > ${endDate}
+                ${queryType}
                 ORDER BY created DESC
                 LIMIT ${limit}
                 OFFSET ${offset}`, []);
@@ -81,12 +84,9 @@ export class TransactionService {
             promise.then(
                 (data) => {
                     if(data != null && data.res) {
-                        let rows = data.res.rows;
-                        let items = [];
-                        for (let i = 0; i < rows.length; i++) {
-                            items.push(rows.item(i));
+                        if(data != null && data.res) {
+                            resolve(this.dbService.getCleanResult(data.res.rows));
                         }
-                        resolve(items);
                     }
                 },
                 (data) => {

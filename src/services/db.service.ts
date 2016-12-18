@@ -14,6 +14,9 @@ import { Utils } from '../libs/Utils';
 
 import { structure } from '../db/structure';
 import { categories } from '../data/db/categories';
+import { settings } from '../data/db/settings';
+import { balance } from '../data/db/balance';
+
 
 
 @Injectable()
@@ -58,6 +61,20 @@ export class DbService {
 
     /**
      *
+     * @param data
+     * @returns {any[]}
+     */
+    public getCleanResult(data): any[] {
+        let result: any[] = [];
+        for(let i = 0; i < data.length; i++) {
+            result.push(data[i]);
+        }
+        return result;
+    }
+
+
+    /**
+     *
      */
     private createTables(): void {
         if (structure != null) {
@@ -85,17 +102,17 @@ export class DbService {
      */
     private fillBasicData(): void {
 
-        // fill categories
-        if(Array.isArray(categories)) {
-            for(let category of categories) {
-                let { keys, mask, values } = this.prepareData(category);
-                this.sqlService.query(`INSERT INTO 'categories' (${keys}) VALUES (${mask});`, values);
+        let dataGroups = [categories, settings, balance];
+        let tablesName = ['categories', 'settings', 'balance'];
+
+        dataGroups.forEach((group, index) => {
+            if(Array.isArray(group)) {
+                for(let item of group) {
+                    let { keys, mask, values } = this.prepareData(item);
+                    this.sqlService.query(`INSERT INTO '${tablesName[index]}' (${keys}) VALUES (${mask});`, values);
+                }
             }
-        }
-
-        // fill settings
-
-
+        });
 
     }
 

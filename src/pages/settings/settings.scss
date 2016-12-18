@@ -1,14 +1,17 @@
 page-settings {
-  ion-content {
-    .fixed-content,
-    .scroll-content {
-      margin-bottom: 0 !important;
-    }
+   ion-content {
+     .fixed-content,
+     .scroll-content {
+       margin-bottom: 0 !important;
+     }
+   }
+  .item-md {
+    padding-left: 0;
   }
-  .item-input .label-md {
-    color: #FFF;
-  }
-  .text-input-md {
-    text-align: right;
-  }
-}
+   .item-input .label-md {
+     color: #FFF;
+   }
+   .text-input-md {
+     text-align: right;
+   }
+ }

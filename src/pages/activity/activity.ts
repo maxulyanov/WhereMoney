@@ -14,6 +14,8 @@ import { Component, ElementRef } from '@angular/core';
 
 import { DateService } from "../../services/date.service";
 import { TransactionService } from "../../services/transaction.service";
+import { UserService } from "../../services/user.service";
+import { Utils } from "../../libs/Utils";
 
 
 @Component({
@@ -32,6 +34,7 @@ export class ActivityPage {
     public dayNames: string;
     public dayShortNames: string;
     public transactions: any[];
+    public balance: string;
 
     private buttonAdd: any;
     private offset: number;
@@ -46,8 +49,14 @@ export class ActivityPage {
      * @param element
      * @param dateService
      * @param transactionService
+     * @param userService
      */
-    constructor(private element: ElementRef, private dateService: DateService, private transactionService: TransactionService) {
+    constructor(
+        private element: ElementRef,
+        private dateService: DateService,
+        private transactionService: TransactionService,
+        private userService: UserService) {
+
         this.title = 'Активность';
         this.monthNames = this.dateService.getLocaleString('monthNames');
         this.monthShortNames = this.dateService.getLocaleString('monthShortNames');
@@ -55,6 +64,7 @@ export class ActivityPage {
         this.dayShortNames = this.dateService.getLocaleString('dayShortNames');
         this.dateISO = this.dateService.getISODate(new Date());
         this.transactions = [];
+        this.balance = '0';
 
         this.offset = 0;
         this.stepOffset = 15;
@@ -64,10 +74,14 @@ export class ActivityPage {
     }
 
 
+    /**
+     *
+     */
     public ionViewWillEnter(): void {
         this.cleanTransactions();
         this.renderTransactions();
         this.setCountTransactions();
+        this.updateBalance();
     }
 
 
@@ -116,6 +130,25 @@ export class ActivityPage {
         let date = new Date(`${month.value}.${day.value}.${year.value}`);
         this.date = +date.setHours(23,59,59,59);
         this.renderTransactions();
+        this.setCountTransactions();
+    }
+
+
+    /**
+     *
+     */
+    private updateBalance(): void {
+        let promise: any = this.userService.getBalance();
+        promise.then(
+            (result) => {
+                let value = result.value;
+                if(value != null) {
+                    this.balance = Utils.separatedBySpaceNumber(value);
+                }
+            },
+            (error) => {
+                console.error(error);
+        });
     }
 
 
@@ -172,7 +205,7 @@ export class ActivityPage {
                 this.totalCount = count;
             }, (err) => {
                 console.error(err);
-            });
+        });
     }
 
 

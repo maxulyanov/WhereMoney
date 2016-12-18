@@ -65,7 +65,7 @@ export class App {
             LocalStorage.set('launchApp', true);
             return true;
         }
-        return false;
+        return true;
     }
 
 }

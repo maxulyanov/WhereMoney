@@ -9,5 +9,16 @@
 </ion-header>
 
 <ion-content padding>
-    tutorial page
+
+    <form (ngSubmit)="setFirstBalance()">
+        <ion-item>
+            <ion-label stacked>Первоначальный баланс</ion-label>
+            <ion-input type="number" name="balance" [(ngModel)]="balance"></ion-input>
+        </ion-item>
+
+        <div class="util-align-center">
+            <button ion-button type="submit">Начать работу</button>
+        </div>
+    </form>
+
 </ion-content>

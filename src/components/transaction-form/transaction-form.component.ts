@@ -13,6 +13,7 @@ import { ModalController, ToastController  } from "ionic-angular";
 import { CategoryService } from "../../services/category.service";
 import { TransactionService } from "../../services/transaction.service";
 import { TemplateService } from "../../services/template.service";
+import { UserService } from "../../services/user.service";
 import { TransactionModal } from "../transaction-modal/transaction-modal.component";
 
 
@@ -27,7 +28,7 @@ export class TransactionForm {
 
     @Input() type: string = '0';
     @Input() inputData: any = {};
-    @Input() serviceType: string = 'transaction';
+    @Input() serviceType: string = 'addTransaction';
     @Input() idCategorySelected: number = -1;
 
 
@@ -42,6 +43,7 @@ export class TransactionForm {
      * @param modalCtrl
      * @param toastCtrl
      * @param transactionService
+     * @param userService
      * @param templateService
      */
     constructor(
@@ -49,6 +51,7 @@ export class TransactionForm {
         private modalCtrl: ModalController,
         private toastCtrl: ToastController,
         private transactionService: TransactionService,
+        private userService: UserService,
         private templateService: TemplateService) {
         this.categories = [];
         this.dataModal = {};
@@ -65,9 +68,8 @@ export class TransactionForm {
 
     /**
      *
-     * @param event
      */
-    public handlerSelectType(event): void {
+    public handlerSelectType(): void {
         this.cleanCategories();
         this.renderCategories();
     }
@@ -113,13 +115,8 @@ export class TransactionForm {
      */
     private renderCategories(): void {
         this.getCategories().then(
-            (data)=> {
-                if(data != null && data.res) {
-                    let rows = data.res.rows;
-                    for (let i = 0; i < rows.length; i++) {
-                        this.categories.push(rows.item(i));
-                    }
-                }
+            (categories)=> {
+                this.categories = categories;
             },
             (error) => {
                 console.error(error);
@@ -150,7 +147,7 @@ export class TransactionForm {
         let promise: any;
 
         switch (this.serviceType) {
-            case 'transaction':
+            case 'addTransaction':
                 promise = this.transactionService.addTransaction(data);
                 break;
             case 'addTemplate':
@@ -174,6 +171,34 @@ export class TransactionForm {
                 duration: 3000
             });
             toast.present();
+
+            if(this.serviceType === 'addTransaction') {
+                this.updateBalance(data.sum);
+            }
+
+        },
+        (error) => {
+            console.error(error);
+        });
+    }
+
+
+    /**
+     *
+     * @param sum
+     */
+    private updateBalance(sum: number): void {
+        let promise: any = this.userService.getBalance();
+        promise.then(
+            (result) => {
+                let value = result.value;
+                if(value != null) {
+                    this.type === '0' ?  value -= sum :  value += sum;
+                    this.userService.updateBalance(value);
+                }
+            },
+            (error) => {
+                console.error(error);
         });
     }
 

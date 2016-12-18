@@ -22,12 +22,16 @@ export const structure = {
             structure: 'id INTEGER PRIMARY KEY, type INTEGER, name TEXT, slug TEXT'
         },
         {
+            name: 'templates',
+            structure: 'id INTEGER PRIMARY KEY, category_id INTEGER, description TEXT, sum INTEGER, created BIGINT'
+        },
+        {
             name: 'settings',
             structure: 'id INTEGER PRIMARY KEY, key TEXT, value TEXT'
         },
         {
-            name: 'templates',
-            structure: 'id INTEGER PRIMARY KEY, category_id INTEGER, description TEXT, sum INTEGER, created BIGINT'
-        }
+            name: 'balance',
+            structure: 'id INTEGER PRIMARY KEY, value BIGINT'
+        },
     ]
 };
