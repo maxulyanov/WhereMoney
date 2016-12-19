@@ -8,7 +8,7 @@
 
 
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { ToastController } from 'ionic-angular';
 
 import { UserService } from "../../services/user.service";
 
@@ -23,8 +23,7 @@ export class SettingPage {
 
 
     public title: string;
-    public budget: number;
-    public saveRest: boolean;
+    public settings: any;
 
 
     private tabBarElement: HTMLElement;
@@ -32,13 +31,19 @@ export class SettingPage {
 
     /**
      *
-     * @param navCtrl
      * @param userService
+     * @param toastCtrl
      */
-    constructor(public navCtrl: NavController, private userService: UserService) {
+    constructor(private userService: UserService, private toastCtrl: ToastController,) {
         this.title = 'Настройки';
-        this.budget = 0;
-        this.saveRest = false;
+        this.settings = {
+            budget: {
+                value: '10000'
+            },
+            saveRest: {
+                value: 0
+            }
+        };
 
         this.tabBarElement = <HTMLElement>document.querySelector('.main-tabs .tabbar');
     }
@@ -61,12 +66,25 @@ export class SettingPage {
     }
 
 
-
+    /**
+     *
+     */
     public renderSettings(): void {
         let promise = this.userService.getSettings();
         promise.then(
             (data) => {
-                console.log(data);
+                if(data.length > 0) {
+                    data.forEach((item) => {
+                        let currentSetting =  this.settings[item.key];
+                        currentSetting.id = item.id;
+                        if(item.key === 'saveRest') {
+                            currentSetting.value = parseInt(item.value, 10);
+                        }
+                        else {
+                            currentSetting.value = item.value;
+                        }
+                    });
+                }
             },
             (error) => {
                 console.error(`Error: ${error}`);
@@ -74,9 +92,43 @@ export class SettingPage {
         );
     }
 
-    public updateSettins(): void {
 
+    /**
+     *
+     */
+    public updateSettings(): void {
+        let settings: any = JSON.parse(JSON.stringify(this.settings));
+        let settingsLength: number = Object.keys(settings).length;
+        let index = 0;
+        for(let key in settings) {
+            if(settings.hasOwnProperty(key)) {
+                let currentSetting = settings[key];
+                if(typeof currentSetting.value === 'boolean') {
+                    currentSetting.value = Number(currentSetting.value);
+                }
+                if(typeof currentSetting.value === 'string') {
+                    currentSetting.value = String(currentSetting.value);
+                }
+                let promise = this.userService.updateSettings(currentSetting);
+                promise.then(
+                    (message) => {
+                        index++;
+                        if(index === settingsLength - 1) {
+                            const toast = this.toastCtrl.create({
+                                message: message,
+                                showCloseButton: true,
+                                closeButtonText: 'Ok',
+                                duration: 3000
+                            });
+                            toast.present();
+                        }
+                    },
+                    (error) => {
+                        console.error(`Error: ${error}`);
+                    }
+                );
+            }
+        }
     }
-
 
 }

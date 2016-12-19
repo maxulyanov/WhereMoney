@@ -67,7 +67,10 @@ export class UserService {
     }
 
 
-
+    /**
+     *
+     * @returns {Promise<T>}
+     */
     public getSettings(): any {
         return new Promise((resolve, reject) => {
             let promise: any = this.sqlService.query("SELECT * FROM settings", []);
@@ -84,8 +87,26 @@ export class UserService {
     }
 
 
-    public updateSettings(): any {
-
+    /**
+     *
+     * @param data
+     * @returns {Promise<T>}
+     */
+    public updateSettings(data): any {
+        return new Promise((resolve, reject) => {
+            let { value, id } = data;
+            let promise = this.sqlService.query(`
+            UPDATE settings 
+            SET value = ${value}
+            WHERE id=${id}`);
+            promise.then(
+                () => {
+                    resolve('Ваши настройки обновлены');
+                },
+                (data) => {
+                    reject(data.err.message);
+                });
+        });
     }
 
 
