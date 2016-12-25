@@ -3,6 +3,11 @@ page-stats {
     display: none !important;
   }
   .highcharts-container {
-    margin: 10px auto;
+    margin: -10px auto 0;
   }
+}
+
+
+.container-list-stats {
+  margin-top: -15px;
 }

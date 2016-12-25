@@ -10,6 +10,8 @@
 import { Component } from '@angular/core';
 
 import { TransactionService } from "../../services/transaction.service";
+import { CategoryService } from "../../services/category.service";
+import { Utils } from "../../libs/Utils";
 
 
 @Component({
@@ -23,9 +25,11 @@ export class StatsPage {
     public title: string;
     public period: string;
     public type: string;
+    public categories: any;
     public optionsChart: any;
     public isReadyChart: boolean;
     public totalCount: number;
+    public totalSum: number;
 
 
     private colors: any;
@@ -36,13 +40,16 @@ export class StatsPage {
     /**
      *
      * @param transactionService
+     * @param categoryService
      */
-    constructor(private transactionService: TransactionService) {
+    constructor(private transactionService: TransactionService, private categoryService: CategoryService) {
         this.title = 'Статистика';
         this.period = 'week';
         this.type = '0';
+        this.categories = [];
         this.totalCount = -1;
         this.isReadyChart = false;
+        this.totalSum = 0;
 
         this.endDate = 0;
 
@@ -59,6 +66,9 @@ export class StatsPage {
     }
 
 
+    /**
+     *
+     */
     public ionViewWillLeave(): void {
         this.isReadyChart = false;
     }
@@ -87,8 +97,8 @@ export class StatsPage {
     private renderChart(): void {
         this.date = +new Date();
         this.selectPeriod();
-        this.getTransactions().then((items: any[]) => {
-            this.buildDataForChart(items);
+        this.getTransactions().then((transactions: any[]) => {
+            this.buildDataForChart(transactions);
         }, (error) => {
             console.error(`Error: ${error}`);
         })
@@ -97,7 +107,7 @@ export class StatsPage {
 
     /**
      *
-     * @returns {any}
+     * @returns {Promise<T>}
      */
     private getTransactions(): any {
         return new Promise((resolve, reject) => {
@@ -137,36 +147,31 @@ export class StatsPage {
 
     /**
      *
-     * @param data
+     * @param transactions
      */
-    private buildDataForChart(data: any): void {
-        let groups: any = {};
-        if (data.length > 0) {
-            data.forEach((item) => {
-                let slug = item.slug;
-                if (groups[slug] == null) {
-                    groups[slug] = {};
-                    groups[slug]['name'] = item.name;
-                    groups[slug]['sum'] = 0;
-                }
-                if(item.sum) {
-                    groups[slug]['sum'] += item.sum;
-                }
-
-            });
-        }
-
+    private buildDataForChart(transactions: any): void {
+        let categories = this.categoryService.getCategoriesFromTransactions(transactions);
+        let arrayCategories: any[] = [];
         let seriesData: any[] = [];
-        for(let key in groups) {
-            if(groups.hasOwnProperty(key)) {
+        this.totalSum = 0;
+
+        for(let key in categories) {
+            if(categories.hasOwnProperty(key)) {
+                arrayCategories.push(categories[key]);
+                this.totalSum += categories[key].sum;
                 seriesData.push({
                     color: this.colors[key],
-                    name: groups[key].name,
-                    y: groups[key].sum
+                    name: categories[key].name,
+                    y: categories[key].sum
                 });
             }
         }
 
+        arrayCategories.sort(Utils.sortBy({
+            name: 'sum',
+            reverse: true
+        }));
+        this.categories = arrayCategories;
         this.createOptionsChart(seriesData);
 
     }
@@ -177,10 +182,10 @@ export class StatsPage {
      * @param data
      */
     private createOptionsChart(data): void {
-       let width: number = window.innerWidth > 640 ? 640 : window.innerWidth;
+        let width: number = window.innerWidth > 640 ? 640 : window.innerWidth;
         this.optionsChart = {
             chart: {
-                width,
+                width: width - 10,
                 backgroundColor: 'transparent',
                 plotBackgroundColor: null,
                 plotBorderWidth: null,
@@ -197,7 +202,7 @@ export class StatsPage {
                 pie: {
                     allowPointSelect: true,
                     cursor: 'pointer',
-                    borderWidth: 0,
+                    borderWidth: 1,
                     dataLabels: {
                         enabled: false
                     },
@@ -205,18 +210,7 @@ export class StatsPage {
                 }
             },
             legend: {
-                itemStyle: {
-                    color: '#FFF',
-                    fontSize: '15px',
-                    fontWeight: 'normal',
-                    textDecoration: 'none',
-                },
-                itemHoverStyle: {
-                    color: '#FFF',
-                },
-                itemHiddenStyle: {
-                    color: '#4a4a5a'
-                }
+                enabled: false
             },
 
             series: [{
@@ -251,11 +245,14 @@ export class StatsPage {
             sport: '#FF6F00',
             other: '#9E9E9E',
             job: '#4CAF50',
-            gifts2: '#03A9F4'
+            'gifts-2': '#03A9F4'
         }
     }
 
 
+    /**
+     *
+     */
     private cleanChart() {
         this.totalCount = -1;
     }

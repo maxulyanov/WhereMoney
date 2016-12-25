@@ -39,6 +39,15 @@
 
     <div *ngIf="isReadyChart && totalCount > 0" class="animated fadeIn">
         <chart [options]="optionsChart"></chart>
+
+        <div class="container-list-stats">
+           <div class="grid-row">
+               <div class="grid-column-12 grid-padding grid-left" *ngFor="let category of categories">
+                   <list-item-component [item]="category" [totalSum]="totalSum"></list-item-component>
+               </div>
+           </div>
+        </div>
+
     </div>
 
     <div *ngIf="totalCount == 0" class="util-empty-box fadeIn animated">Нет данных для отображения</div>

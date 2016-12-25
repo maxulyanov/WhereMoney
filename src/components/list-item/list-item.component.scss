@@ -1,0 +1,112 @@
+transaction-item-component {
+}
+
+
+.b-list-item {
+  display: flex;
+  padding: 15px;
+  border-bottom: 1px solid $secondColorContent;
+  // colors
+  &.is-food {
+    .list-item__name {
+      color: $colorFood;
+    }
+  }
+  &.is-dress {
+    .list-item__name {
+      color: $colorDress;
+    }
+  }
+  &.is-car {
+    .list-item__name {
+      color: $colorCar;
+    }
+  }
+  &.is-phone {
+    .list-item__name {
+      color: $colorPhone;
+    }
+  }
+  &.is-animals {
+    .list-item__name {
+      color: $colorAnimals;
+    }
+  }
+  &.is-gifts {
+    .list-item__name {
+      color: $colorGifts;
+    }
+  }
+  &.is-health {
+    .list-item__name {
+      color: $colorHealth;
+    }
+  }
+  &.is-entertainment {
+    .list-item__name {
+      color:$colorEntertainment;
+    }
+  }
+  &.is-bill {
+    .list-item__name {
+      color: $colorBill;
+    }
+  }
+  &.is-travel {
+    .list-item__name {
+      color: $colorTravel;
+    }
+  }
+  &.is-learning {
+    .list-item__name {
+      color: $colorLearning;
+    }
+  }
+  &.is-repairs {
+    .list-item__name {
+      color: $colorRepairs;
+    }
+  }
+  &.is-sport {
+    .list-item__name {
+      color: $colorSport;
+    }
+  }
+  &.is-other {
+    .list-item__name {
+      color: $colorDress;
+    }
+  }
+  &.is-job {
+    .list-item__name {
+      color: $colorJob;
+    }
+  }
+  &.is-gifts-2 {
+    .list-item__name {
+      color: $colorGifts2;
+    }
+  }
+  .list-item__name {
+    display: flex;
+    padding-right: 15px;
+    font-size: 1.6rem;
+    line-height: 1.2em;
+    align-self: center;
+  }
+  .list-item__right {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+  }
+  .list-item__sum {
+    white-space: nowrap;
+    font-size: 1.8rem;
+  }
+  .list-item__procent {
+    margin-left: 10px;
+    padding: 5px;
+    background: $secondColorContent;
+    border-radius: 5px;
+  }
+}

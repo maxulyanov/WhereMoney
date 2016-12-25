@@ -66,4 +66,30 @@ export class CategoryService {
     }
 
 
+    /**
+     *
+     * @param transactions
+     * @returns {{}}
+     */
+    public getCategoriesFromTransactions(transactions: any): any {
+        let categories = {};
+        if (transactions.length > 0) {
+            transactions.forEach((item) => {
+                let slug = item.slug;
+                if (categories[slug] == null) {
+                    categories[slug] = {};
+                    categories[slug]['name'] = item.name;
+                    categories[slug]['slug'] = item.slug;
+                    categories[slug]['type'] = item.type;
+                    categories[slug]['sum'] = 0;
+                }
+                if(item.sum) {
+                    categories[slug]['sum'] += item.sum;
+                }
+
+            });
+        }
+        return categories;
+    }
+
 }
