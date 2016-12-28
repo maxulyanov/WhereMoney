@@ -173,7 +173,11 @@ export class TransactionForm {
             toast.present();
 
             if(this.serviceType === 'addTransaction') {
-                this.updateBalance(data.sum);
+                let sum = data.sum;
+                if(this.type === '0') {
+                    sum = parseInt('-' + sum);
+                }
+                this.userService.updateBalance(sum);
             }
 
         },
@@ -182,25 +186,6 @@ export class TransactionForm {
         });
     }
 
-
-    /**
-     *
-     * @param sum
-     */
-    private updateBalance(sum: number): void {
-        let promise: any = this.userService.getBalance();
-        promise.then(
-            (result) => {
-                let value = result.value;
-                if(value != null) {
-                    this.type === '0' ?  value -= sum :  value += sum;
-                    this.userService.updateBalance(value);
-                }
-            },
-            (error) => {
-                console.error(error);
-        });
-    }
 
 
 }

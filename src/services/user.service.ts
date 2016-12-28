@@ -50,18 +50,28 @@ export class UserService {
 
     /**
      *
-     * @param value
+     * @param sum
      * @returns {Promise<T>}
      */
-    public updateBalance(value: number): any {
+    public updateBalance(sum: number): any {
         return new Promise((resolve, reject) => {
-            let promise = this.sqlService.query(`UPDATE balance SET value = ${value} WHERE id=1`);
+            let promise: any = this.getBalance();
             promise.then(
-                () => {
-                    resolve();
+                (result) => {
+                    let value = result.value;
+                    value += sum
+                    let promise = this.sqlService.query(`UPDATE balance SET value = ${value} WHERE id=1`);
+                    promise.then(
+                        () => {
+                            resolve();
+                        },
+                        (data) => {
+                            reject(data.err.message);
+                        });
+
                 },
-                (data) => {
-                    reject(data.err.message);
+                (error) => {
+                    console.error(error);
                 });
         });
     }

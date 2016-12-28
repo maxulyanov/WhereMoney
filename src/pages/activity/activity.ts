@@ -111,6 +111,7 @@ export class ActivityPage {
         this.getTransactions().then(
             (transactions)=> {
                 this.transactions = Array.prototype.concat(this.transactions, transactions);
+                infiniteScroll.complete();
             },
             (error) => {
                 infiniteScroll.complete();

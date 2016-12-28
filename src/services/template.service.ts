@@ -139,7 +139,12 @@ export class TemplateService {
      */
     public getTemplateById(id: number): any {
         return new Promise((resolve, reject) => {
-            let promise =  this.sqlService.query(`SELECT * FROM templates WHERE id = ${id}`, []);
+            let promise =  this.sqlService.query(`
+            SELECT t.id, t.category_id, t.description, t.sum, t.created, c.id, c.type
+            FROM templates AS t
+            INNER JOIN categories AS c
+            ON t.category_id = c.id
+            WHERE t.id = ${id}`, []);
             promise.then(
                 (data) => {
                     if (data.res.rows.length > 0) {

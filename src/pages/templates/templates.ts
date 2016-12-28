@@ -14,6 +14,7 @@ import { TemplateService } from "../../services/template.service";
 import { TransactionService } from "../../services/transaction.service";
 import { AddTemplatePage } from "../add-template/add-transaction";
 import { UpdateTemplatePage } from "../update-template/update-template";
+import { UserService } from "../../services/user.service";
 
 
 @Component({
@@ -36,12 +37,14 @@ export class TemplatesPage {
      * @param navCtrl
      * @param toastCtrl
      * @param transactionService
+     * @param userService
      * @param templateService
      */
     constructor(
         private navCtrl: NavController,
         private toastCtrl: ToastController,
         private transactionService: TransactionService,
+        private userService: UserService,
         private templateService: TemplateService) {
         this.title = 'Шаблоны';
         this.totalCount = -1;
@@ -75,6 +78,8 @@ export class TemplatesPage {
 
         this.templateService.getTemplateById(id).then(
             (template) => {
+                let type = template['type'];
+                delete template['type'];
                 delete template['id'];
                 template['created'] = +new Date();
                 this.transactionService.addTransaction(template).then((message: string) => {
@@ -85,6 +90,11 @@ export class TemplatesPage {
                         duration: 3000
                     });
                     toast.present();
+                    let sum = template.sum;
+                    if(type == '0') {
+                        sum = parseInt('-' + sum);
+                    }
+                    this.userService.updateBalance(sum);
                 });
             },
             (error) => {
