@@ -81,9 +81,9 @@ export class UserService {
      *
      * @returns {Promise<T>}
      */
-    public getSettings(): any {
+    public getSettings(where: string = ''): any {
         return new Promise((resolve, reject) => {
-            let promise: any = this.sqlService.query("SELECT * FROM settings", []);
+            let promise: any = this.sqlService.query(`SELECT * FROM settings ${where}`, []);
             promise.then(
                 (data) => {
                     if(data != null && data.res) {

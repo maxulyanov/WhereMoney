@@ -44,6 +44,7 @@ import { Modal } from '../components/modal/modal.component';
 import { TransactionForm } from '../components/transaction-form/transaction-form.component';
 import { NumbersArea } from '../components/numbers-area/numbers-area.component';
 import { ListItem } from '../components/list-item/list-item.component';
+import { ProgressBar } from '../components/progressbar/progressbar.component';
 
 
 @NgModule({
@@ -69,7 +70,8 @@ import { ListItem } from '../components/list-item/list-item.component';
         TransactionItem,
         TransactionModal,
         TransactionForm,
-        ListItem
+        ListItem,
+        ProgressBar
     ],
     imports: [
         IonicModule.forRoot(App),

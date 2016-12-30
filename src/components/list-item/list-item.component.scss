@@ -6,6 +6,29 @@ transaction-item-component {
   display: flex;
   padding: 15px;
   border-bottom: 1px solid $secondColorContent;
+  .list-item__name {
+    display: flex;
+    padding-right: 15px;
+    font-size: 1.6rem;
+    line-height: 1.2em;
+    align-self: center;
+  }
+  .list-item__right {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+  }
+  .list-item__sum {
+    white-space: nowrap;
+    font-size: 1.8rem;
+  }
+  .list-item__procent {
+    margin-left: 10px;
+    padding: 5px;
+    background: $secondColorContent;
+    border-radius: 3px;
+  }
+
   // colors
   &.is-food {
     .list-item__name {
@@ -87,26 +110,5 @@ transaction-item-component {
       color: $colorGifts2;
     }
   }
-  .list-item__name {
-    display: flex;
-    padding-right: 15px;
-    font-size: 1.6rem;
-    line-height: 1.2em;
-    align-self: center;
-  }
-  .list-item__right {
-    display: flex;
-    align-items: center;
-    margin-left: auto;
-  }
-  .list-item__sum {
-    white-space: nowrap;
-    font-size: 1.8rem;
-  }
-  .list-item__procent {
-    margin-left: 10px;
-    padding: 5px;
-    background: $secondColorContent;
-    border-radius: 5px;
-  }
+
 }

@@ -1,0 +1,115 @@
+.b-progressbar {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  .progressbar__line {
+    display: flex;
+    width: 100%;
+    height: 8px;
+    background: $secondColorContent;
+    border-radius: 5px;
+  }
+    .progressbar__inner-line {
+      background: $fistColorApp;
+      transition: width 1s;
+      border-radius: 5px;
+  }
+  .progressbar__data {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 10px;
+  }
+  .progressbar__left {
+    padding: 5px 10px;
+    font-size: 1.5rem;
+    border-radius: 3px;
+    background: $secondColorContent;
+  }
+  .progressbar__right {
+    font-size: 1.5rem;
+  }
+
+
+  &.is-food {
+    .progressbar__inner-line {
+      background: $colorFood;
+    }
+  }
+  &.is-dress {
+    .progressbar__inner-line {
+      background: $colorDress;
+    }
+  }
+  &.is-car {
+    .progressbar__inner-line {
+      background: $colorCar;
+    }
+  }
+  &.is-phone {
+    .progressbar__inner-line {
+      background: $colorPhone;
+    }
+  }
+  &.is-animals {
+    .progressbar__inner-line {
+      background: $colorAnimals;
+    }
+  }
+  &.is-gifts {
+    .progressbar__inner-line {
+      background: $colorGifts;
+    }
+  }
+  &.is-health {
+    .progressbar__inner-line {
+      background: $colorHealth;
+    }
+  }
+  &.is-entertainment {
+    .progressbar__inner-line {
+      background:$colorEntertainment;
+    }
+  }
+  &.is-bill {
+    .progressbar__inner-line {
+      background: $colorBill;
+    }
+  }
+  &.is-travel {
+    .progressbar__inner-line {
+      background: $colorTravel;
+    }
+  }
+  &.is-learning {
+    .progressbar__inner-line {
+      background: $colorLearning;
+    }
+  }
+  &.is-repairs {
+    .progressbar__inner-line {
+      background: $colorRepairs;
+    }
+  }
+  &.is-sport {
+    .progressbar__inner-line {
+      background: $colorSport;
+    }
+  }
+  &.is-other {
+    .progressbar__inner-line {
+      background: $colorDress;
+    }
+  }
+  &.is-job {
+    .progressbar__inner-line {
+      background: $colorJob;
+    }
+  }
+  &.is-gifts-2 {
+    .progressbar__inner-line {
+      background: $colorGifts2;
+    }
+  }
+
+}

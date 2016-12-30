@@ -10,8 +10,34 @@
         </ion-buttons>
 
     </ion-navbar>
+
+    <div class="container-budget-top">
+        <span [ngClass]="{'budget-top-item': true, 'is-warning': leftBudget <= 0}">{{ leftBudgetForDisplay }} &#8381; </span>
+        <span class="budget-top-separator">/</span>
+        <span class="budget-top-item">{{ overallBudgetForDisplay }} &#8381;</span>
+        <div class="budget-top-subtitle">остаток на неделю</div>
+    </div>
+
 </ion-header>
 
-<ion-content padding>
+<ion-content>
+
+    <div *ngIf="totalCount > 0" class="container-budget-list fadeIn animated">
+        <div class="grid-row">
+            <div class="grid-column-12 grid-padding grid-left" *ngFor="let category of categories">
+                <div class="b-budget-item">
+                    <div class="budget-item__top">
+                        <div class="budget-item__icon">
+                            <category-icon-component [name]="category.slug"></category-icon-component>
+                        </div>
+                        <span class="budget-item__name">{{ category.name }}</span>
+                    </div>
+                    <progressbar-component [type]="category.slug" [sum]="category.sum" [totalSum]="totalSum"></progressbar-component>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        <div *ngIf="totalCount == 0" class="util-empty-box fadeIn animated">Нет расходов на этой неделе</div>
 
 </ion-content>

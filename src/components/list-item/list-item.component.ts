@@ -42,7 +42,7 @@ export class ListItem {
      */
     public ngAfterContentInit(): void {
         this.sum = Utils.separatedBySpaceNumber(this.item.sum);
-        this.procent = (this.item.sum / this.totalSum * 100).toFixed(1);
+        this.procent = Utils.toFixed((this.item.sum / this.totalSum * 100), 1);
     }
 
 

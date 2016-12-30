@@ -207,4 +207,59 @@ export class Utils {
     }
 
 
+    /**
+     *
+     * @returns {Date}
+     */
+    static getDateStartWeek(): Date {
+        let date = new Date();
+        let day = date.getDay();
+        if(day === 0) {
+            day = 7;
+        }
+        date.setDate(date.getDate() - (day - 1));
+        date.setHours(0, 0, 0, 0);
+
+        return date;
+    }
+
+
+    /**
+     *
+     * @param number
+     * @param fixed
+     * @returns {string}
+     */
+    static toFixed(number: number, fixed: number): string {
+        let result: string = number.toFixed(fixed);
+        let numberToArray: string[] = result.split('.');
+        let decimals: any = numberToArray[1];
+        if(decimals == null) {
+            return result;
+        }
+        else {
+            decimals = decimals.split('');
+        }
+
+        for(let i = decimals.length - 1; i >= 0; i--) {
+            if(decimals[i] === '0') {
+                decimals.splice(i, 1);
+                i--;
+            }
+            else {
+                break;
+            }
+        }
+
+        if(decimals.length > 0) {
+            result = numberToArray[0] + '.' + decimals.join('');
+        }
+        else {
+            result = numberToArray[0];
+        }
+
+        return result;
+    }
+
+
 }

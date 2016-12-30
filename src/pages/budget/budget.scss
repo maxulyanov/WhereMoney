@@ -1,3 +1,50 @@
 page-budget {
 
 }
+
+.container-budget-top {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  padding: 12px 0;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: darken($fistColorApp, 3%);
+}
+.budget-top-separator {
+  margin: 0 8px;
+}
+.budget-top-item {
+  font-size: 2.2rem;
+  &.is-warning {
+    color: #e74b3c;
+  }
+}
+.budget-top-subtitle {
+  width: 100%;
+}
+
+
+//
+.container-budget-list {
+
+}
+.b-budget-item {
+  padding: 10px;
+  border-bottom: 1px solid $secondColorContent;
+  .budget-item__top {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  .budget-item__name {
+    padding-left: 15px;
+    font-size: 1.7rem;
+  }
+  .b-icon-category {
+    width: 50px;
+    height: 50px;
+    font-size: 3rem;
+  }
+}
