@@ -8,12 +8,13 @@
 
 
 import { Component, Input } from '@angular/core';
-import { ModalController, ToastController  } from "ionic-angular";
+import { ModalController  } from "ionic-angular";
 
 import { CategoryService } from "../../services/category.service";
 import { TransactionService } from "../../services/transaction.service";
 import { TemplateService } from "../../services/template.service";
 import { UserService } from "../../services/user.service";
+import { NotifyService } from "../../services/notify.service";
 import { TransactionModal } from "../transaction-modal/transaction-modal.component";
 
 
@@ -41,7 +42,7 @@ export class TransactionForm {
      *
      * @param categoryService
      * @param modalCtrl
-     * @param toastCtrl
+     * @param notifyService
      * @param transactionService
      * @param userService
      * @param templateService
@@ -49,7 +50,7 @@ export class TransactionForm {
     constructor(
         private categoryService: CategoryService,
         private modalCtrl: ModalController,
-        private toastCtrl: ToastController,
+        private notifyService: NotifyService,
         private transactionService: TransactionService,
         private userService: UserService,
         private templateService: TemplateService) {
@@ -164,13 +165,7 @@ export class TransactionForm {
         }
 
         promise.then((message: string) => {
-            const toast = this.toastCtrl.create({
-                message: message,
-                showCloseButton: true,
-                closeButtonText: 'Ok',
-                duration: 3000
-            });
-            toast.present();
+            this.notifyService.show(message);
 
             if(this.serviceType === 'addTransaction') {
                 let sum = data.sum;

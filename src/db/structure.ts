@@ -33,5 +33,9 @@ export const structure = {
             name: 'balance',
             structure: 'id INTEGER PRIMARY KEY, value BIGINT'
         },
+        {
+            name: 'rest_budget',
+            structure: 'id INTEGER PRIMARY KEY, year INT, week INT, value BIGINT'
+        },
     ]
 };

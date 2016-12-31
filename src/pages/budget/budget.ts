@@ -56,29 +56,59 @@ export class BudgetPage {
      */
     public ionViewWillEnter(): void {
         this.cleanBudget();
-        this.getOverallBudget(() => {
+        this.getOverallBudget().then((value) => {
+            this.overallBudget = value;
+            this.overallBudgetForDisplay = Utils.separatedBySpaceNumber(this.overallBudget);
             this.renderBudgetList();
-        });
+        }).catch((error) => {
+            console.error(error);
+        })
     }
 
 
     /**
      *
-     * @param callback
+     * @returns {Promise<T>}
      */
-    private getOverallBudget(callback: any): any {
-        this.userService.getSettings("WHERE key = 'budget'").then(
-            (data)=> {
-               if(data[0]) {
-                   this.overallBudget = data[0].value;
-                   this.overallBudgetForDisplay = Utils.separatedBySpaceNumber(this.overallBudget);
-                   callback();
-               }
-            },
-            (error) => {
-                console.error(`Error: ${error}`);
-            }
-        );
+    private getOverallBudget(): any {
+        let value: any;
+        return new Promise((resolve, reject) => {
+            this.userService.getSettings("WHERE key = 'budget'")
+                .then((data) => {
+                    if(data[0]) {
+                        value = data[0].value;
+                        return;
+                    }
+                    else {
+                        reject('budget not found!')
+                    }
+                })
+                .then(() => {
+                    return this.getSaveRestBudget();
+                })
+                .then((isSave) => {
+                    resolve(value);
+                });
+        })
+    }
+
+
+    /**
+     *
+     * @returns {Promise<T>}
+     */
+    private getSaveRestBudget(): any {
+        return new Promise((resolve) => {
+            this.userService.getSettings("WHERE key = 'saveRest'").then(
+                (data) => {
+                    let value: any = '0';
+                    if(data[0]) {
+                        value = data[0].value;
+                    }
+                    resolve(!!parseInt(value));
+                }
+            );
+        });
     }
 
 

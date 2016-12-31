@@ -8,9 +8,9 @@
 
 
 import { Component } from '@angular/core';
-import { ToastController } from 'ionic-angular';
 
 import { UserService } from "../../services/user.service";
+import { NotifyService } from "../../services/notify.service";
 
 
 @Component({
@@ -32,15 +32,18 @@ export class SettingPage {
     /**
      *
      * @param userService
-     * @param toastCtrl
+     * @param notifyService
      */
-    constructor(private userService: UserService, private toastCtrl: ToastController,) {
+    constructor(private userService: UserService, private notifyService: NotifyService) {
         this.title = 'Настройки';
         this.settings = {
             budget: {
                 value: '10000'
             },
             saveRest: {
+                value: 0
+            },
+            showNotify: {
                 value: 0
             }
         };
@@ -77,7 +80,7 @@ export class SettingPage {
                     data.forEach((item) => {
                         let currentSetting =  this.settings[item.key];
                         currentSetting.id = item.id;
-                        if(item.key === 'saveRest') {
+                        if(item.key === 'saveRest' || item.key === 'showNotify') {
                             currentSetting.value = parseInt(item.value, 10);
                         }
                         else {
@@ -114,13 +117,7 @@ export class SettingPage {
                     (message) => {
                         index++;
                         if(index === settingsLength - 1) {
-                            const toast = this.toastCtrl.create({
-                                message: message,
-                                showCloseButton: true,
-                                closeButtonText: 'Ok',
-                                duration: 3000
-                            });
-                            toast.present();
+                            this.notifyService.show(message);
                         }
                     },
                     (error) => {

@@ -8,10 +8,12 @@
 
 
 import { Component } from '@angular/core';
-import { NavController, ToastController } from "ionic-angular";
+import { NavController } from "ionic-angular";
 
 import { TemplateService } from "../../services/template.service";
 import { TransactionService } from "../../services/transaction.service";
+import { NotifyService } from "../../services/notify.service";
+
 import { AddTemplatePage } from "../add-template/add-transaction";
 import { UpdateTemplatePage } from "../update-template/update-template";
 import { UserService } from "../../services/user.service";
@@ -35,14 +37,14 @@ export class TemplatesPage {
     /**
      *
      * @param navCtrl
-     * @param toastCtrl
+     * @param notifyService
      * @param transactionService
      * @param userService
      * @param templateService
      */
     constructor(
         private navCtrl: NavController,
-        private toastCtrl: ToastController,
+        private notifyService: NotifyService,
         private transactionService: TransactionService,
         private userService: UserService,
         private templateService: TemplateService) {
@@ -83,13 +85,7 @@ export class TemplatesPage {
                 delete template['id'];
                 template['created'] = +new Date();
                 this.transactionService.addTransaction(template).then((message: string) => {
-                    const toast = this.toastCtrl.create({
-                        message: message,
-                        showCloseButton: true,
-                        closeButtonText: 'Ok',
-                        duration: 3000
-                    });
-                    toast.present();
+                    this.notifyService.show(message);
                     let sum = template.sum;
                     if(type == '0') {
                         sum = parseInt('-' + sum);
@@ -139,13 +135,7 @@ export class TemplatesPage {
         event.stopPropagation();
         this.templateService.deleteTemplate(id).then((message: string) => {
             this.templates.splice(position, 1);
-            const toast = this.toastCtrl.create({
-                message: message,
-                showCloseButton: true,
-                closeButtonText: 'Ok',
-                duration: 3000
-            });
-            toast.present();
+            this.notifyService.show(message);
         });
     }
 

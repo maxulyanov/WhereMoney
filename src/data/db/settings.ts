@@ -19,4 +19,8 @@ export const settings = [
         key: 'saveRest',
         value: '0',
     },
+    {
+        key: 'showNotify',
+        value: '1',
+    },
 ];
