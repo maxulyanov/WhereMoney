@@ -36,11 +36,12 @@ export class DbService {
      */
     public initDataBase(): void {
         if (structure != null && typeof structure.dbName === 'string') {
-            this.sqlService.openDb(structure.dbName);
-            if(LocalStorage.get('initDataBase') == null) {
-                this.createTables();
-                LocalStorage.set('initDataBase', 1);
-            }
+            this.sqlService.openDb(structure.dbName).then(() => {
+                if(LocalStorage.get('initDataBase') == null) {
+                    this.createTables();
+                    LocalStorage.set('initDataBase', 1);
+                }
+            });
         }
     }
 
@@ -61,13 +62,13 @@ export class DbService {
 
     /**
      *
-     * @param data
+     * @param rows
      * @returns {any[]}
      */
-    public getCleanResult(data): any[] {
+    public getCleanResult(rows): any[] {
         let result: any[] = [];
-        for(let i = 0; i < data.length; i++) {
-            result.push(data[i]);
+        for(let i = 0; i < rows.length; i++) {
+            result.push(rows.item(i));
         }
         return result;
     }

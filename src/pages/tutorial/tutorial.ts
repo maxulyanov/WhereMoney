@@ -50,7 +50,7 @@ export class TutorialPage {
                 this.navCtrl.push(TabsPage);
             },
             (error) => {
-                console.error(`Error: ${error}`);
+                console.error(error);
             }
         );
     }

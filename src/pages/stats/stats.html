@@ -14,7 +14,7 @@
 
     <ion-item class="container-select">
         <ion-label>Показать статистику: </ion-label>
-        <ion-select [(ngModel)]="period" cancelText="Закрыть" (ionChange)="handlerSelectPeriod($event)">
+        <ion-select [(ngModel)]="period" cancelText="Закрыть" (ionChange)="handlerSelectPeriod()">
             <ion-option value="week" selected="true">За неделю</ion-option>
             <ion-option value="month" selected="true">За месяц</ion-option>
             <ion-option value="month3" selected="true">3 месяца</ion-option>
@@ -27,7 +27,7 @@
 
 <ion-content>
 
-    <ion-segment  [(ngModel)]="type" (ionChange)="handlerSelectType($event)">
+    <ion-segment  [(ngModel)]="type" (ionChange)="handlerSelectType()">
         <ion-segment-button value="0">
             Расход
         </ion-segment-button>

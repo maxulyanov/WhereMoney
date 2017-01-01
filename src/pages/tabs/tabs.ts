@@ -32,8 +32,7 @@ export class TabsPage {
     public tab2Root: any = BudgetPage;
     public tab3Root: any = TemplatesPage;
     public tab4Root: any = StatsPage;
-
-    private mySelectedIndex: number;
+    public mySelectedIndex: number;
 
 
     /**

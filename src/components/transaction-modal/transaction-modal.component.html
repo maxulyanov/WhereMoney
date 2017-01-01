@@ -15,7 +15,7 @@
 <ion-content>
 
     <ion-item>
-        <ion-input type="text" placeholder="Описание" [(ngModel)]="description" (ngModelChange)="changeDescription($event)"></ion-input>
+        <ion-input type="text" placeholder="Описание" [(ngModel)]="description" (ngModelChange)="changeDescription()"></ion-input>
     </ion-item>
 
     <numbers-area-component [value]="outSum" (updatedSum)="updatedSum($event)"></numbers-area-component>

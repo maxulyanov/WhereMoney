@@ -39,9 +39,10 @@ export class App {
      */
     constructor(private platform: Platform, private dbService: DbService) {
         platform.ready().then(() => {
-            this.initApp();
-            StatusBar.styleDefault();
+            StatusBar.overlaysWebView(true); // let status bar overlay webview
+            StatusBar.backgroundColorByHexString('#3DC960'); // set status bar to white
             Splashscreen.hide();
+            this.initApp();
         });
     }
 

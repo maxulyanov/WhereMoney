@@ -33,21 +33,24 @@ export class SqlService {
      *
      * @param name
      */
-    openDb(name: string): void {
-        //noinspection TypeScriptUnresolvedVariable
-        if (this.win.sqlitePlugin) {
+    openDb(name: string): any {
+        return new Promise((resolve) => {
             //noinspection TypeScriptUnresolvedVariable
-            this.db = this.win.sqlitePlugin.openDatabase({
-                name: name,
-                location: 2,
-                createFromLocation: 0
-            });
+            if (this.win.sqlitePlugin) {
+                //noinspection TypeScriptUnresolvedVariable
+                this.db = this.win.sqlitePlugin.openDatabase({
+                    name: name,
+                    location: 2,
+                    createFromLocation: 0
+                }, resolve);
 
-        }
-        else {
-            console.warn('Storage: SQLite plugin not installed, falling back to WebSQL. Make sure to install cordova-sqlite-storage in production!');
-            this.db = this.win.openDatabase(name, '1.0', 'database', 5 * 1024 * 1024);
-        }
+            }
+            else {
+                console.warn('Storage: SQLite plugin not installed, falling back to WebSQL. Make sure to install cordova-sqlite-storage in production!');
+                this.db = this.win.openDatabase(name, '1.0', 'database', 5 * 1024 * 1024);
+                resolve();
+            }
+        })
     }
 
 
@@ -58,7 +61,7 @@ export class SqlService {
      * @returns {Promise<any>}
      */
     createTable(name: string, structure: string): any {
-        console.info(`CREATE TABLE IF NOT EXISTS ${name} (${structure})`);
+        // console.info(`CREATE TABLE IF NOT EXISTS ${name} (${structure})`);
         return this.query(`CREATE TABLE IF NOT EXISTS ${name} (${structure})`);
     }
 

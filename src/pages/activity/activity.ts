@@ -35,11 +35,11 @@ export class ActivityPage {
     public dayShortNames: string;
     public transactions: any[];
     public balance: string;
+    public totalCount: number;
 
     private buttonAdd: any;
     private offset: number;
     private stepOffset: number;
-    private totalCount: number;
     private limit: number;
     private date: number;
 

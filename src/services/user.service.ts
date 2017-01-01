@@ -59,7 +59,7 @@ export class UserService {
             promise.then(
                 (result) => {
                     let value = result.value;
-                    value += sum
+                    value += sum;
                     let promise = this.sqlService.query(`UPDATE balance SET value = ${value} WHERE id=1`);
                     promise.then(
                         () => {
