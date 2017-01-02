@@ -22,6 +22,7 @@ import { TransactionService } from "../services/transaction.service";
 import { TemplateService } from "../services/template.service";
 import { UserService } from "../services/user.service";
 import { NotifyService } from "../services/notify.service"
+import { BudgetService } from "../services/budget.service"
 
 import { App} from './app.component';
 import { TabsPage } from '../pages/tabs/tabs';
@@ -103,6 +104,7 @@ import { ProgressBar } from '../components/progressbar/progressbar.component';
         TransactionService,
         TemplateService,
         UserService,
+        BudgetService,
         NotifyService]
 })
 

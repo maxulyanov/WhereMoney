@@ -10,6 +10,8 @@
 import { Component } from '@angular/core';
 import { NavParams } from 'ionic-angular';
 
+import { EVENTS} from './../../events';
+
 
 @Component({
     selector: 'page-update-template',
@@ -22,7 +24,7 @@ export class UpdateTemplatePage {
 
     public title: string;
     public template: any;
-    public serviceType: string;
+    public eventType: string;
 
 
     /**
@@ -30,7 +32,7 @@ export class UpdateTemplatePage {
      */
     constructor(private navParams: NavParams) {
         this.title = 'Редактирование шаблона';
-        this.serviceType = 'updateTemplate';
+        this.eventType = EVENTS.UPDATE_TEMPLATE;
     }
 
 

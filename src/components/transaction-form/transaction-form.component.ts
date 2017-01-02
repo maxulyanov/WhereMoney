@@ -16,7 +16,7 @@ import { TemplateService } from "../../services/template.service";
 import { UserService } from "../../services/user.service";
 import { NotifyService } from "../../services/notify.service";
 import { TransactionModal } from "../transaction-modal/transaction-modal.component";
-
+import { EVENTS} from './../../events';
 
 @Component({
     selector: 'transaction-form-component',
@@ -29,7 +29,7 @@ export class TransactionForm {
 
     @Input() type: string = '0';
     @Input() inputData: any = {};
-    @Input() serviceType: string = 'addTransaction';
+    @Input() eventType: string = EVENTS.ADD_TRANSACTION;
     @Input() idCategorySelected: number = -1;
 
 
@@ -147,27 +147,27 @@ export class TransactionForm {
         };
         let promise: any;
 
-        switch (this.serviceType) {
-            case 'addTransaction':
+        switch (this.eventType) {
+            case EVENTS.ADD_TRANSACTION:
                 promise = this.transactionService.addTransaction(data);
                 break;
-            case 'addTemplate':
+            case EVENTS.ADD_TEMPLATE:
                 promise = this.templateService.addTemplate(data);
                 break;
-            case 'updateTemplate':
+            case EVENTS.UPDATE_TEMPLATE:
                 let id = this.inputData.templateId;
                 if(id != null) {
                     promise = this.templateService.updateTemplate(id, data);
                 }
                 break;
             default:
-                console.error(`${this.serviceType} not supported!`);
+                console.error(`${this.eventType} not supported!`);
         }
 
         promise.then((message: string) => {
             this.notifyService.show(message);
 
-            if(this.serviceType === 'addTransaction') {
+            if(this.eventType === EVENTS.ADD_TRANSACTION) {
                 let sum = data.sum;
                 if(this.type === '0') {
                     sum = parseInt('-' + sum);

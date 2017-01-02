@@ -8,6 +8,7 @@
 
 
 import { Component } from '@angular/core';
+import { EVENTS} from './../../events';
 
 
 @Component({
@@ -20,7 +21,7 @@ export class AddTemplatePage {
 
 
     public title: string;
-    public serviceType: string;
+    public eventType: string;
 
 
     /**
@@ -28,7 +29,7 @@ export class AddTemplatePage {
      */
     constructor() {
         this.title = 'Создание шаблона';
-        this.serviceType = 'addTemplate';
+        this.eventType = EVENTS.ADD_TEMPLATE;
     }
 
 

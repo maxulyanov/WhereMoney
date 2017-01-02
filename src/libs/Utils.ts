@@ -207,22 +207,6 @@ export class Utils {
     }
 
 
-    /**
-     *
-     * @returns {Date}
-     */
-    static getDateStartWeek(): Date {
-        let date = new Date();
-        let day = date.getDay();
-        if(day === 0) {
-            day = 7;
-        }
-        date.setDate(date.getDate() - (day - 1));
-        date.setHours(0, 0, 0, 0);
-
-        return date;
-    }
-
 
     /**
      *

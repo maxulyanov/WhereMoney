@@ -117,4 +117,20 @@ export class TransactionService {
     }
 
 
+    /**
+     *
+     * @param transactions
+     * @returns {number}
+     */
+    public getSumTransactions(transactions: any): number {
+        let result: number = 0;
+        for(let key in transactions) {
+            if(transactions.hasOwnProperty(key)) {
+                result += transactions[key].sum;
+            }
+        }
+
+        return result;
+    }
+
 }

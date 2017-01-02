@@ -14,6 +14,8 @@ import { Utils } from "../../libs/Utils";
 import { UserService } from "../../services/user.service";
 import { TransactionService } from "../../services/transaction.service";
 import { CategoryService } from "../../services/category.service";
+import { DateService } from "../../services/date.service";
+import { BudgetService } from "../../services/budget.service";
 
 
 @Component({
@@ -39,9 +41,15 @@ export class BudgetPage {
      *
      * @param userService
      * @param transactionService
+     * @param dateService
+     * @param budgetService
      * @param categoryService
      */
-    constructor(private userService: UserService, private transactionService: TransactionService, private categoryService: CategoryService) {
+    constructor(private userService: UserService,
+                private transactionService: TransactionService,
+                private dateService: DateService,
+                private budgetService: BudgetService,
+                private categoryService: CategoryService,) {
         this.title = 'Бюджет на неделю';
         this.overallBudgetForDisplay = '0';
         this.leftBudgetForDisplay = '0';
@@ -56,13 +64,12 @@ export class BudgetPage {
      */
     public ionViewWillEnter(): void {
         this.cleanBudget();
-        this.getOverallBudget().then((value) => {
-            this.overallBudget = value;
-            this.overallBudgetForDisplay = Utils.separatedBySpaceNumber(this.overallBudget);
-            this.renderBudgetList();
-        }).catch((error) => {
-            console.error(error);
-        })
+        this.getOverallBudget().then(
+            (value) => {
+                this.overallBudget = value;
+                this.overallBudgetForDisplay = Utils.separatedBySpaceNumber(this.overallBudget);
+                this.renderBudgetList();
+            });
     }
 
 
@@ -71,12 +78,13 @@ export class BudgetPage {
      * @returns {Promise<T>}
      */
     private getOverallBudget(): any {
-        let value: any;
+        let value: number;
+        let valueBudget: number;
         return new Promise((resolve, reject) => {
             this.userService.getSettings("WHERE key = 'budget'")
                 .then((data) => {
-                    if(data[0]) {
-                        value = data[0].value;
+                    if (data[0]) {
+                        value = parseInt(data[0].value);
                         return;
                     }
                     else {
@@ -87,7 +95,33 @@ export class BudgetPage {
                     return this.getSaveRestBudget();
                 })
                 .then((isSave) => {
-                    resolve(value);
+                    if (isSave) {
+                        let startWeek: number = +this.dateService.getDateStartWeek();
+                        startWeek -= 1e3;
+                        let {year, week} = this.dateService.getWeekNumber(new Date(startWeek));
+                        return this.budgetService.getBudget(year, week);
+                    }
+                    else {
+                        resolve(value);
+                    }
+                })
+                .then((budget: number) => {
+                    if (budget != null) {
+                        valueBudget = budget['value'];
+                        let startWeekBudget: number = budget['start_week'];
+                        let d = new Date(startWeekBudget);
+                        d.setHours(24 * 6 + 23, 23, 59, 59);
+                        return this.transactionService.getTransactions(2e10, 0, +d, startWeekBudget, 0);
+                    }
+                    resolve(value)
+                })
+                .then((transactions) => {
+                    let sumTransactions: number = this.transactionService.getSumTransactions(transactions);
+                    value += (valueBudget - sumTransactions);
+                    resolve(value)
+                })
+                .catch((error) => {
+                    console.error(error);
                 });
         })
     }
@@ -102,7 +136,7 @@ export class BudgetPage {
             this.userService.getSettings("WHERE key = 'saveRest'").then(
                 (data) => {
                     let value: any = '0';
-                    if(data[0]) {
+                    if (data[0]) {
                         value = data[0].value;
                     }
                     resolve(!!parseInt(value));
@@ -116,13 +150,13 @@ export class BudgetPage {
      *
      */
     private renderBudgetList(): void {
-        let endDate: Date = Utils.getDateStartWeek();
+        let endDate: Date = this.dateService.getDateStartWeek();
         this.getTransactions(+endDate).then((transactions: any[]) => {
             let categories = this.categoryService.getCategoriesFromTransactions(transactions);
             let totalSum = 0;
             let arrayCategories: any[] = [];
-            for(let key in categories) {
-                if(categories.hasOwnProperty(key)) {
+            for (let key in categories) {
+                if (categories.hasOwnProperty(key)) {
                     arrayCategories.push(categories[key]);
                     totalSum += categories[key].sum;
                 }
@@ -158,7 +192,6 @@ export class BudgetPage {
             );
         })
     }
-
 
 
     /**

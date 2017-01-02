@@ -11,6 +11,7 @@ import { Component } from '@angular/core';
 
 import { UserService } from "../../services/user.service";
 import { NotifyService } from "../../services/notify.service";
+import { BudgetService } from "../../services/budget.service";
 
 
 @Component({
@@ -33,8 +34,9 @@ export class SettingPage {
      *
      * @param userService
      * @param notifyService
+     * @param budgetService
      */
-    constructor(private userService: UserService, private notifyService: NotifyService) {
+    constructor(private userService: UserService, private notifyService: NotifyService, private budgetService: BudgetService) {
         this.title = 'Настройки';
         this.settings = {
             budget: {
@@ -118,10 +120,11 @@ export class SettingPage {
                         index++;
                         if(index === settingsLength - 1) {
                             this.notifyService.show(message);
+                            this.budgetService.updateBudget(this.settings.budget.value);
                         }
                     },
                     (error) => {
-                        console.error(`Error: ${error}`);
+                        console.error(error);
                     }
                 );
             }
