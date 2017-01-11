@@ -73,11 +73,6 @@ export class TemplatesPage {
     public handlerClickCreateTransaction(event, id: number): void {
         event.preventDefault();
 
-        let confirmResult = confirm('Создать новую запись на основе шаблона?');
-        if(!confirmResult) {
-            return;
-        }
-
         this.templateService.getTemplateById(id).then(
             (template) => {
                 let type = template['type'];

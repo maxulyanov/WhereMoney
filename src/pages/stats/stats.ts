@@ -185,7 +185,7 @@ export class StatsPage {
         let width: number = window.innerWidth > 640 ? 640 : window.innerWidth;
         this.optionsChart = {
             chart: {
-                width: width - 10,
+                width: width - 60,
                 backgroundColor: 'transparent',
                 plotBackgroundColor: null,
                 plotBorderWidth: null,
