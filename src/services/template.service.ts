@@ -148,7 +148,7 @@ export class TemplateService {
             promise.then(
                 (data) => {
                     if (data.res.rows.length > 0) {
-                        let template = data.res.rows[0];
+                        let template = data.res.rows.item(0);
                         if(template) {
                             resolve(template);
                         }
