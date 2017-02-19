@@ -29,6 +29,7 @@ export class TemplatesPage {
 
 
     public title: string;
+    public emptyText: string;
     public totalCount: number;
     public templates: any[];
     public loadedTemplates: boolean;
@@ -49,6 +50,7 @@ export class TemplatesPage {
         private userService: UserService,
         private templateService: TemplateService) {
         this.title = 'Шаблоны';
+        this.emptyText = 'Нет созданных шаблонов';
         this.totalCount = -1;
         this.templates = [];
         this.loadedTemplates = false;

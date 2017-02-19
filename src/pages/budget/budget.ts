@@ -28,6 +28,7 @@ export class BudgetPage {
 
 
     public title: string;
+    public emptyText: string;
     public overallBudget: number;
     public overallBudgetForDisplay: string;
     public leftBudget: number;
@@ -35,6 +36,10 @@ export class BudgetPage {
     public totalCount: number;
     public totalSum: number;
     public categories: any[];
+    public percent: number;
+    public percentForText: number;
+    public indicatorTransition: number;
+    public indicatorClassName: string;
 
 
     /**
@@ -51,11 +56,16 @@ export class BudgetPage {
                 private budgetService: BudgetService,
                 private categoryService: CategoryService,) {
         this.title = 'Бюджет на неделю';
+        this.emptyText = 'Нет расходов на этой неделе';
         this.overallBudgetForDisplay = '0';
         this.leftBudgetForDisplay = '0';
         this.totalSum = 0;
         this.totalCount = -1;
         this.categories = [];
+        this.percent = 0;
+        this.percentForText = 0;
+        this.indicatorTransition = 0;
+        this.indicatorClassName = '';
     }
 
 
@@ -164,6 +174,14 @@ export class BudgetPage {
             this.leftBudget = this.overallBudget - totalSum;
             this.totalSum = totalSum;
             this.leftBudgetForDisplay = Utils.separatedBySpaceNumber(this.leftBudget);
+
+            this.percent = 100 - Math.round((totalSum / this.overallBudget * 100));
+            if(this.percent < 0) this.percent = 0;
+            this.percentForText = this.percent;
+            this.indicatorClassName = this.getIndicatorClassName(this.percent);
+            this.indicatorTransition = 1;
+
+
             arrayCategories.sort(Utils.sortBy({
                 name: 'sum',
                 reverse: true
@@ -196,8 +214,29 @@ export class BudgetPage {
 
     /**
      *
+     * @param percent
+     * @returns {string}
+     */
+    private getIndicatorClassName(percent: number): string {
+        let className = '';
+        if(percent > 50) {
+            className = 'is-high';
+        }
+        else if(percent > 25) {
+            className = 'is-middle';
+        }
+        else {
+            className = 'is-low';
+        }
+        return className;
+    }
+
+    /**
+     *
      */
     private cleanBudget(): void {
+        this.percent = 0;
+        this.indicatorTransition = 0;
         this.categories = [];
         this.totalCount = -1;
     }

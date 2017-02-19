@@ -98,6 +98,7 @@ export class TransactionForm {
      */
     public choiceCategory(id: number): void {
         this.idCategorySelected = id;
+        this.inputData.id = id;
         this.presentModal();
     }
 

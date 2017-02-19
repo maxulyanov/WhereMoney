@@ -51,11 +51,10 @@ export class ActivityPage {
      * @param transactionService
      * @param userService
      */
-    constructor(
-        private element: ElementRef,
-        private dateService: DateService,
-        private transactionService: TransactionService,
-        private userService: UserService) {
+    constructor(private element: ElementRef,
+                private dateService: DateService,
+                private transactionService: TransactionService,
+                private userService: UserService) {
 
         this.title = 'Активность';
         this.monthNames = this.dateService.getLocaleString('monthNames');
@@ -110,7 +109,7 @@ export class ActivityPage {
         this.offset += this.stepOffset;
         this.getTransactions().then(
             (transactions)=> {
-                this.transactions = Array.prototype.concat(this.transactions, transactions);
+                this.transactions = this.setShowLabelDate(Array.prototype.concat(this.transactions, transactions));
                 infiniteScroll.complete();
             },
             (error) => {
@@ -127,9 +126,9 @@ export class ActivityPage {
      */
     public changeDate(event): void {
         this.cleanTransactions();
-        let { day, month, year } = event;
+        let {day, month, year} = event;
         let date = new Date(`${month.value}.${day.value}.${year.value}`);
-        this.date = +date.setHours(23,59,59,59);
+        this.date = +date.setHours(23, 59, 59, 59);
         this.renderTransactions();
         this.setCountTransactions();
     }
@@ -143,13 +142,13 @@ export class ActivityPage {
         promise.then(
             (result) => {
                 let value = result.value;
-                if(value != null) {
+                if (value != null) {
                     this.balance = Utils.separatedBySpaceNumber(value);
                 }
             },
             (error) => {
                 console.error(error);
-        });
+            });
     }
 
 
@@ -157,7 +156,7 @@ export class ActivityPage {
      *
      */
     private showButtonAddTransaction(): void {
-        if(this.buttonAdd != null) {
+        if (this.buttonAdd != null) {
             this.buttonAdd.classList.add('show');
         }
     }
@@ -167,7 +166,7 @@ export class ActivityPage {
      *
      */
     private hideButtonAddTransaction(): void {
-        if(this.buttonAdd != null) {
+        if (this.buttonAdd != null) {
             this.buttonAdd.classList.remove('show');
         }
     }
@@ -179,7 +178,7 @@ export class ActivityPage {
     private renderTransactions(): void {
         this.getTransactions().then(
             (transactions)=> {
-                this.transactions = Array.prototype.concat(this.transactions, transactions);
+                this.transactions = this.setShowLabelDate(Array.prototype.concat(this.transactions, transactions));
             },
             (error) => {
                 console.error(error);
@@ -206,6 +205,24 @@ export class ActivityPage {
                 this.totalCount = count;
             }, (err) => {
                 console.error(err);
+            });
+    }
+
+
+    /**
+     *
+     * @param transactions
+     * @returns {any[]}
+     */
+    private setShowLabelDate(transactions: any[]): any[] {
+        let date = null;
+        return transactions.map((transaction) => {
+            let clearDate = new Date(transaction.created).setHours(0, 0, 0, 0);
+            if(clearDate != date) {
+                date = clearDate;
+                transaction.showLabelDate = true;
+            }
+            return transaction;
         });
     }
 

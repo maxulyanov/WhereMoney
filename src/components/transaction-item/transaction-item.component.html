@@ -1,16 +1,21 @@
-<div class="b-transaction-item fadeIn animated">
-    <div class="transaction-item__icon">
-        <category-icon-component [name]="transaction.slug"></category-icon-component>
-    </div>
-    <div class="transaction-item__data">
-        <div class="transaction-item__desc">
-            {{ transaction.description }}
+<div class="fadeIn animated">
+    <div *ngIf="transaction.showLabelDate" class="b-transaction-date"><ion-icon name="ios-calendar-outline"></ion-icon> {{ dateCreated }}</div>
+    <div class="b-transaction-item {{ transactionClass }}">
+        <div class="transaction-item__data">
+            <div class="transaction-item__icon">
+                <category-icon-component [name]="transaction.slug"></category-icon-component>
+            </div>
+            <div>
+                <div class="transaction-item__description">
+                    {{ transaction.description }}
+                </div>
+                <div *ngIf="transaction.name" class="transaction-item__category">
+                    {{ transaction.name }}
+                </div>
+            </div>
         </div>
-        <div class="transaction-item__date">
-            {{ dateCreated }}
+        <div class="transaction-item__sum">
+            {{ sum }} &#8381;
         </div>
-    </div>
-    <div class="transaction-item__sum {{ sumClass }}">
-        {{ sum }} &#8381;
     </div>
 </div>

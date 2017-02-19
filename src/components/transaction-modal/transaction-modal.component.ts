@@ -11,6 +11,7 @@ import { Component } from '@angular/core';
 import { NavController, ViewController, NavParams } from "ionic-angular";
 
 import { Modal } from "../modal/modal.component";
+import { examplesText } from '../../locale/ru/examplesText';
 
 
 @Component({
@@ -25,6 +26,7 @@ export class TransactionModal extends Modal {
     public outSum: string;
     public description: string;
     public isDataFilled: boolean;
+    public placeholder: string;
 
 
     /**
@@ -35,10 +37,12 @@ export class TransactionModal extends Modal {
      */
     constructor(protected navCtrl: NavController, protected viewCtrl: ViewController, protected navParams: NavParams) {
         super(navCtrl, viewCtrl, navParams);
-        let { sum, description } = this.navParams.get('inputData');
+        let { sum, description, id } = this.navParams.get('inputData');
         this.sum = sum || 0;
         this.outSum = sum || '0';
         this.description = description || '';
+        this.placeholder = examplesText[id] || examplesText[0];
+
         this.checkDataFilled();
     }
 
@@ -83,5 +87,6 @@ export class TransactionModal extends Modal {
     private checkDataFilled(): void {
         this.isDataFilled = !!(this.sum > 0 && this.description.length > 0);
     }
+
 
 }

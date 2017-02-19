@@ -25,12 +25,14 @@ export class TransactionItem {
 
 
     public dateCreated: string;
+    public categoryName: string;
     public sum: string;
-    public sumClass: string;
+    public transactionClass: string;
 
 
     constructor() {
-        this.sumClass = '';
+        this.transactionClass = '';
+        this.categoryName = '';
     }
 
 
@@ -38,6 +40,7 @@ export class TransactionItem {
      *
      */
     public ngAfterContentInit(): void {
+        this.categoryName = this.transaction.name;
         this.createDate();
         this.createSum();
     }
@@ -74,11 +77,11 @@ export class TransactionItem {
         let sum = Utils.separatedBySpaceNumber(String(this.transaction.sum));
         if(this.transaction.type === 0) {
             sum = '- ' + sum;
-            this.sumClass = 'is-minus';
+            this.transactionClass = 'is-minus';
         }
         else if(this.transaction.type === 1) {
             sum = '+ ' + sum;
-            this.sumClass = 'is-plus';
+            this.transactionClass = 'is-plus';
         }
 
         this.sum = sum;

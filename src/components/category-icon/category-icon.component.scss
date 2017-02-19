@@ -15,60 +15,10 @@ category-icon-component {
   display: flex;;
   align-items: center;
   justify-content: center;
-  background: $fistColorApp;
-  color: #FFF;
+  color: $secondColorApp;
   border-radius: 100%;
   transition: 0.3s;
 
 
-  // colors
-  &.is-food {
-    background: $colorFood;
-  }
-  &.is-dress {
-    background: $colorDress;
-  }
-  &.is-car {
-    background: $colorCar;
-  }
-  &.is-phone {
-    background: $colorPhone;
-  }
-  &.is-animals {
-    background: $colorAnimals;
-  }
-  &.is-gifts {
-    background: $colorGifts;
-  }
-  &.is-health {
-    background: $colorHealth;
-  }
-  &.is-entertainment {
-    background:$colorEntertainment;
-  }
-  &.is-bill {
-    background: $colorBill;
-  }
-  &.is-travel {
-    background: $colorTravel;
-  }
-  &.is-learning {
-    background: $colorLearning;
-  }
-  &.is-repairs {
-    background: $colorRepairs;
-  }
-  &.is-sport {
-    background: $colorSport;
-  }
-  &.is-other {
-    background: $colorOther;
-  }
-  &.is-job {
-    background: $colorJob;
-  }
-  &.is-gifts-2 {
-    background: $colorGifts2;
-  }
 
 }

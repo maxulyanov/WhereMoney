@@ -1,0 +1,12 @@
+empty-box-component {  }
+
+.b-empty-box {
+  margin: 16px;
+  text-align: center;
+  .empty-box__inner {
+    display: inline-block;
+    padding: 15px 20px;
+    background: $secondColorContent;
+    border-radius: 30px;
+  }
+}

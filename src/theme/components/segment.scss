@@ -1,0 +1,9 @@
+.segment-md {
+  .segment-button {
+    color: $secondColorApp;
+    border-bottom-color: inherit;
+    &.segment-activated {
+      color: $firstColorApp;
+    }
+  }
+}

@@ -2,61 +2,67 @@ transaction-item-component {
 }
 
 .b-transaction-item {
-  display: table;
-  width: 100%;
-  table-layout: fixed;
-  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 15px 12px 5px;
   position: relative;
-  background: $firstColorContent;
   border-bottom: 1px solid $secondColorContent;
+  .transaction-item__data {
+    display: flex;
+    align-items: center;
+  }
   .transaction-item__icon {
     width: 50px;
-    display: table-cell;
-    vertical-align: middle;
+    margin-right: 3px;
   }
   .b-icon-category {
     width: 50px;
     height: 50px;
     font-size: 3rem;
   }
-  .transaction-item__data {
-    width: 60%;
-    padding: 0 0 0 15px;
-    display: table-cell;
-    vertical-align: middle;
-  }
-  .transaction-item__desc {
-    margin-bottom: 5px;
-    font-size: 1.6rem;
+  .transaction-item__description {
+    font-size: 1.45rem;
     line-height: 1.2em;
   }
-  .transaction-item__date {
-    color: #adadad;
+  .transaction-item__category {
+    margin-top: 7px;
+    color: $secondColorApp;
+    font-size: 1.2rem;
+    background:$secondColorContent;
+    padding: 5px 10px;
+    border-radius: 30px;
+    display: inline-block;
   }
   .transaction-item__sum {
-    display: table-cell;
-    vertical-align: middle;
     text-align: right;
-    font-size: 2rem;
+    font-size: 1.7rem;
     white-space: nowrap;
-    &.is-plus {
-      color: $fistColorApp;
-    }
-    &.is-minus {
-      color: $secondColorApp;
+  }
+
+  &.is-plus {
+    .transaction-item__sum {
+      color: $colorHigh;
     }
   }
+  &.is-minus {
+    .transaction-item__sum {
+      color: $colorLow;
+    }
+  }
+
 }
 
-
-
-@media screen and (max-width: 420px) {
-  .b-transaction-item {
-    .transaction-item__data {
-      width: 58%;
-    }
-    .transaction-item__sum {
-      font-size: 1.9rem;
-    }
+.b-transaction-date {
+  padding: 10px 16px;
+  background: $secondColorContent;
+  font-size: 1.5rem;
+  line-height: 1.2em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  ion-icon {
+    margin-right: 8px;
+    font-size: 2.2rem;
   }
 }

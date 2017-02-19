@@ -50,6 +50,6 @@
 
     </div>
 
-    <div *ngIf="totalCount == 0" class="util-empty-box fadeIn animated">Нет данных для отображения</div>
+    <empty-box-component *ngIf="totalCount == 0"></empty-box-component>
 
 </ion-content>
