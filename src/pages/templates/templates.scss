@@ -6,3 +6,12 @@ page-templates {
       display: none;
   }
 }
+
+.controls-template {
+  .button {
+    width: 60px;
+    ion-icon {
+      font-size: 2.2em;
+    }
+  }
+}

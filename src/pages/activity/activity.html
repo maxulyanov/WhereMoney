@@ -14,14 +14,14 @@
             <div class="balance-group__value">
                 {{ balance }} &#8381;
             </div>
-            <div class="balance-group__subtitle">текущий баланс</div>
+            <div class="util-subtitle">текущий баланс</div>
         </div>
     </div>
 
     <div class="container-datetime">
         <ion-datetime (ionChange)="changeDate($event)"
                       [(ngModel)]="dateISO"container-budget-topcontainer-budget-top
-                      displayFormat="DD ММ YYYY"
+                      displayFormat="DD.MM.YYYY"
                       pickerFormat="DD-MMMM-YYYY"
                       monthNames="{{ monthNames }}"
                       monthShortNames="{{ monthShortNames }}"
@@ -31,7 +31,7 @@
                       doneText="Готово" end>
             <ion-icon name="ios-arrow-down"></ion-icon>
         </ion-datetime>
-        <div class="balance-group__subtitle">лента активности</div>
+
     </div>
 
 </ion-header>

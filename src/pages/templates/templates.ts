@@ -66,13 +66,22 @@ export class TemplatesPage {
     }
 
 
+    /**
+     *
+     * @param event
+     */
+    public createTemplate(event: any): void {
+        event.preventDefault();
+        this.navCtrl.push(AddTemplatePage);
+    }
+
 
     /**
      *
      * @param event
      * @param id
      */
-    public handlerClickCreateTransaction(event, id: number): void {
+    public createTransaction(event, id: number): void {
         event.preventDefault();
 
         this.templateService.getTemplateById(id).then(
@@ -100,20 +109,10 @@ export class TemplatesPage {
     /**
      *
      * @param event
-     */
-    public handlerClickCreate(event: any): void {
-        event.preventDefault();
-        this.navCtrl.push(AddTemplatePage);
-    }
-
-
-    /**
-     *
-     * @param event
      * @param template
      * @param position
      */
-    public handlerClickUpdate(event: any, template: any): void {
+    public updateTemplate(event: any, template: any): void {
         event.stopPropagation();
         template.type = String(template.type);
         this.navCtrl.push(UpdateTemplatePage, {
@@ -128,7 +127,7 @@ export class TemplatesPage {
      * @param id
      * @param position
      */
-    public handlerClickDelete(event: any, id: number, position: number): void {
+    public deleteTemplate(event: any, id: number, position: number): void {
         event.stopPropagation();
         this.templateService.deleteTemplate(id).then((message: string) => {
             this.templates.splice(position, 1);

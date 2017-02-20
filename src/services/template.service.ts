@@ -102,7 +102,7 @@ export class TemplateService {
     public getTemplates(limit: number = 100, offset: number = 0): any {
         return new Promise((resolve, reject) => {
             let promise =  this.sqlService.query(`
-            SELECT t.id as templateId, t.category_id, t.description, t.sum, t.created, c.id, c.type, c.slug 
+            SELECT t.id as templateId, t.category_id, t.description, t.sum, t.created, c.id, c.type, c.slug, c.name 
             FROM templates AS t
             INNER JOIN categories AS c
             ON t.category_id = c.id

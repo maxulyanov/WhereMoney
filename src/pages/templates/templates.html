@@ -20,10 +20,16 @@
                 <ion-item>
                     <transaction-item-component [transaction]="template"></transaction-item-component>
                 </ion-item>
-                <ion-item-options side="right">
-                    <button ion-button (click)="handlerClickCreateTransaction($event, template.templateId)">Создать</button>
-                    <button ion-button color="secondary" (click)="handlerClickUpdate($event, template)">Изменить</button>
-                    <button ion-button color="danger" (click)="handlerClickDelete($event, template.templateId, i)">Удалить</button>
+                <ion-item-options class="controls-template" side="right">
+                    <button ion-button icon-only color="create" (click)="createTransaction($event, template.templateId)">
+                        <ion-icon name="ios-add"></ion-icon>
+                    </button>
+                    <button ion-button icon-only color="update" (click)="updateTemplate($event, template)">
+                        <ion-icon name="ios-refresh"></ion-icon>
+                    </button>
+                    <button ion-button icon-only color="remove" (click)="deleteTemplate($event, template.templateId, i)">
+                        <ion-icon name="ios-close"></ion-icon>
+                    </button>
                 </ion-item-options>
             </ion-item-sliding>
         </ion-list>
@@ -33,7 +39,7 @@
 
     <br>
     <div class="util-align-center fadeIn animated" *ngIf="loadedTemplates">
-        <button ion-button (click)="handlerClickCreate($event)">Создать новый</button>
+        <button ion-button (click)="createTemplate($event)">Создать новый</button>
     </div>
 
 
