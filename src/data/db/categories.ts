@@ -29,7 +29,7 @@ export const categories = [
     {
         type: 0,
         name: 'Связь',
-        slug: 'phone'
+        slug: 'internet'
     },
     {
         type: 0,
