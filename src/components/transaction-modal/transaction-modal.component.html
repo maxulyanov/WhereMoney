@@ -22,11 +22,16 @@
                 <ion-input type="text" placeholder="{{ placeholder }}" [(ngModel)]="description" name="description" (ngModelChange)="changeDescription()"></ion-input>
             </ion-item>
 
+            <ion-item>
+                <ion-label>Учитывать при расчете бюджета</ion-label>
+                <ion-checkbox checked="true"></ion-checkbox>
+            </ion-item>
+
         </div>
 
         <numbers-area-component [value]="outSum" (updatedSum)="updatedSum($event)"></numbers-area-component>
 
-        <div class="util-align-center">
+        <div style="margin-top: 25px;" class="util-align-center">
             <button  class="b-button-ready" ion-button [disabled]="!isDataFilled" ion-button type="submit">Готово</button>
         </div>
 

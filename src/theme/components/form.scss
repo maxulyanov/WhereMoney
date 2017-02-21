@@ -30,4 +30,20 @@ form {
     }
 
   }
+
+
+  // checkbox
+  .item.item-checkbox {
+    border-bottom: 1px solid #262f49;
+    .checkbox-md {
+     margin: 0 10px 0 0;
+    }
+    .checkbox-icon {
+      border-color: $firstColorApp;
+    }
+    .item-inner {
+      border: 0;
+    }
+  }
+
 }

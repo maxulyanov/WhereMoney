@@ -38,7 +38,7 @@
 
 <ion-content>
 
-    <div *ngIf="totalCount > 0">
+    <div class="container-activity-list" *ngIf="totalCount > 0">
         <div class="grid-row">
             <div class="grid-column-12 grid-padding grid-left" *ngFor="let transaction of transactions;">
                 <transaction-item-component [transaction]="transaction"></transaction-item-component>
