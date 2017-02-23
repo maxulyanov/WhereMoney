@@ -51,8 +51,9 @@ export class App {
      *
      */
     private initApp(): void {
-        this.rootPage = this.isFirstLaunch() ? TutorialPage : TabsPage;
-        this.dbService.initDataBase();
+        this.dbService.initDataBase().then(() => {
+            this.rootPage = this.isFirstLaunch() ? TutorialPage : TabsPage;
+        })
     }
 
 

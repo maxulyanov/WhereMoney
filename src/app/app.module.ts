@@ -23,6 +23,8 @@ import { TemplateService } from "../services/template.service";
 import { UserService } from "../services/user.service";
 import { NotifyService } from "../services/notify.service"
 import { BudgetService } from "../services/budget.service"
+import { MigrationsService } from "../services/migrations.service"
+
 
 import { App} from './app.component';
 import { TabsPage } from '../pages/tabs/tabs';
@@ -107,6 +109,7 @@ import { EmptyBox } from '../components/empty-box/empty-box.component';
         TemplateService,
         UserService,
         BudgetService,
+        MigrationsService,
         NotifyService]
 })
 

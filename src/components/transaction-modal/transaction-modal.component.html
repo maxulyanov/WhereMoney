@@ -24,9 +24,8 @@
 
             <ion-item>
                 <ion-label>Учитывать при расчете бюджета</ion-label>
-                <ion-checkbox checked="true"></ion-checkbox>
+                <ion-checkbox [(ngModel)]="checkedInBudget" name="inBudget"></ion-checkbox>
             </ion-item>
-
         </div>
 
         <numbers-area-component [value]="outSum" (updatedSum)="updatedSum($event)"></numbers-area-component>

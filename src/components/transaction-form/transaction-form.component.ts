@@ -118,6 +118,8 @@ export class TransactionForm {
     private renderCategories(): void {
         this.getCategories().then(
             (categories)=> {
+                const otherCategory = categories.splice(13, 1);
+                categories.push(otherCategory[0]);
                 this.categories = categories;
             },
             (error) => {
@@ -144,7 +146,8 @@ export class TransactionForm {
             category_id: this.idCategorySelected,
             sum: this.dataModal.sum,
             description: this.dataModal.description,
-            created: +new Date()
+            created: +new Date(),
+            inBudget: this.dataModal.inBudget
         };
         let promise: any;
 

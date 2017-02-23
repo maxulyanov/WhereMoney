@@ -27,6 +27,7 @@ export class TransactionModal extends Modal {
     public description: string;
     public isDataFilled: boolean;
     public placeholder: string;
+    public checkedInBudget: boolean;
 
 
     /**
@@ -42,6 +43,7 @@ export class TransactionModal extends Modal {
         this.outSum = sum || '0';
         this.description = description || '';
         this.placeholder = examplesText[id] || examplesText[0];
+        this.checkedInBudget = true;
 
         this.checkDataFilled();
     }
@@ -55,7 +57,8 @@ export class TransactionModal extends Modal {
         if(typeof readyCallback === 'function') {
             readyCallback({
                 sum: this.sum,
-                description: this.description
+                description: this.description,
+                inBudget: Number(this.checkedInBudget)
             });
             this.close();
         }

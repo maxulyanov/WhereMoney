@@ -56,7 +56,7 @@ export class TemplateService {
      * @param data
      * @returns {Promise<T>}
      */
-    public updateTemplate(id: number, data: any): any {
+    public updateTemplate(id: number, data: any): Promise<any> {
         return new Promise((resolve, reject) => {
             let { category_id, description, sum } = data;
             let promise = this.sqlService.query(`
@@ -64,7 +64,7 @@ export class TemplateService {
             SET category_id = ${category_id}, description = '${description}', sum = ${sum}
             WHERE id=${id}`);
             promise.then(
-                (data) => {
+                () => {
                     resolve('Шаблон успешно обновлен');
                 },
                 (data) => {
@@ -79,7 +79,7 @@ export class TemplateService {
      * @param id
      * @returns {Promise<T>}
      */
-    public deleteTemplate(id: number): any {
+    public deleteTemplate(id: number): Promise<any> {
         return new Promise((resolve, reject) => {
             let promise = this.sqlService.query(`DELETE FROM templates WHERE id=${id};`);
             promise.then(
@@ -128,7 +128,6 @@ export class TemplateService {
                     reject(data.err.message);
                 });
         });
-
     }
 
 
@@ -137,7 +136,7 @@ export class TemplateService {
      * @param id
      * @returns {Promise<any>}
      */
-    public getTemplateById(id: number): any {
+    public getTemplateById(id: number): Promise<any> {
         return new Promise((resolve, reject) => {
             let promise =  this.sqlService.query(`
             SELECT t.id, t.category_id, t.description, t.sum, t.created, c.id, c.type

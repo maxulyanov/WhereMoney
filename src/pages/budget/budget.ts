@@ -199,7 +199,7 @@ export class BudgetPage {
      */
     private getTransactions(endDate: number): any {
         return new Promise((resolve, reject) => {
-            this.transactionService.getTransactions(2e10, 0, +new Date(), endDate, 0).then(
+            this.transactionService.getTransactions(2e10, 0, +new Date(), endDate, 0, true).then(
                 (transactions) => {
                     this.totalCount = transactions.length;
                     resolve(transactions);
