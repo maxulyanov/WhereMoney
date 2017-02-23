@@ -14,7 +14,20 @@ transaction-item-component {
   }
   .transaction-item__icon {
     width: 50px;
+    position: relative;
     margin-right: 3px;
+  }
+  .transaction-item__inBudget {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 20px;
+    width: 20px;
+    color: $colorHigh;
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   .b-icon-category {
     width: 50px;

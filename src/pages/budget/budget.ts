@@ -179,7 +179,7 @@ export class BudgetPage {
             if(this.percent < 0) this.percent = 0;
             this.percentForText = this.percent;
             this.indicatorClassName = this.getIndicatorClassName(this.percent);
-            this.indicatorTransition = 1;
+            this.indicatorTransition = 0.5;
 
 
             arrayCategories.sort(Utils.sortBy({

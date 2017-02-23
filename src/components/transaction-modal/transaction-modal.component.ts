@@ -24,6 +24,7 @@ export class TransactionModal extends Modal {
 
     public sum: number;
     public outSum: string;
+    public isIncome: boolean;
     public description: string;
     public isDataFilled: boolean;
     public placeholder: string;
@@ -38,12 +39,13 @@ export class TransactionModal extends Modal {
      */
     constructor(protected navCtrl: NavController, protected viewCtrl: ViewController, protected navParams: NavParams) {
         super(navCtrl, viewCtrl, navParams);
-        let { sum, description, id } = this.navParams.get('inputData');
+        let { sum, description, type, inBudget, slug  } = this.navParams.get('inputData');
         this.sum = sum || 0;
         this.outSum = sum || '0';
+        this.isIncome = !!type || false;
         this.description = description || '';
-        this.placeholder = examplesText[id] || examplesText[0];
-        this.checkedInBudget = true;
+        this.placeholder = examplesText[slug] || 'Введите описание';
+        this.checkedInBudget = inBudget != null ? !!inBudget : true;
 
         this.checkDataFilled();
     }

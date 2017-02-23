@@ -22,7 +22,7 @@
                 <ion-input type="text" placeholder="{{ placeholder }}" [(ngModel)]="description" name="description" (ngModelChange)="changeDescription()"></ion-input>
             </ion-item>
 
-            <ion-item>
+            <ion-item *ngIf="!isIncome">
                 <ion-label>Учитывать при расчете бюджета</ion-label>
                 <ion-checkbox [(ngModel)]="checkedInBudget" name="inBudget"></ion-checkbox>
             </ion-item>

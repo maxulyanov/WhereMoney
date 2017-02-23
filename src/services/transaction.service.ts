@@ -82,7 +82,7 @@ export class TransactionService {
         return new Promise((resolve, reject) => {
 
             let promise = this.sqlService.query(`
-                SELECT category_id, name, description, sum, created, type, slug 
+                SELECT category_id, name, description, sum, created, type, slug, inBudget 
                 FROM transactions 
                 INNER JOIN categories 
                 ON transactions.category_id = categories.id

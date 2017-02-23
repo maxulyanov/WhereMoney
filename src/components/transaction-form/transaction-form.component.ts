@@ -95,10 +95,13 @@ export class TransactionForm {
     /**
      *
      * @param id
+     * @param slug
+     * @param type
      */
-    public choiceCategory(id: number): void {
+    public choiceCategory(id: number, slug: string, type: string): void {
         this.idCategorySelected = id;
-        this.inputData.id = id;
+        this.inputData.slug = slug;
+        this.inputData.type = type;
         this.presentModal();
     }
 
@@ -118,8 +121,10 @@ export class TransactionForm {
     private renderCategories(): void {
         this.getCategories().then(
             (categories)=> {
-                const otherCategory = categories.splice(13, 1);
-                categories.push(otherCategory[0]);
+                if(categories.length > 13) {
+                    const otherCategory = categories.splice(13, 1);
+                    categories.push(otherCategory[0]);
+                }
                 this.categories = categories;
             },
             (error) => {

@@ -13,6 +13,10 @@ export const m2 = [
         data: []
     },
     {
+        command: `ALTER TABLE 'templates' ADD inBudget INTEGER NOT NULL DEFAULT(1)`,
+        data: []
+    },
+    {
         command: `INSERT INTO 'categories' (type, name, slug) VALUES (?, ?, ?)`,
         data: [0, 'Красота', 'beauty']
     },
