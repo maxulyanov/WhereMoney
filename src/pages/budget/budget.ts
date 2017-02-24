@@ -87,9 +87,9 @@ export class BudgetPage {
      *
      * @returns {Promise<T>}
      */
-    private getOverallBudget(): any {
+    private getOverallBudget(): Promise<any> {
         let value: number;
-        let valueBudget: number;
+
         return new Promise((resolve, reject) => {
             this.userService.getSettings("WHERE key = 'budget'")
                 .then((data) => {
@@ -102,32 +102,24 @@ export class BudgetPage {
                     }
                 })
                 .then(() => {
-                    return this.getSaveRestBudget();
+                    return this.isSaveRestBudget();
                 })
                 .then((isSave) => {
                     if (isSave) {
                         let startWeek: number = +this.dateService.getDateStartWeek();
                         startWeek -= 1e3;
-                        let {year, week} = this.dateService.getWeekNumber(new Date(startWeek));
+                        const { year, week } = this.dateService.getWeekNumber(new Date(startWeek));
                         return this.budgetService.getBudget(year, week);
                     }
                     else {
                         resolve(value);
                     }
                 })
-                .then((budget: number) => {
+                .then((budget: any) => {
                     if (budget != null) {
-                        valueBudget = budget['value'];
-                        let startWeekBudget: number = budget['start_week'];
-                        let d = new Date(startWeekBudget);
-                        d.setHours(24 * 6 + 23, 23, 59, 59);
-                        return this.transactionService.getTransactions(2e10, 0, +d, startWeekBudget, 0);
+                        resolve(value += budget.rest);
+                        return budget.rest;
                     }
-                    resolve(value)
-                })
-                .then((transactions) => {
-                    let sumTransactions: number = this.transactionService.getSumTransactions(transactions);
-                    value += (valueBudget - sumTransactions);
                     resolve(value)
                 })
                 .catch((error) => {
@@ -141,7 +133,7 @@ export class BudgetPage {
      *
      * @returns {Promise<T>}
      */
-    private getSaveRestBudget(): any {
+    private isSaveRestBudget(): any {
         return new Promise((resolve) => {
             this.userService.getSettings("WHERE key = 'saveRest'").then(
                 (data) => {
@@ -176,7 +168,9 @@ export class BudgetPage {
             this.leftBudgetForDisplay = Utils.separatedBySpaceNumber(this.leftBudget);
 
             this.percent = 100 - Math.round((totalSum / this.overallBudget * 100));
-            if(this.percent < 0) this.percent = 0;
+            if(this.percent < 0 || isNaN(this.percent)) {
+                this.percent = 0;
+            }
             this.percentForText = this.percent;
             this.indicatorClassName = this.getIndicatorClassName(this.percent);
             this.indicatorTransition = 0.5;

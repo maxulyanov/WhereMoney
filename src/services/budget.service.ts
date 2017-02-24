@@ -36,13 +36,11 @@ export class BudgetService {
      * @param value
      * @returns {Promise<T>}
      */
-    public updateBudget(value: number): any {
+    public updateBudget(value: number): Promise<any> {
         return new Promise((resolve, reject) => {
-
-            let { year, week } = this.dateService.getWeekNumber();
-            let startWeek = +this.dateService.getDateStartWeek();
-
-            let data: any = {
+            const { year, week } = this.dateService.getWeekNumber();
+            const startWeek = +this.dateService.getDateStartWeek();
+            const data: any = {
                 year,
                 week,
                 start_week: startWeek,
@@ -50,15 +48,19 @@ export class BudgetService {
             };
 
             this.getBudget(year, week)
-                .then((budget: number) => {
-                    let { keys, mask, values } = this.dbService.prepareData(data);
-                    let promise: any = null;
+                .then((budget: any) => {
+                    let promise: Promise<any>;
+
                     if(budget == null) {
+                        data.rest = value;
+                        const { keys, mask, values } = this.dbService.prepareData(data);
                         promise = this.sqlService.query(`INSERT INTO budget (${keys}) VALUES (${mask});`, values);
                     }
                     else {
-                        promise = this.sqlService.query(`UPDATE budget SET value = ${value} WHERE week=${week}`);
+                        const rest = budget.rest + (value - budget.value);
+                        promise = this.sqlService.query(`UPDATE budget SET value = ${value}, rest = ${rest} WHERE week=${week}`);
                     }
+
                     promise.then(
                         (data) => {
                             resolve(data);
@@ -74,11 +76,35 @@ export class BudgetService {
 
     /**
      *
+     * @param value
+     * @returns {Promise<T>}
+     */
+    public updateRestBudget(value: number): Promise<any> {
+        return new Promise((resolve, reject) => {
+            const { year, week } = this.dateService.getWeekNumber();
+
+            this.getBudget(year, week).then((budget: any) => {
+                const rest = budget.rest - value;
+                const promise = this.sqlService.query(`UPDATE budget SET rest = ${rest} WHERE week=${week}`);
+                promise.then(
+                    (data) => {
+                        resolve(data);
+                    },
+                    (data) => {
+                        reject(data.err.message);
+                    });
+            });
+        });
+    }
+
+
+    /**
+     *
      * @param year
      * @param week
      * @returns {Promise<T>}
      */
-    public getBudget(year: number, week: number): any {
+    public getBudget(year: number, week: number): Promise<any> {
         return new Promise((resolve, reject) => {
             let promise = this.sqlService.query(`SELECT * FROM budget WHERE year = ${year} AND week = ${week};`, []);
             promise.then(

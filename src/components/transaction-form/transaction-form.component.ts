@@ -14,6 +14,7 @@ import { CategoryService } from "../../services/category.service";
 import { TransactionService } from "../../services/transaction.service";
 import { TemplateService } from "../../services/template.service";
 import { UserService } from "../../services/user.service";
+import { BudgetService } from "../../services/budget.service";
 import { NotifyService } from "../../services/notify.service";
 import { TransactionModal } from "../transaction-modal/transaction-modal.component";
 import { EVENTS} from './../../events';
@@ -45,7 +46,7 @@ export class TransactionForm {
      * @param notifyService
      * @param transactionService
      * @param userService
-     * @param templateService
+     * @param budgetService
      */
     constructor(
         private categoryService: CategoryService,
@@ -53,6 +54,7 @@ export class TransactionForm {
         private notifyService: NotifyService,
         private transactionService: TransactionService,
         private userService: UserService,
+        private budgetService: BudgetService,
         private templateService: TemplateService) {
         this.categories = [];
         this.dataModal = {};
@@ -80,7 +82,7 @@ export class TransactionForm {
      *
      */
     public presentModal(): void {
-        let modal = this.modalCtrl.create(TransactionModal, {
+        const modal = this.modalCtrl.create(TransactionModal, {
             title: 'Данные транзакции',
             inputData: this.inputData,
             readyCallback: (data) => {
@@ -110,7 +112,7 @@ export class TransactionForm {
      *
      * @returns {any}
      */
-    private getCategories(): any {
+    private getCategories(): Promise<any> {
         return this.categoryService.getCategories(parseInt(this.type));
     }
 
@@ -146,15 +148,14 @@ export class TransactionForm {
      *
      */
     private goToService(): void {
-
-        let data: any = {
+        const data: any = {
             category_id: this.idCategorySelected,
             sum: this.dataModal.sum,
             description: this.dataModal.description,
             created: +new Date(),
             inBudget: this.dataModal.inBudget
         };
-        let promise: any;
+        let promise: Promise<any>;
 
         switch (this.eventType) {
             case EVENTS.ADD_TRANSACTION:
@@ -164,7 +165,7 @@ export class TransactionForm {
                 promise = this.templateService.addTemplate(data);
                 break;
             case EVENTS.UPDATE_TEMPLATE:
-                let id = this.inputData.templateId;
+                const id = this.inputData.templateId;
                 if(id != null) {
                     promise = this.templateService.updateTemplate(id, data);
                 }
@@ -179,6 +180,9 @@ export class TransactionForm {
             if(this.eventType === EVENTS.ADD_TRANSACTION) {
                 let sum = data.sum;
                 if(this.type === '0') {
+                    if(data.inBudget) {
+                        this.budgetService.updateRestBudget(sum);
+                    }
                     sum = parseInt('-' + sum);
                 }
                 this.userService.updateBalance(sum);

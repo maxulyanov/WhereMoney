@@ -17,6 +17,10 @@ export const m2 = [
         data: []
     },
     {
+        command: `ALTER TABLE 'budget' ADD rest INTEGER NOT NULL DEFAULT(0)`,
+        data: []
+    },
+    {
         command: `INSERT INTO 'categories' (type, name, slug) VALUES (?, ?, ?)`,
         data: [0, 'Красота', 'beauty']
     },
