@@ -4,7 +4,7 @@
         <div class="transaction-item__data">
             <div class="transaction-item__icon">
                 <div class="transaction-item__inBudget">
-                    <ion-icon *ngIf="transaction.inBudget && transaction.type == 0" name="ios-checkmark-circle-outline"></ion-icon>
+                    <ion-icon *ngIf="transaction.inBudget && transaction.type == 0" name="checkmark-circle"></ion-icon>
                 </div>
                 <category-icon-component [name]="transaction.slug"></category-icon-component>
             </div>

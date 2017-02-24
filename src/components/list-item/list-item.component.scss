@@ -47,7 +47,7 @@ transaction-item-component {
   }
   &.is-phone {
     .list-item__name {
-      color: $colorPhone;
+      color: $colorInternet;
     }
   }
   &.is-animals {
@@ -97,7 +97,7 @@ transaction-item-component {
   }
   &.is-other {
     .list-item__name {
-      color: $colorDress;
+      color: $colorOther;
     }
   }
   &.is-job {

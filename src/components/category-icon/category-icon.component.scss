@@ -20,5 +20,59 @@ category-icon-component {
   transition: 0.3s;
 
 
-
+  // colors
+  &.is-food {
+    color: $colorFood;
+  }
+  &.is-dress {
+    color: $colorDress;
+  }
+  &.is-car {
+    color: $colorCar;
+  }
+  &.is-internet {
+    color: $colorInternet;
+  }
+  &.is-animals {
+    color: $colorAnimals;
+  }
+  &.is-gifts {
+    color: $colorGifts;
+  }
+  &.is-health {
+    color: $colorHealth;
+  }
+  &.is-entertainment {
+    color:$colorEntertainment;
+  }
+  &.is-bill {
+    color: $colorBill;
+  }
+  &.is-travel {
+    color: $colorTravel;
+  }
+  &.is-learning {
+    color: $colorLearning;
+  }
+  &.is-repairs {
+    color: $colorRepairs;
+  }
+  &.is-sport {
+    color: $colorSport;
+  }
+  &.is-beauty {
+    color: $colorBeauty;
+  }
+  &.is-transport {
+    color: $colorTransport;
+  }
+  &.is-other {
+    color: $colorOther;
+  }
+  &.is-job {
+    color: $colorJob;
+  }
+  &.is-gifts-2 {
+    color: $colorGifts2;
+  }
 }

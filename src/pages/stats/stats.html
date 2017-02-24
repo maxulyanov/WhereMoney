@@ -5,37 +5,27 @@
         <ion-title>
             {{ title }}
         </ion-title>
-
         <ion-buttons end>
             <settings-action-component></settings-action-component>
         </ion-buttons>
-
     </ion-navbar>
-
-    <ion-item class="container-select">
-        <ion-label>Показать статистику: </ion-label>
-        <ion-select [(ngModel)]="period" cancelText="Закрыть" (ionChange)="handlerSelectPeriod()">
-            <ion-option value="week" selected="true">За неделю</ion-option>
-            <ion-option value="month" selected="true">За месяц</ion-option>
-            <ion-option value="month3" selected="true">3 месяца</ion-option>
-            <ion-option value="year" selected="true">За год</ion-option>
-            <ion-option value="all" selected="true">За все время</ion-option>
-        </ion-select>
-    </ion-item>
 
 </ion-header>
 
 <ion-content>
 
-    <ion-segment  [(ngModel)]="type" (ionChange)="handlerSelectType()">
+    <ion-segment [(ngModel)]="type" (ionChange)="selectType()">
         <ion-segment-button value="0">
             Расход
         </ion-segment-button>
         <ion-segment-button value="1">
             Доход
         </ion-segment-button>
-
     </ion-segment>
+
+    <ion-icon name="ios-arrow-dropleft"></ion-icon>
+    <ion-icon name="ios-arrow-dropright"></ion-icon>
+
 
     <div *ngIf="isReadyChart && totalCount > 0" class="animated fadeIn">
         <chart [options]="optionsChart"></chart>
@@ -43,7 +33,7 @@
         <div class="container-list-stats">
            <div class="grid-row">
                <div class="grid-column-12 grid-padding grid-left" *ngFor="let category of categories">
-                   <list-item-component [item]="category" [totalSum]="totalSum"></list-item-component>
+                   <progressbar-component [type]="category.slug" [title]="category.name" [sum]="category.sum" [totalSum]="totalSum"></progressbar-component>
                </div>
            </div>
         </div>

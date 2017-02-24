@@ -32,7 +32,9 @@
     color: #FFF;
   }
   .progressbar__percent {
-    font-size: 1.5rem;
+    margin-right: 5px;
+    font-size: 1.4rem;
+    color: $secondColorApp;
   }
 
 
@@ -51,14 +53,24 @@
       background: $colorCar;
     }
   }
-  &.is-phone {
+  &.is-internet {
     .progressbar__inner-line {
-      background: $colorPhone;
+      background: $colorInternet;
     }
   }
   &.is-animals {
     .progressbar__inner-line {
       background: $colorAnimals;
+    }
+  }
+  &.is-beauty {
+    .progressbar__inner-line {
+      background: $colorBeauty;
+    }
+  }
+  &.is-transport {
+    .progressbar__inner-line {
+      background: $colorTransport;
     }
   }
   &.is-gifts {

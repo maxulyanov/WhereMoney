@@ -77,7 +77,7 @@ export class StatsPage {
     /**
      *
      */
-    public handlerSelectType(): void {
+    public selectType(): void {
         this.renderChart();
     }
 
@@ -85,7 +85,7 @@ export class StatsPage {
     /**
      *
      */
-    public handlerSelectPeriod(): void {
+    public selectMonth(): void {
         this.renderChart();
 
     }
@@ -109,7 +109,7 @@ export class StatsPage {
      *
      * @returns {Promise<T>}
      */
-    private getTransactions(): any {
+    private getTransactions(): Promise<any> {
         return new Promise((resolve, reject) => {
             this.transactionService.getTransactions(2e10, 0, this.date, this.endDate, parseInt(this.type)).then(
                 (transactions) => {
@@ -182,14 +182,11 @@ export class StatsPage {
      * @param data
      */
     private createOptionsChart(data): void {
-        let width: number = window.innerWidth > 640 ? 640 : window.innerWidth;
         this.optionsChart = {
             chart: {
-                width: width - 60,
+                width: 220,
+                height: 260,
                 backgroundColor: 'transparent',
-                plotBackgroundColor: null,
-                plotBorderWidth: null,
-                plotShadow: false,
                 type: 'pie'
             },
             tooltip: {
@@ -215,10 +212,12 @@ export class StatsPage {
 
             series: [{
                 colorByPoint: true,
-                data: data
+                data: data,
+                animation: {
+                    duration: 500,
+                }
             }],
         };
-
 
         this.isReadyChart = true;
     }
@@ -232,8 +231,8 @@ export class StatsPage {
         this.colors = {
             food: '#E84C3D',
             dress: '#F59D1F',
-            car: '#34495E',
-            phone: '#297FB8',
+            car: '#75706B',
+            internet: '#297FB8',
             animals: '#4CAF50',
             gifts: '#03A9F4',
             health: '#C5382F',
@@ -244,6 +243,8 @@ export class StatsPage {
             repairs: '#795548',
             sport: '#FF6F00',
             other: '#9E9E9E',
+            transport: '#E3BE53',
+            beauty: '#D070DB',
             job: '#4CAF50',
             'gifts-2': '#03A9F4'
         }
