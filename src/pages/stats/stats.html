@@ -1,5 +1,3 @@
-
-
 <ion-header>
     <ion-navbar>
         <ion-title>
@@ -23,24 +21,35 @@
         </ion-segment-button>
     </ion-segment>
 
-    <ion-icon name="ios-arrow-dropleft"></ion-icon>
-    <ion-icon name="ios-arrow-dropright"></ion-icon>
+    <div class="container-controls-change-month">
+        <div (click)="changeMonth('PREV')" class="b-control-change-month is-prev">
+            <ion-icon name="ios-arrow-dropleft"></ion-icon>
+        </div>
+        <div *ngIf="!isCurrentMonth" (click)="changeMonth('NEXT')" class="b-control-change-month is-next">
+            <ion-icon name="ios-arrow-dropright"></ion-icon>
+        </div>
+    </div>
 
+    <div *ngIf="isReadyChart" class="animated fadeIn">
+        <div class="b-current-date">{{ month }} {{ year }}</div>
+    </div>
 
-    <div *ngIf="isReadyChart && totalCount > 0" class="animated fadeIn">
+    <div *ngIf="isReadyChart && totalCount > 0" class="animated fadeIn container-chart">
+
         <chart [options]="optionsChart"></chart>
 
         <div class="container-list-stats">
-           <div class="grid-row">
-               <div class="grid-column-12 grid-padding grid-left" *ngFor="let category of categories">
-                   <progressbar-component [type]="category.slug" [title]="category.name" [sum]="category.sum" [totalSum]="totalSum"></progressbar-component>
-               </div>
-           </div>
+            <div class="grid-row">
+                <div class="grid-column-12 grid-padding grid-left" *ngFor="let category of categories">
+                    <progressbar-component [type]="category.slug" [title]="category.name" [sum]="category.sum"
+                                           [totalSum]="totalSum"></progressbar-component>
+                </div>
+            </div>
         </div>
 
     </div>
 
-    <div style="margin-top: 28px;">
+    <div style="margin-top: 25px;">
         <empty-box-component *ngIf="totalCount == 0"></empty-box-component>
     </div>
 

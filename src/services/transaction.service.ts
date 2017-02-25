@@ -94,6 +94,7 @@ export class TransactionService {
                 LIMIT ${limit}
                 OFFSET ${offset}`, []);
 
+            // 1 2 3 4 5
             promise.then(
                 (data) => {
                     if(data != null && data.res) {
