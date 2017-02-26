@@ -3,17 +3,13 @@ transaction-action-component {
   bottom: 75px;
   right: 0;
   left: 0;
+  text-align: right;
   .button {
     height: 5.5rem;
     width: 5.5rem;
-    bottom: -100px;
-    left: 50%;
-    margin: 0 0 0 -2.75rem;
+    bottom: 0;
+    right: 20px;
+    margin: 0;
     border-radius: 100%;
-    transition: bottom .3s;
-    &.show {
-      bottom: 0;
-      transition: bottom .3s;
-    }
   }
 }

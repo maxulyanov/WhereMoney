@@ -10,7 +10,7 @@
 'use strict';
 
 
-import { Component, ElementRef } from '@angular/core';
+import { Component } from '@angular/core';
 
 import { DateService } from "../../services/date.service";
 import { TransactionService } from "../../services/transaction.service";
@@ -37,7 +37,6 @@ export class ActivityPage {
     public balance: string;
     public totalCount: number;
 
-    private buttonAdd: any;
     private offset: number;
     private stepOffset: number;
     private limit: number;
@@ -46,13 +45,11 @@ export class ActivityPage {
 
     /**
      *
-     * @param element
      * @param dateService
      * @param transactionService
      * @param userService
      */
-    constructor(private element: ElementRef,
-                private dateService: DateService,
+    constructor(private dateService: DateService,
                 private transactionService: TransactionService,
                 private userService: UserService) {
 
@@ -83,22 +80,6 @@ export class ActivityPage {
         this.updateBalance();
     }
 
-
-    /**
-     *
-     */
-    public ionViewDidEnter(): void {
-        this.buttonAdd = this.element.nativeElement.querySelector('.button-add-transaction');
-        this.showButtonAddTransaction();
-    }
-
-
-    /**
-     *
-     */
-    public ionViewDidLeave(): void {
-        this.hideButtonAddTransaction();
-    }
 
 
     /**
@@ -151,25 +132,6 @@ export class ActivityPage {
             });
     }
 
-
-    /**
-     *
-     */
-    private showButtonAddTransaction(): void {
-        if (this.buttonAdd != null) {
-            this.buttonAdd.classList.add('show');
-        }
-    }
-
-
-    /**
-     *
-     */
-    private hideButtonAddTransaction(): void {
-        if (this.buttonAdd != null) {
-            this.buttonAdd.classList.remove('show');
-        }
-    }
 
 
     /**

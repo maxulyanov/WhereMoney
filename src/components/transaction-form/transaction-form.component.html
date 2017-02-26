@@ -9,7 +9,7 @@
 
 <div padding>
     <div class="grid-row">
-        <div class="grid-column-3 grid-padding grid-left" *ngFor="let category of categories;">
+        <div class="grid-column-4 grid-padding grid-left" *ngFor="let category of categories;">
             <div class="container-category-group fadeIn animated">
                 <div [ngClass]="{'b-category': true, 'is-selected': category.id === idCategorySelected}" (click)="choiceCategory(category.id, category.slug, category.type)">
                     <category-icon-component [name]="category.slug"></category-icon-component>

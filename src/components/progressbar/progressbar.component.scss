@@ -53,7 +53,8 @@
       background: $colorCar;
     }
   }
-  &.is-internet {
+  &.is-internet,
+  &.is-phone {
     .progressbar__inner-line {
       background: $colorInternet;
     }

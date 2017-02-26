@@ -216,7 +216,7 @@ export class StatsPage {
                 colorByPoint: true,
                 data: data,
                 animation: {
-                    duration: 500,
+                    duration: 0,
                 }
             }],
         };

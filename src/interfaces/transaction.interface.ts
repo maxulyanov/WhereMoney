@@ -18,4 +18,6 @@ export interface TransactionInterface {
     slug: string,
     sum: number,
     type: number,
+    showLabelDate: boolean,
+    inBudget: boolean
 }

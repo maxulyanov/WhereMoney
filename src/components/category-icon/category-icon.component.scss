@@ -30,7 +30,8 @@ category-icon-component {
   &.is-car {
     color: $colorCar;
   }
-  &.is-internet {
+  &.is-internet,
+  &.is-phone {
     color: $colorInternet;
   }
   &.is-animals {
