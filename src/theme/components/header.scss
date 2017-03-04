@@ -1,17 +1,21 @@
 ion-header {
   color: #FFF;
+  &:after {
+    background: none !important;
+  }
 }
 .toolbar-background {
-  background-color: $fistColorApp;
+  background-color: $firstColorContent;
 }
 
 .toolbar-title-md {
-  color: #FFF;
+  font-family: 'roboto_slabregular', sans-serif;
+  color: $firstColorApp;
 }
 
 .bar-button-default-md,
 .bar-button-clear-md {
-  color: #FFF;
+  color: $firstColorApp;
 }
 
 .back-button.show-back-button {

@@ -4,10 +4,10 @@
 
 
 // App theme variables
-$fistColorApp: #3DC960;
-$secondColorApp: #F0515D;
-$firstColorContent: #2C2C39;
-$secondColorContent: #21212D;
+$firstColorApp: #26ABE3;
+$secondColorApp: #646F91;
+$firstColorContent: #293350;
+$secondColorContent: #262f49;
 
 
 
@@ -31,11 +31,13 @@ $background-color:  $firstColorContent;
 // The "primary" color is the only required color in the map.
 
 $colors: (
-  primary:    $fistColorApp,
+  primary:    $firstColorApp,
   secondary:  #01A7F2,
   danger:     #f53d3d,
   light:      #f4f4f4,
-  dark:       #222
+  create:       #2ED85B,
+  update:       #297FB8,
+  remove:       #e74b3c
 );
 
 
@@ -84,8 +86,8 @@ $ionicons-font-path: "../assets/fonts";
 // Colors category
 $colorFood: #E84C3D;
 $colorDress: #F59D1F;
-$colorCar: #34495E;
-$colorPhone: #297FB8;
+$colorCar: #75706B;
+$colorInternet: #297FB8;
 $colorAnimals: #4CAF50;
 $colorGifts: #03A9F4;
 $colorHealth: #C5382F;
@@ -95,11 +97,18 @@ $colorTravel: #67B9CE;
 $colorLearning: #8BC34A;
 $colorRepairs: #795548;
 $colorSport: #FF6F00;
+$colorBeauty: #D070DB;
+$colorTransport: #E3BE53;
 $colorOther: #9E9E9E;
 $colorJob: #4CAF50;
 $colorGifts2: #03A9F4;
 
 
+
+// *** gradation
+$colorHigh: #2ED85B;
+$colorMiddle: #F59D1F;
+$colorLow: #e74b3c;
 
 
 // ***** Rewrite values variable *****

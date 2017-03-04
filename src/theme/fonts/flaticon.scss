@@ -1,0 +1,100 @@
+/*
+Flaticon icon font: Flaticon
+Creation date: 13/11/2016 18:59
+*/
+
+@font-face {
+  font-family: "Flaticon";
+  src: url("../assets/fonts/Flaticon.eot");
+  src: url("../assets/fonts/Flaticon.eot?#iefix") format("embedded-opentype"),
+  url("../assets/fonts/Flaticon.woff") format("woff"),
+  url("../assets/fonts/Flaticon.ttf") format("truetype"),
+  url("../assets/fonts/Flaticon.svg#Flaticon") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+  @font-face {
+    font-family: "Flaticon";
+    src: url("../assets/fonts/Flaticon.svg#Flaticon") format("svg");
+  }
+}
+
+.b-flaticon {
+  font-size: 3.5rem;
+  &:before {
+    display: inline-block;
+    font-family: "Flaticon";
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-decoration: inherit;
+    text-rendering: optimizeLegibility;
+    text-transform: none;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    font-smoothing: antialiased;
+  }
+}
+
+@font-face {
+  font-family: 'yanone_kaffeesatzbold';
+  src: url('../assets/fonts/yanonekaffeesatz-bold-webfont.woff2') format('woff2'),
+  url('../assets/fonts/yanonekaffeesatz-bold-webfont.woff') format('woff'),
+  url('../assets/fonts/yanonekaffeesatz-bold-webfont.ttf') format('truetype'),
+  url('../assets/fonts/yanonekaffeesatz-bold-webfont.svg#yanone_kaffeesatzbold') format('svg');
+  font-weight: normal;
+  font-style: normal;
+
+}
+
+@font-face {
+  font-family: 'yanone_kaffeesatzextralight';
+  src: url('../assets/fonts/yanonekaffeesatz-extralight-webfont.woff2') format('woff2'),
+  url('../assets/fonts/yanonekaffeesatz-extralight-webfont.woff') format('woff'),
+  url('../assets/fonts/yanonekaffeesatz-extralight-webfont.ttf') format('truetype'),
+  url('../assets/fonts/yanonekaffeesatz-extralight-webfont.svg#yanone_kaffeesatzextralight') format('svg');
+  font-weight: normal;
+  font-style: normal;
+
+}
+.flaticon-animals:before { content: "\f100"; }
+.flaticon-beauty:before { content: "\f101"; }
+.flaticon-bill:before { content: "\f102"; }
+.flaticon-car:before { content: "\f103"; }
+.flaticon-dress:before { content: "\f104"; }
+.flaticon-entertainment:before { content: "\f105"; }
+.flaticon-food:before { content: "\f106"; }
+.flaticon-gifts:before { content: "\f107"; }
+.flaticon-gifts-2:before { content: "\f108"; }
+.flaticon-health:before { content: "\f109"; }
+.flaticon-phone:before { content: "\f10a"; }
+.flaticon-internet:before { content: "\f10a"; }
+.flaticon-job:before { content: "\f10b"; }
+.flaticon-learning:before { content: "\f10c"; }
+.flaticon-other:before { content: "\f10d"; }
+.flaticon-repairs:before { content: "\f10e"; }
+.flaticon-sport:before { content: "\f10f"; }
+.flaticon-transport:before { content: "\f110"; }
+.flaticon-travel:before { content: "\f111"; }
+
+$font-Flaticon-animals: "\f100";
+$font-Flaticon-beauty: "\f101";
+$font-Flaticon-bill: "\f102";
+$font-Flaticon-car: "\f103";
+$font-Flaticon-dress: "\f104";
+$font-Flaticon-entertainment: "\f105";
+$font-Flaticon-food: "\f106";
+$font-Flaticon-gifts: "\f107";
+$font-Flaticon-gifts-2: "\f108";
+$font-Flaticon-health: "\f109";
+$font-Flaticon-internet: "\f10a";
+$font-Flaticon-phone: "\f10a";
+$font-Flaticon-job: "\f10b";
+$font-Flaticon-learning: "\f10c";
+$font-Flaticon-other: "\f10d";
+$font-Flaticon-repairs: "\f10e";
+$font-Flaticon-sport: "\f10f";
+$font-Flaticon-transport: "\f110";
+$font-Flaticon-travel: "\f111";

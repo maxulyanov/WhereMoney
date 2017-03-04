@@ -72,4 +72,22 @@ export class DateService {
     };
 
 
+    /**
+     *
+     * @param date
+     * @returns {Date}
+     */
+    public getDateFistDayInMonth(date: Date): Date {
+        return new Date(date.getFullYear(), date.getMonth(), 1);
+    }
+
+
+    /**
+     *
+     * @param date
+     * @returns {Date}
+     */
+    public getDateLastDayInMonth(date: Date): Date {
+        return new Date(date.getFullYear(), date.getMonth() + 1, 0, 23, 59, 59, 59);
+    }
 }

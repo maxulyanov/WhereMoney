@@ -7,7 +7,40 @@ page-stats {
   }
 }
 
+.container-chart {
+  margin-top: -25px;
+}
 
 .container-list-stats {
-  margin-top: -15px;
+  margin-top: -10px;
+}
+
+.container-controls-change-month {
+  width: 100%;
+  position: absolute;
+  top: 185px;
+  z-index: 2;
+}
+
+.b-control-change-month {
+  position: absolute;
+  top: 0;
+  font-size: 30px;
+  color: $secondColorApp;
+  transition: 0.3s;
+  &:active {
+    color: $firstColorApp;
+  }
+  &.is-prev {
+    left: 20px;
+  }
+  &.is-next {
+    right: 20px;
+  }
+}
+
+.b-current-date {
+  margin: 28px 0 20px 0;
+  text-align: center;
+  text-transform: uppercase;
 }

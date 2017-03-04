@@ -21,12 +21,13 @@ export class ProgressBar {
 
 
     @Input() type: string;
+    @Input() title: string;
     @Input() sum: number;
     @Input() totalSum: number;
 
     public sumForDisplay: string;
-    public procent: string;
-    public procentForLine: string;
+    public percent: string;
+    public percentForLine: string;
 
     constructor() {
         this.sumForDisplay = '0';
@@ -37,10 +38,10 @@ export class ProgressBar {
      *
      */
     public ngAfterContentInit(): void {
-        this.procentForLine = '0';
+        this.percentForLine = '0';
         this.sumForDisplay = Utils.separatedBySpaceNumber(this.sum);
-        this.procent = Utils.toFixed((this.sum / this.totalSum * 100), 1);
-        setTimeout(() => this.procentForLine = this.procent, 100);
+        this.percent = Utils.toFixed((this.sum / this.totalSum * 100), 1);
+        setTimeout(() => this.percentForLine = this.percent, 100);
     }
 
 

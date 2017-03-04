@@ -11,7 +11,10 @@ import { Component } from '@angular/core';
 
 import { TransactionService } from "../../services/transaction.service";
 import { CategoryService } from "../../services/category.service";
+import { DateService } from "../../services/date.service";
 import { Utils } from "../../libs/Utils";
+
+import { date } from '../../locale/ru/date';
 
 
 @Component({
@@ -23,36 +26,37 @@ import { Utils } from "../../libs/Utils";
 export class StatsPage {
 
     public title: string;
-    public period: string;
     public type: string;
     public categories: any;
     public optionsChart: any;
     public isReadyChart: boolean;
     public totalCount: number;
     public totalSum: number;
-
+    public month: string;
+    public year: number;
+    public isCurrentMonth: boolean;
 
     private colors: any;
-    private date: number;
-    private endDate: number;
-
+    private date: Date;
 
     /**
      *
      * @param transactionService
      * @param categoryService
+     * @param dateService
      */
-    constructor(private transactionService: TransactionService, private categoryService: CategoryService) {
+    constructor(private transactionService: TransactionService,
+                private categoryService: CategoryService,
+                private dateService: DateService ) {
         this.title = 'Статистика';
-        this.period = 'week';
         this.type = '0';
         this.categories = [];
         this.totalCount = -1;
         this.isReadyChart = false;
         this.totalSum = 0;
 
-        this.endDate = 0;
-
+        this.date = new Date();
+        this.isCurrentMonth = true;
         this.createColors();
     }
 
@@ -61,7 +65,8 @@ export class StatsPage {
      *
      */
     public ionViewWillEnter(): void {
-        this.cleanChart();
+        this.clearChart();
+        this.renderDate();
         this.renderChart();
     }
 
@@ -77,7 +82,7 @@ export class StatsPage {
     /**
      *
      */
-    public handlerSelectType(): void {
+    public selectType(): void {
         this.renderChart();
     }
 
@@ -85,9 +90,21 @@ export class StatsPage {
     /**
      *
      */
-    public handlerSelectPeriod(): void {
+    public changeMonth(direction: string): void {
+        switch (direction) {
+            case 'PREV':
+                this.date = new Date(this.date.setMonth(this.date.getMonth() - 1));
+                this.isCurrentMonth = false;
+                break;
+            case 'NEXT':
+                this.date =  new Date(this.date.setMonth(this.date.getMonth() + 1));
+                if(+this.dateService.getDateLastDayInMonth(this.date) === +this.dateService.getDateLastDayInMonth(new Date())) {
+                    this.isCurrentMonth = true;
+                }
+                break;
+        }
+        this.renderDate();
         this.renderChart();
-
     }
 
 
@@ -95,8 +112,6 @@ export class StatsPage {
      *
      */
     private renderChart(): void {
-        this.date = +new Date();
-        this.selectPeriod();
         this.getTransactions().then((transactions: any[]) => {
             this.buildDataForChart(transactions);
         }, (error) => {
@@ -105,13 +120,21 @@ export class StatsPage {
     }
 
 
+    private renderDate(): void {
+        this.month = date.monthNames[this.date.getMonth()];
+        this.year = this.date.getFullYear();
+    }
+
+
     /**
      *
      * @returns {Promise<T>}
      */
-    private getTransactions(): any {
+    private getTransactions(): Promise<any> {
         return new Promise((resolve, reject) => {
-            this.transactionService.getTransactions(2e10, 0, this.date, this.endDate, parseInt(this.type)).then(
+            const startDate: number = +this.dateService.getDateLastDayInMonth(this.date);
+            const endDate: number = +this.dateService.getDateFistDayInMonth(this.date);
+            this.transactionService.getTransactions(2e10, 0, startDate, endDate, parseInt(this.type)).then(
                 (transactions) => {
                     this.totalCount = transactions.length;
                     resolve(transactions);
@@ -121,27 +144,6 @@ export class StatsPage {
                 }
             );
         })
-    }
-
-
-    /**
-     *
-     */
-    private selectPeriod(): void {
-        let dayMs: number = 1000 * 60 * 60 * 24;
-        let periods = {
-            week: 7,
-            month: 30,
-            month3: 90,
-            year: 365,
-        };
-
-        if(this.period == 'all') {
-            this.endDate = 0;
-        }
-        else if(periods[this.period] !== null) {
-            this.endDate = this.date - (dayMs * periods[this.period]);
-        }
     }
 
 
@@ -182,14 +184,11 @@ export class StatsPage {
      * @param data
      */
     private createOptionsChart(data): void {
-        let width: number = window.innerWidth > 640 ? 640 : window.innerWidth;
         this.optionsChart = {
             chart: {
-                width: width - 60,
+                width: 220,
+                height: 260,
                 backgroundColor: 'transparent',
-                plotBackgroundColor: null,
-                plotBorderWidth: null,
-                plotShadow: false,
                 type: 'pie'
             },
             tooltip: {
@@ -215,10 +214,12 @@ export class StatsPage {
 
             series: [{
                 colorByPoint: true,
-                data: data
+                data: data,
+                animation: {
+                    duration: 0,
+                }
             }],
         };
-
 
         this.isReadyChart = true;
     }
@@ -232,8 +233,8 @@ export class StatsPage {
         this.colors = {
             food: '#E84C3D',
             dress: '#F59D1F',
-            car: '#34495E',
-            phone: '#297FB8',
+            car: '#75706B',
+            internet: '#297FB8',
             animals: '#4CAF50',
             gifts: '#03A9F4',
             health: '#C5382F',
@@ -244,6 +245,8 @@ export class StatsPage {
             repairs: '#795548',
             sport: '#FF6F00',
             other: '#9E9E9E',
+            transport: '#E3BE53',
+            beauty: '#D070DB',
             job: '#4CAF50',
             'gifts-2': '#03A9F4'
         }
@@ -253,8 +256,10 @@ export class StatsPage {
     /**
      *
      */
-    private cleanChart() {
+    private clearChart() {
         this.totalCount = -1;
+        this.date = new Date();
+        this.isCurrentMonth = true;
     }
 
 

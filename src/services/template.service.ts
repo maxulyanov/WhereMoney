@@ -56,15 +56,15 @@ export class TemplateService {
      * @param data
      * @returns {Promise<T>}
      */
-    public updateTemplate(id: number, data: any): any {
+    public updateTemplate(id: number, data: any): Promise<any> {
         return new Promise((resolve, reject) => {
-            let { category_id, description, sum } = data;
+            let { category_id, description, sum, inBudget } = data;
             let promise = this.sqlService.query(`
             UPDATE templates 
-            SET category_id = ${category_id}, description = '${description}', sum = ${sum}
+            SET category_id = ${category_id}, description = '${description}', sum = ${sum}, inBudget = ${inBudget}
             WHERE id=${id}`);
             promise.then(
-                (data) => {
+                () => {
                     resolve('Шаблон успешно обновлен');
                 },
                 (data) => {
@@ -79,7 +79,7 @@ export class TemplateService {
      * @param id
      * @returns {Promise<T>}
      */
-    public deleteTemplate(id: number): any {
+    public deleteTemplate(id: number): Promise<any> {
         return new Promise((resolve, reject) => {
             let promise = this.sqlService.query(`DELETE FROM templates WHERE id=${id};`);
             promise.then(
@@ -102,7 +102,7 @@ export class TemplateService {
     public getTemplates(limit: number = 100, offset: number = 0): any {
         return new Promise((resolve, reject) => {
             let promise =  this.sqlService.query(`
-            SELECT t.id as templateId, t.category_id, t.description, t.sum, t.created, c.id, c.type, c.slug 
+            SELECT t.id as templateId, t.category_id, t.description, t.sum, t.created, t.inBudget, c.id, c.type, c.slug, c.name 
             FROM templates AS t
             INNER JOIN categories AS c
             ON t.category_id = c.id
@@ -128,7 +128,6 @@ export class TemplateService {
                     reject(data.err.message);
                 });
         });
-
     }
 
 
@@ -137,10 +136,10 @@ export class TemplateService {
      * @param id
      * @returns {Promise<any>}
      */
-    public getTemplateById(id: number): any {
+    public getTemplateById(id: number): Promise<any> {
         return new Promise((resolve, reject) => {
             let promise =  this.sqlService.query(`
-            SELECT t.id, t.category_id, t.description, t.sum, t.created, c.id, c.type
+            SELECT t.id, t.category_id, t.description, t.sum, t.created, t.inBudget, c.id, c.type
             FROM templates AS t
             INNER JOIN categories AS c
             ON t.category_id = c.id

@@ -9,6 +9,7 @@
 import { Injectable } from "@angular/core";
 
 import { SqlService } from './sql.service';
+import { MigrationsService } from './migrations.service';
 import { LocalStorage } from '../libs/LocalStorage';
 import { Utils } from '../libs/Utils';
 
@@ -26,23 +27,28 @@ export class DbService {
     /**
      *
      * @param sqlService
+     * @param migrationsService
      */
-    constructor(private sqlService: SqlService) {
-    }
+    constructor(private sqlService: SqlService, private migrationsService: MigrationsService) {}
 
 
     /**
      *
      */
-    public initDataBase(): void {
-        if (structure != null && typeof structure.dbName === 'string') {
-            this.sqlService.openDb(structure.dbName).then(() => {
-                if(LocalStorage.get('initDataBase') == null) {
-                    this.createTables();
-                    LocalStorage.set('initDataBase', 1);
-                }
-            });
-        }
+    public initDataBase(): any {
+        return new Promise((resolve) => {
+            if (structure != null && typeof structure.dbName === 'string') {
+                this.sqlService.openDb(structure.dbName).then(() => {
+                    if(LocalStorage.get('initDataBase') == null) {
+                        this.createTables().then(() => {
+                            LocalStorage.set('initDataBase', 1);
+                            this.migrationsService.start().then(() => resolve())
+                        });
+                    }
+                    this.migrationsService.start().then(() => resolve())
+                });
+            }
+        });
     }
 
 
@@ -77,23 +83,13 @@ export class DbService {
     /**
      *
      */
-    private createTables(): void {
+    private createTables(): any {
         if (structure != null) {
-            let countAllTables = structure.tables.length;
-            let countCreatedTabled = 0;
+            const all = [];
             for (let table of structure.tables) {
-                this.sqlService.createTable(table.name, table.structure).then(
-                    () => {
-                        countCreatedTabled++;
-                        if(countAllTables === countCreatedTabled) {
-                            this.fillBasicData();
-                        }
-                    },
-                    (err) => {
-                        console.error('Storage: Unable to create initial storage tables', err.tx, err.err);
-                    }
-                );
+                all.push(this.sqlService.createTable(table.name, table.structure));
             }
+            return Promise.all(all).then(() => this.fillBasicData());
         }
     }
 

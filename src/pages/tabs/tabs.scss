@@ -7,15 +7,18 @@
 
 .tabs-md {
   .tabbar {
-    background: $secondColorContent;
+    background: $firstColorContent;
     overflow: hidden;
   }
+  .tab-button-icon {
+    font-size: 2.8rem;
+  }
   .tab-button {
-    color: #FFF;
+    color: $secondColorApp;
     overflow: visible;
     &.activated,
     &:hover {
-      color: $fistColorApp;
+      color: $firstColorApp;
     }
     &:hover,
     &[aria-selected=true]{

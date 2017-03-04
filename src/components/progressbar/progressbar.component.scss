@@ -2,32 +2,39 @@
   display: flex;
   flex-wrap: wrap;
   width: 100%;
+  position: relative;
+  overflow: hidden;
   .progressbar__line {
     display: flex;
     width: 100%;
-    height: 8px;
+    height: 42px;
     background: $secondColorContent;
-    border-radius: 5px;
   }
     .progressbar__inner-line {
-      background: $fistColorApp;
-      transition: width 1s;
-      border-radius: 5px;
+      background: $firstColorApp;
+      transition: width 0.5s;
   }
   .progressbar__data {
-    display: flex;
-    justify-content: space-between;
     width: 100%;
-    margin-top: 10px;
+    justify-content: space-between;
+    display: flex;
+    padding: 0 15px;
+    align-items: center;
+    position: absolute;
+    top: 11px;
   }
-  .progressbar__left {
-    padding: 5px 10px;
+  .progressbar__title {
+    margin-right: 10px;
     font-size: 1.5rem;
-    border-radius: 3px;
-    background: $secondColorContent;
   }
-  .progressbar__right {
-    font-size: 1.5rem;
+  .progressbar__sum {
+    font-size: 1.7rem;
+    color: #FFF;
+  }
+  .progressbar__percent {
+    margin-right: 5px;
+    font-size: 1.4rem;
+    color: $secondColorApp;
   }
 
 
@@ -46,14 +53,25 @@
       background: $colorCar;
     }
   }
+  &.is-internet,
   &.is-phone {
     .progressbar__inner-line {
-      background: $colorPhone;
+      background: $colorInternet;
     }
   }
   &.is-animals {
     .progressbar__inner-line {
       background: $colorAnimals;
+    }
+  }
+  &.is-beauty {
+    .progressbar__inner-line {
+      background: $colorBeauty;
+    }
+  }
+  &.is-transport {
+    .progressbar__inner-line {
+      background: $colorTransport;
     }
   }
   &.is-gifts {

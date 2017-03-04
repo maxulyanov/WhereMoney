@@ -1,13 +1,49 @@
 form {
-  .item-md {
-    padding-left: 0;
 
+  .label-md[stacked],
+  .label-md[floating] {
+    width: auto;
+    display: inline-block;
+    background: $secondColorContent;
+    color: #FFF;
+    padding: 7px 10px;
+    margin-top: 0;
+    align-self: flex-start;
+    border-radius: 30px;
+  }
+
+  .item-label-stacked .text-input-md, .item-label-floating .text-input-md {
+    padding: 5px 0;
+  }
+
+  .item-md.item-block {
+    padding: 0;
     &.item-input.ng-valid.input-has-value:not(.input-has-focus) {
       .item-inner {
         box-shadow: none;
-        border-bottom-color: #21212D;
+        border-bottom-color: $secondColorContent;
       }
     }
 
+    .item-inner {
+      padding-right: 0;
+    }
+
   }
+
+
+  // checkbox
+  .item.item-checkbox {
+    border-bottom: 1px solid #262f49;
+    .checkbox-md {
+     margin: 0 10px 0 0;
+    }
+    .checkbox-icon {
+      border-color: $firstColorApp;
+    }
+    .item-inner {
+      border: 0;
+    }
+  }
+
 }

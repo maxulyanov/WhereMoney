@@ -33,7 +33,7 @@ export class TransactionService {
      *
      * @param data
      */
-    public addTransaction(data): any {
+    public addTransaction(data): Promise<any> {
         return new Promise((resolve, reject) => {
             let { keys, mask, values } = this.dbService.prepareData(data);
             let promise = this.sqlService.query(`INSERT INTO transactions (${keys}) VALUES (${mask});`, values);
@@ -58,29 +58,43 @@ export class TransactionService {
      * @param startDate
      * @param endDate
      * @param type
-     * @returns {Promise<any>}
+     * @param inBudget
+     * @returns {Promise<T>}
      */
-    public getTransactions(limit: number = 20, offset: number = 0, startDate: number = +new Date(), endDate: number = 0, type: any = null): any {
+    public getTransactions(
+        limit: number = 20,
+        offset: number = 0,
+        startDate: number = +new Date(),
+        endDate: number = 0,
+        type: any = null,
+        inBudget: boolean = false): Promise<any> {
 
         let queryType: string = '';
-            if(type != null) {
+        if(type != null) {
             queryType = `AND type = ${type}`;
+        }
+
+        let queryInBudget: string = '';
+        if(inBudget === true) {
+            queryInBudget = `AND inBudget = 1`;
         }
 
         return new Promise((resolve, reject) => {
 
             let promise = this.sqlService.query(`
-                SELECT category_id, name, description, sum, created, type, slug 
+                SELECT category_id, name, description, sum, created, type, slug, inBudget 
                 FROM transactions 
                 INNER JOIN categories 
                 ON transactions.category_id = categories.id
                 WHERE created < ${startDate}
                 AND created > ${endDate}
                 ${queryType}
+                ${queryInBudget}
                 ORDER BY created DESC
                 LIMIT ${limit}
                 OFFSET ${offset}`, []);
 
+            // 1 2 3 4 5
             promise.then(
                 (data) => {
                     if(data != null && data.res) {

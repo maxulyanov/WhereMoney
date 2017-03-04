@@ -51,7 +51,7 @@ export class NumbersArea {
      *
      * @param value
      */
-    public handlerClickNumber(value: any): void {
+    public select(value: any): void {
         let currentValue: string = this.getValue();
         if(currentValue == '0') {
             currentValue = value;
@@ -67,13 +67,22 @@ export class NumbersArea {
     /**
      *
      */
-    public handlerClickDelete(): void {
+    public clear(): void {
         let currentValue: string = this.getValue();
         let newValue = currentValue.slice(0, -1);
         if(newValue.length === 0) {
             newValue = '0';
         }
         this.setValue(Utils.separatedBySpaceNumber(newValue));
+        this.outputValue();
+    }
+
+
+    /**
+     *
+     */
+    public clearAll(): void {
+        this.setValue('0');
         this.outputValue();
     }
 
@@ -108,7 +117,7 @@ export class NumbersArea {
      *
      */
     private createButtons(): void {
-        const names = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '', '0'];
+        const names = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'];
         names.forEach((name) => {
             this.buttons.push(new NumberButton(name));
         });

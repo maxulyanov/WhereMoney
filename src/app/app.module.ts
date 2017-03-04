@@ -23,6 +23,8 @@ import { TemplateService } from "../services/template.service";
 import { UserService } from "../services/user.service";
 import { NotifyService } from "../services/notify.service"
 import { BudgetService } from "../services/budget.service"
+import { MigrationsService } from "../services/migrations.service"
+
 
 import { App} from './app.component';
 import { TabsPage } from '../pages/tabs/tabs';
@@ -47,6 +49,7 @@ import { TransactionForm } from '../components/transaction-form/transaction-form
 import { NumbersArea } from '../components/numbers-area/numbers-area.component';
 import { ListItem } from '../components/list-item/list-item.component';
 import { ProgressBar } from '../components/progressbar/progressbar.component';
+import { EmptyBox } from '../components/empty-box/empty-box.component';
 
 
 @NgModule({
@@ -73,7 +76,8 @@ import { ProgressBar } from '../components/progressbar/progressbar.component';
         TransactionModal,
         TransactionForm,
         ListItem,
-        ProgressBar
+        ProgressBar,
+        EmptyBox
     ],
     imports: [
         IonicModule.forRoot(App),
@@ -105,6 +109,7 @@ import { ProgressBar } from '../components/progressbar/progressbar.component';
         TemplateService,
         UserService,
         BudgetService,
+        MigrationsService,
         NotifyService]
 })
 

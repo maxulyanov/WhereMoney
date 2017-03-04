@@ -15,60 +15,65 @@ category-icon-component {
   display: flex;;
   align-items: center;
   justify-content: center;
-  background: $fistColorApp;
-  color: #FFF;
+  color: $secondColorApp;
   border-radius: 100%;
   transition: 0.3s;
 
 
   // colors
   &.is-food {
-    background: $colorFood;
+    color: $colorFood;
   }
   &.is-dress {
-    background: $colorDress;
+    color: $colorDress;
   }
   &.is-car {
-    background: $colorCar;
+    color: $colorCar;
   }
+  &.is-internet,
   &.is-phone {
-    background: $colorPhone;
+    color: $colorInternet;
   }
   &.is-animals {
-    background: $colorAnimals;
+    color: $colorAnimals;
   }
   &.is-gifts {
-    background: $colorGifts;
+    color: $colorGifts;
   }
   &.is-health {
-    background: $colorHealth;
+    color: $colorHealth;
   }
   &.is-entertainment {
-    background:$colorEntertainment;
+    color:$colorEntertainment;
   }
   &.is-bill {
-    background: $colorBill;
+    color: $colorBill;
   }
   &.is-travel {
-    background: $colorTravel;
+    color: $colorTravel;
   }
   &.is-learning {
-    background: $colorLearning;
+    color: $colorLearning;
   }
   &.is-repairs {
-    background: $colorRepairs;
+    color: $colorRepairs;
   }
   &.is-sport {
-    background: $colorSport;
+    color: $colorSport;
+  }
+  &.is-beauty {
+    color: $colorBeauty;
+  }
+  &.is-transport {
+    color: $colorTransport;
   }
   &.is-other {
-    background: $colorOther;
+    color: $colorOther;
   }
   &.is-job {
-    background: $colorJob;
+    color: $colorJob;
   }
   &.is-gifts-2 {
-    background: $colorGifts2;
+    color: $colorGifts2;
   }
-
 }

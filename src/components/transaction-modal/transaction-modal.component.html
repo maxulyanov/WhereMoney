@@ -14,14 +14,26 @@
 
 <ion-content>
 
-    <ion-item>
-        <ion-input type="text" placeholder="Описание" [(ngModel)]="description" (ngModelChange)="changeDescription()"></ion-input>
-    </ion-item>
+    <form (ngSubmit)="onReady()">
 
-    <numbers-area-component [value]="outSum" (updatedSum)="updatedSum($event)"></numbers-area-component>
+        <div padding>
+            <ion-item>
+                <ion-label stacked>Описание записи</ion-label>
+                <ion-input type="text" placeholder="{{ placeholder }}" [(ngModel)]="description" name="description" (ngModelChange)="changeDescription()"></ion-input>
+            </ion-item>
 
-    <div class="util-align-center">
-        <button class="b-button-ready" ion-button (click)="onReady()" [disabled]="!isDataFilled">Готово</button>
-    </div>
+            <ion-item *ngIf="!isIncome">
+                <ion-label>Учитывать при расчете бюджета</ion-label>
+                <ion-checkbox [(ngModel)]="checkedInBudget" name="inBudget"></ion-checkbox>
+            </ion-item>
+        </div>
+
+        <numbers-area-component [value]="outSum" (updatedSum)="updatedSum($event)"></numbers-area-component>
+
+        <div style="margin: 20px 0;" class="util-align-center">
+            <button  class="b-button-ready" ion-button [disabled]="!isDataFilled" ion-button type="submit">Готово</button>
+        </div>
+
+    </form>
 
 </ion-content>

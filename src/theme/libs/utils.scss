@@ -3,15 +3,16 @@
   text-align: center;
 }
 
-.util-empty-box {
-  padding: 20px;
-  text-align: center;
-  background: $secondColorContent;
-}
-
 .util-info-box {
   padding: 15px;
+  margin-bottom: 15px;
   line-height: 1.5em;
   border-radius: 3px;
   background: $secondColorContent;
+}
+
+.util-subtitle {
+  width: 100%;
+  text-align: center;
+  color: $secondColorApp;
 }

@@ -1,17 +1,15 @@
 transaction-action-component {
   position: fixed;
-  bottom: 85px;
-  right: 20px;
+  bottom: 75px;
+  right: 0;
+  left: 0;
+  text-align: right;
   .button {
     height: 5.5rem;
     width: 5.5rem;
+    bottom: 0;
+    right: 20px;
     margin: 0;
-    right: -80px;
     border-radius: 100%;
-    transition: right .3s;
-    &.show {
-      right: 0;
-      transition: right .3s;
-    }
   }
 }

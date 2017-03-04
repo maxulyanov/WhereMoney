@@ -36,7 +36,8 @@ export class NotifyService {
                         message: message,
                         showCloseButton: true,
                         closeButtonText: 'Ok',
-                        duration: 3000
+                        duration: 3000,
+                        position: 'top'
                     });
                     toast.present();
                 }

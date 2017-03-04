@@ -28,6 +28,7 @@ export class BudgetPage {
 
 
     public title: string;
+    public emptyText: string;
     public overallBudget: number;
     public overallBudgetForDisplay: string;
     public leftBudget: number;
@@ -35,6 +36,10 @@ export class BudgetPage {
     public totalCount: number;
     public totalSum: number;
     public categories: any[];
+    public percent: number;
+    public percentForText: number;
+    public indicatorTransition: number;
+    public indicatorClassName: string;
 
 
     /**
@@ -51,11 +56,16 @@ export class BudgetPage {
                 private budgetService: BudgetService,
                 private categoryService: CategoryService,) {
         this.title = 'Бюджет на неделю';
+        this.emptyText = 'Нет расходов на этой неделе';
         this.overallBudgetForDisplay = '0';
         this.leftBudgetForDisplay = '0';
         this.totalSum = 0;
         this.totalCount = -1;
         this.categories = [];
+        this.percent = 0;
+        this.percentForText = 0;
+        this.indicatorTransition = 0;
+        this.indicatorClassName = '';
     }
 
 
@@ -77,9 +87,9 @@ export class BudgetPage {
      *
      * @returns {Promise<T>}
      */
-    private getOverallBudget(): any {
+    private getOverallBudget(): Promise<any> {
         let value: number;
-        let valueBudget: number;
+
         return new Promise((resolve, reject) => {
             this.userService.getSettings("WHERE key = 'budget'")
                 .then((data) => {
@@ -92,32 +102,24 @@ export class BudgetPage {
                     }
                 })
                 .then(() => {
-                    return this.getSaveRestBudget();
+                    return this.isSaveRestBudget();
                 })
                 .then((isSave) => {
                     if (isSave) {
                         let startWeek: number = +this.dateService.getDateStartWeek();
                         startWeek -= 1e3;
-                        let {year, week} = this.dateService.getWeekNumber(new Date(startWeek));
+                        const { year, week } = this.dateService.getWeekNumber(new Date(startWeek));
                         return this.budgetService.getBudget(year, week);
                     }
                     else {
                         resolve(value);
                     }
                 })
-                .then((budget: number) => {
+                .then((budget: any) => {
                     if (budget != null) {
-                        valueBudget = budget['value'];
-                        let startWeekBudget: number = budget['start_week'];
-                        let d = new Date(startWeekBudget);
-                        d.setHours(24 * 6 + 23, 23, 59, 59);
-                        return this.transactionService.getTransactions(2e10, 0, +d, startWeekBudget, 0);
+                        resolve(value += budget.rest);
+                        return budget.rest;
                     }
-                    resolve(value)
-                })
-                .then((transactions) => {
-                    let sumTransactions: number = this.transactionService.getSumTransactions(transactions);
-                    value += (valueBudget - sumTransactions);
                     resolve(value)
                 })
                 .catch((error) => {
@@ -131,7 +133,7 @@ export class BudgetPage {
      *
      * @returns {Promise<T>}
      */
-    private getSaveRestBudget(): any {
+    private isSaveRestBudget(): any {
         return new Promise((resolve) => {
             this.userService.getSettings("WHERE key = 'saveRest'").then(
                 (data) => {
@@ -164,6 +166,16 @@ export class BudgetPage {
             this.leftBudget = this.overallBudget - totalSum;
             this.totalSum = totalSum;
             this.leftBudgetForDisplay = Utils.separatedBySpaceNumber(this.leftBudget);
+
+            this.percent = 100 - Math.round((totalSum / this.overallBudget * 100));
+            if(this.percent < 0 || isNaN(this.percent)) {
+                this.percent = 0;
+            }
+            this.percentForText = this.percent;
+            this.indicatorClassName = this.getIndicatorClassName(this.percent);
+            this.indicatorTransition = 0.5;
+
+
             arrayCategories.sort(Utils.sortBy({
                 name: 'sum',
                 reverse: true
@@ -181,7 +193,7 @@ export class BudgetPage {
      */
     private getTransactions(endDate: number): any {
         return new Promise((resolve, reject) => {
-            this.transactionService.getTransactions(2e10, 0, +new Date(), endDate, 0).then(
+            this.transactionService.getTransactions(2e10, 0, +new Date(), endDate, 0, true).then(
                 (transactions) => {
                     this.totalCount = transactions.length;
                     resolve(transactions);
@@ -196,8 +208,29 @@ export class BudgetPage {
 
     /**
      *
+     * @param percent
+     * @returns {string}
+     */
+    private getIndicatorClassName(percent: number): string {
+        let className = '';
+        if(percent > 50) {
+            className = 'is-high';
+        }
+        else if(percent > 25) {
+            className = 'is-middle';
+        }
+        else {
+            className = 'is-low';
+        }
+        return className;
+    }
+
+    /**
+     *
      */
     private cleanBudget(): void {
+        this.percent = 0;
+        this.indicatorTransition = 0;
         this.categories = [];
         this.totalCount = -1;
     }

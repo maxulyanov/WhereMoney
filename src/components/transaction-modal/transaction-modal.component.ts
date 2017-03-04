@@ -11,6 +11,7 @@ import { Component } from '@angular/core';
 import { NavController, ViewController, NavParams } from "ionic-angular";
 
 import { Modal } from "../modal/modal.component";
+import { examplesText } from '../../locale/ru/examplesText';
 
 
 @Component({
@@ -23,8 +24,11 @@ export class TransactionModal extends Modal {
 
     public sum: number;
     public outSum: string;
+    public isIncome: boolean;
     public description: string;
     public isDataFilled: boolean;
+    public placeholder: string;
+    public checkedInBudget: boolean;
 
 
     /**
@@ -35,10 +39,14 @@ export class TransactionModal extends Modal {
      */
     constructor(protected navCtrl: NavController, protected viewCtrl: ViewController, protected navParams: NavParams) {
         super(navCtrl, viewCtrl, navParams);
-        let { sum, description } = this.navParams.get('inputData');
+        let { sum, description, type, inBudget, slug  } = this.navParams.get('inputData');
         this.sum = sum || 0;
         this.outSum = sum || '0';
+        this.isIncome = !!type || false;
         this.description = description || '';
+        this.placeholder = examplesText[slug] || 'Введите описание';
+        this.checkedInBudget = inBudget != null ? !!inBudget : true;
+
         this.checkDataFilled();
     }
 
@@ -51,7 +59,8 @@ export class TransactionModal extends Modal {
         if(typeof readyCallback === 'function') {
             readyCallback({
                 sum: this.sum,
-                description: this.description
+                description: this.description,
+                inBudget: Number(this.checkedInBudget)
             });
             this.close();
         }
@@ -83,5 +92,6 @@ export class TransactionModal extends Modal {
     private checkDataFilled(): void {
         this.isDataFilled = !!(this.sum > 0 && this.description.length > 0);
     }
+
 
 }

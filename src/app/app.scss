@@ -16,7 +16,8 @@
 // automatically applied to the <body> element in the app.
 
 
-@import '../theme/icons/flaticon';
+@import '../theme/fonts/roboto';
+@import '../theme/fonts/flaticon';
 
 @import '../theme/libs/animate';
 @import '../theme/libs/grid';
@@ -32,6 +33,8 @@
 @import '../theme/components/alert';
 @import '../theme/components/sliding';
 @import '../theme/components/form';
+@import '../theme/components/segment';
 
 @import '../theme/blocks/balance-group';
 @import '../theme/blocks/category';
+
