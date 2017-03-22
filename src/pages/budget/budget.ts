@@ -106,19 +106,16 @@ export class BudgetPage {
                 })
                 .then((isSave) => {
                     if (isSave) {
-                        let startWeek: number = +this.dateService.getDateStartWeek();
-                        startWeek -= 1e3;
-                        const { year, week } = this.dateService.getWeekNumber(new Date(startWeek));
-                        return this.budgetService.getBudget(year, week);
+                        return this.budgetService.getPreviewRest();
                     }
                     else {
                         resolve(value);
                     }
                 })
-                .then((budget: any) => {
-                    if (budget != null) {
-                        resolve(value += budget.rest);
-                        return budget.rest;
+                .then((rest: any) => {
+                    if (rest != null) {
+                        resolve(value += rest);
+                        return rest;
                     }
                     resolve(value)
                 })

@@ -52,15 +52,20 @@ export class BudgetService {
                     let promise: Promise<any>;
 
                     if(budget == null) {
-                        data.rest = value;
-                        const { keys, mask, values } = this.dbService.prepareData(data);
-                        promise = this.sqlService.query(`INSERT INTO budget (${keys}) VALUES (${mask});`, values);
+                        data.rest = +value;
+                        this.getPreviewRest().then((previewRest) => {
+                            data.rest += previewRest;
+                            const { keys, mask, values } = this.dbService.prepareData(data);
+                            promise = this.sqlService.query(`INSERT INTO budget (${keys}) VALUES (${mask});`, values);
+                        });
                     }
                     else {
-                        const rest = budget.rest + (value - budget.value);
-                        promise = this.sqlService.query(`UPDATE budget SET value = ${value}, rest = ${rest} WHERE week=${week}`);
+                        this.getPreviewRest().then(() => {
+                            let rest = budget.rest;
+                            rest += (value - budget.value);
+                            promise = this.sqlService.query(`UPDATE budget SET value = ${value}, rest = ${rest} WHERE week=${week}`);
+                        });
                     }
-
                     promise.then(
                         (data) => {
                             resolve(data);
@@ -121,5 +126,22 @@ export class BudgetService {
         });
     }
 
+
+    /**
+     *
+     * @returns {Promise<T>}
+     */
+    public getPreviewRest(): Promise<any> {
+        return new Promise((resolve) => {
+            let startWeek: number = +this.dateService.getDateStartWeek();
+            startWeek -= 1e3;
+            const { year, week } = this.dateService.getWeekNumber(new Date(startWeek));
+            this.getBudget(year, week).then((budget) => {
+                resolve(budget.rest);
+            }).catch(() => {
+                resolve(0);
+            });
+        });
+    }
 
 }
