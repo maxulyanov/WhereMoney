@@ -5,14 +5,24 @@ page-stats {
   .highcharts-container {
     margin: -10px auto 0;
   }
+  .total-sum {
+    display: flex;
+    width: 100%;
+    margin: -15px 0 25px 0;
+    align-items: center;
+    justify-content: center;
+    color: #FFF;
+    font-size: 1.3rem;
+    text-transform: uppercase;
+    .total-sum-s {
+      margin-left: 5px;
+      font-size: 1.7rem;
+    }
+  }
 }
 
 .container-chart {
   margin-top: -25px;
-}
-
-.container-list-stats {
-  margin-top: -10px;
 }
 
 .container-controls-change-month {
@@ -40,7 +50,7 @@ page-stats {
 }
 
 .b-current-date {
-  margin: 28px 0 20px 0;
+  margin: 28px 0 15px 0;
   text-align: center;
   text-transform: uppercase;
 }

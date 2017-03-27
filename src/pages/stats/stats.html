@@ -38,6 +38,8 @@
 
         <chart [options]="optionsChart"></chart>
 
+        <div class="total-sum">Всего: <span class="total-sum-s">{{ totalSumFormatted }} &#8381;</span></div>
+
         <div class="container-list-stats">
             <div class="grid-row">
                 <div class="grid-column-12 grid-padding grid-left" *ngFor="let category of categories">

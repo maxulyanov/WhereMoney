@@ -32,6 +32,7 @@ export class StatsPage {
     public isReadyChart: boolean;
     public totalCount: number;
     public totalSum: number;
+    public totalSumFormatted: string;
     public month: string;
     public year: number;
     public isCurrentMonth: boolean;
@@ -168,6 +169,8 @@ export class StatsPage {
                 });
             }
         }
+
+        this.totalSumFormatted = Utils.separatedBySpaceNumber(this.totalSum);
 
         arrayCategories.sort(Utils.sortBy({
             name: 'sum',
