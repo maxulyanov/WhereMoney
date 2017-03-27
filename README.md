@@ -3,7 +3,8 @@
 Cross platform mobile app javascript
 
 ### Android:
-`adb -e install -r android/WhereMoney.apk`
+Download the file from the last release - `https://github.com/M-Ulyanov/WhereMoney/releases` <br>
+Install `WhereMoney.apk` your device
 <br>
 <br>
 [![](http://m-ulyanov.github.io/WhereMoney/screens/1.jpg)](https://github.com/M-Ulyanov/WhereMoney)<br>
