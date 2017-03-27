@@ -25,7 +25,7 @@ export class SettingPage {
 
     public title: string;
     public settings: any;
-
+    public version: string;
 
     private tabBarElement: HTMLElement;
 
@@ -36,8 +36,13 @@ export class SettingPage {
      * @param notifyService
      * @param budgetService
      */
-    constructor(private userService: UserService, private notifyService: NotifyService, private budgetService: BudgetService) {
+    constructor(
+        private userService: UserService,
+        private notifyService: NotifyService,
+        private budgetService: BudgetService) {
+
         this.title = 'Настройки';
+        this.version = '1.1.0';
         this.settings = {
             budget: {
                 value: '10000'

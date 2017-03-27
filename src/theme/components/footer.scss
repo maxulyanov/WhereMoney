@@ -1,0 +1,9 @@
+
+.footer-md {
+  bottom: 20px !important;
+  text-align: center;
+  color: #FFF;
+  &:before {
+    display: none;
+  }
+}
