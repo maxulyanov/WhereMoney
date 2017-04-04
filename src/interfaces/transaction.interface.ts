@@ -11,6 +11,7 @@
 
 
 export interface TransactionInterface {
+    id: number,
     category_id: number,
     name: string,
     created: number;
@@ -19,5 +20,7 @@ export interface TransactionInterface {
     sum: number,
     type: number,
     showLabelDate: boolean,
-    inBudget: boolean
+    dateCreated: string,
+    inBudget: boolean,
+    canDeleted: boolean
 }

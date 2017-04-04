@@ -89,8 +89,8 @@ export class BudgetService {
             const { year, week } = this.dateService.getWeekNumber();
 
             this.getBudget(year, week).then((budget: any) => {
-                const rest = budget.rest - value;
-                const promise = this.sqlService.query(`UPDATE budget SET rest = ${rest} WHERE week=${week}`);
+                const rest = budget.rest + value;
+                const promise = this.sqlService.query(`UPDATE budget SET rest = ${rest} WHERE year = ${year} AND week=${week}`);
                 promise.then(
                     (data) => {
                         resolve(data);

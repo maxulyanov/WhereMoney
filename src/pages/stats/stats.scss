@@ -15,8 +15,11 @@ page-stats {
     font-size: 1.3rem;
     text-transform: uppercase;
     .total-sum-s {
-      margin-left: 5px;
+      background: $secondColorContent;
+      padding: 8px 15px;
+      margin-left: 10px;
       font-size: 1.7rem;
+      border-radius: 30px;
     }
   }
 }

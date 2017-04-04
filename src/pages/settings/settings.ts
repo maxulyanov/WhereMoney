@@ -42,7 +42,7 @@ export class SettingPage {
         private budgetService: BudgetService) {
 
         this.title = 'Настройки';
-        this.version = '1.1.0';
+        this.version = '1.2.0';
         this.settings = {
             budget: {
                 value: '10000'

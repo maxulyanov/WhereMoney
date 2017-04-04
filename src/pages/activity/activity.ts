@@ -11,11 +11,15 @@
 
 
 import { Component } from '@angular/core';
+import { Utils } from "../../libs/Utils";
 
 import { DateService } from "../../services/date.service";
 import { TransactionService } from "../../services/transaction.service";
+import { BudgetService } from "../../services/budget.service";
 import { UserService } from "../../services/user.service";
-import { Utils } from "../../libs/Utils";
+import { NotifyService } from "../../services/notify.service";
+
+import { TransactionInterface } from "../../interfaces/transaction.interface";
 
 
 @Component({
@@ -47,10 +51,14 @@ export class ActivityPage {
      *
      * @param dateService
      * @param transactionService
+     * @param notifyService
+     * @param budgetService
      * @param userService
      */
     constructor(private dateService: DateService,
                 private transactionService: TransactionService,
+                private notifyService: NotifyService,
+                private budgetService: BudgetService,
                 private userService: UserService) {
 
         this.title = 'Активность';
@@ -90,7 +98,7 @@ export class ActivityPage {
         this.offset += this.stepOffset;
         this.getTransactions().then(
             (transactions)=> {
-                this.transactions = this.setShowLabelDate(Array.prototype.concat(this.transactions, transactions));
+                this.transactions = this.iteratorTransactions(Array.prototype.concat(this.transactions, transactions));
                 infiniteScroll.complete();
             },
             (error) => {
@@ -133,14 +141,13 @@ export class ActivityPage {
     }
 
 
-
     /**
      *
      */
     private renderTransactions(): void {
         this.getTransactions().then(
             (transactions)=> {
-                this.transactions = this.setShowLabelDate(Array.prototype.concat(this.transactions, transactions));
+                this.transactions = this.iteratorTransactions(Array.prototype.concat(this.transactions, transactions));
             },
             (error) => {
                 console.error(error);
@@ -174,19 +181,91 @@ export class ActivityPage {
     /**
      *
      * @param transactions
-     * @returns {any[]}
+     * @returns {TransactionInterface[]}
      */
-    private setShowLabelDate(transactions: any[]): any[] {
-        let date = null;
+    private iteratorTransactions(transactions: TransactionInterface[]): TransactionInterface[] {
+        let savedDate = null;
         return transactions.map((transaction) => {
-            let clearDate = new Date(transaction.created).setHours(0, 0, 0, 0);
-            if(clearDate != date) {
-                date = clearDate;
-                transaction.showLabelDate = true;
-            }
+            this.createDate(transaction);
+            this.setCanDeleted(transaction);
+            this.setShowLabelDate(transaction, savedDate, (newDate) => savedDate = newDate);
             return transaction;
         });
     }
+
+
+    /**
+     *
+     * @param transaction
+     * @param savedDate
+     * @param changeDate
+     */
+    private setShowLabelDate(transaction: TransactionInterface, savedDate, changeDate): void {
+        let clearDate = new Date(transaction.created).setHours(0, 0, 0, 0);
+        if(clearDate != savedDate) {
+            changeDate(clearDate);
+            transaction.showLabelDate = true;
+        }
+    }
+
+    /**
+     *
+     * @param transaction
+     */
+    public setCanDeleted(transaction: TransactionInterface): void {
+        transaction.canDeleted = this.dateService.dateIsToday(new Date(transaction.created));
+    }
+
+
+    /**
+     *
+     * @param transaction
+     */
+    private createDate(transaction: TransactionInterface): void {
+        const created = transaction.created;
+        const dayMs = 1000 * 60 * 60 * 24;
+
+        if (created) {
+            let date = Utils.dateFormatting(created);
+            if(date == Utils.dateFormatting(new Date())) {
+                transaction.dateCreated = 'сегодня';
+            }
+            else if(Utils.dateFormatting(created - dayMs) === Utils.dateFormatting(+new Date() - (dayMs * 2))) {
+                transaction.dateCreated = 'вчера';
+            }
+            else if(Utils.dateFormatting(created - dayMs) === Utils.dateFormatting(+new Date() - (dayMs * 3))) {
+                transaction.dateCreated = 'позавчера';
+            }
+            else {
+                transaction.dateCreated = date;
+            }
+        }
+    }
+
+
+    /**
+     *
+     * @param event
+     * @param id
+     * @param position
+     */
+    public deleteTransaction(event: any, id: number, position: number): void {
+        event.stopPropagation();
+        this.transactionService.deleteTransaction(id).then((message: string) => {
+            const currentTransaction = this.transactions[position];
+            if(currentTransaction.inBudget && currentTransaction.type == 0) {
+                this.budgetService.updateRestBudget(currentTransaction.sum);
+            }
+
+            this.userService.updateBalance(currentTransaction.sum).then(() => this.updateBalance());
+
+            const copyTransactions = this.transactions.slice();
+            copyTransactions.splice(position, 1);
+            this.transactions = this.iteratorTransactions(copyTransactions);
+            this.notifyService.show(message);
+        });
+    }
+
 
 
     /**

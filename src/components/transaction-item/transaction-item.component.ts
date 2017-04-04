@@ -24,7 +24,6 @@ export class TransactionItem {
     @Input() transaction: TransactionInterface;
 
 
-    public dateCreated: string;
     public categoryName: string;
     public sum: string;
     public transactionClass: string;
@@ -41,32 +40,7 @@ export class TransactionItem {
      */
     public ngAfterContentInit(): void {
         this.categoryName = this.transaction.name;
-        this.createDate();
         this.createSum();
-    }
-
-
-    /**
-     *
-     */
-    private createDate(): void {
-        let created = this.transaction.created;
-        let dayMs = 1000 * 60 * 60 * 24;
-        if (created) {
-            let date = Utils.dateFormatting(created);
-            if(date == Utils.dateFormatting(new Date())) {
-                this.dateCreated = 'сегодня';
-            }
-            else if(Utils.dateFormatting(created - dayMs) === Utils.dateFormatting(+new Date() - (dayMs * 2))) {
-                this.dateCreated = 'вчера';
-            }
-            else if(Utils.dateFormatting(created - dayMs) === Utils.dateFormatting(+new Date() - (dayMs * 3))) {
-                this.dateCreated = 'позавчера';
-            }
-            else {
-                this.dateCreated = date;
-            }
-        }
     }
 
 

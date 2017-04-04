@@ -53,6 +53,26 @@ export class TransactionService {
 
     /**
      *
+     * @param id
+     * @returns {Promise<T>}
+     */
+    public deleteTransaction(id: number): Promise<any> {
+        return new Promise((resolve) => {
+            let promise = this.sqlService.query(`DELETE FROM transactions WHERE id=${id};`);
+            promise.then(
+                () => {
+                    resolve('Транзакция успешно удалена');
+                },
+                (data) => {
+                    resolve(data.err.message);
+                });
+        });
+    }
+
+
+
+    /**
+     *
      * @param limit
      * @param offset
      * @param startDate
@@ -82,10 +102,10 @@ export class TransactionService {
         return new Promise((resolve, reject) => {
 
             let promise = this.sqlService.query(`
-                SELECT category_id, name, description, sum, created, type, slug, inBudget 
-                FROM transactions 
-                INNER JOIN categories 
-                ON transactions.category_id = categories.id
+                SELECT t.id, t.category_id, t.description, t.sum, t.created, t.inBudget, c.name, c.type, c.slug
+                FROM transactions AS t
+                INNER JOIN categories AS c
+                ON t.category_id = c.id
                 WHERE created < ${startDate}
                 AND created > ${endDate}
                 ${queryType}

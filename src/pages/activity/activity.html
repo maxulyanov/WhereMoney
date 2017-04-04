@@ -39,11 +39,21 @@
 <ion-content>
 
     <div class="container-activity-list" *ngIf="totalCount > 0">
-        <div class="grid-row">
-            <div class="grid-column-12 grid-padding grid-left" *ngFor="let transaction of transactions;">
-                <transaction-item-component [transaction]="transaction"></transaction-item-component>
+        <ion-list>
+            <div *ngFor="let transaction of transactions; let position = index;">
+                <div *ngIf="transaction.showLabelDate" class="b-transaction-date"><ion-icon name="ios-calendar-outline"></ion-icon> {{ transaction.dateCreated }}</div>
+                <ion-item-sliding>
+                    <ion-item>
+                        <transaction-item-component [transaction]="transaction"></transaction-item-component>
+                    </ion-item>
+                    <ion-item-options *ngIf="position < 5 && transaction.canDeleted" class="controls-item" side="right">
+                        <button ion-button icon-only color="remove" (click)="deleteTransaction($event, transaction.id, position)">
+                            <ion-icon name="ios-close"></ion-icon>
+                        </button>
+                    </ion-item-options>
+                </ion-item-sliding>
             </div>
-        </div>
+        </ion-list>
 
     </div>
 

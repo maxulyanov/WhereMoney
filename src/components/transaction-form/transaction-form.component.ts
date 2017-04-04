@@ -180,10 +180,10 @@ export class TransactionForm {
             if(this.eventType === EVENTS.ADD_TRANSACTION) {
                 let sum = data.sum;
                 if(this.type === '0') {
+                    sum = parseInt('-' + sum);
                     if(data.inBudget) {
                         this.budgetService.updateRestBudget(sum);
                     }
-                    sum = parseInt('-' + sum);
                 }
                 this.userService.updateBalance(sum);
             }

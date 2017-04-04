@@ -90,4 +90,15 @@ export class DateService {
     public getDateLastDayInMonth(date: Date): Date {
         return new Date(date.getFullYear(), date.getMonth() + 1, 0, 23, 59, 59, 59);
     }
+
+    /**
+     *
+     * @param date
+     * @returns {boolean}
+     */
+    public dateIsToday(date: Date): boolean {
+        const today = new Date();
+        return today.toDateString() == date.toDateString();
+    }
+
 }
